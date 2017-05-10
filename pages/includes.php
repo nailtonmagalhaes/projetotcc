@@ -1,0 +1,32 @@
+<?php
+    include_once "utils.php";
+    include_once "validacao.php";
+    include_once "../conf/database.php";
+    include_once "../conf/config.php";
+    include_once "tipo-avaliacao.php";
+    include_once "tipo-professor.php";
+    include_once "tipo-telefone.php";
+    include_once "perfil.php";
+    include_once "estado.php";
+    include_once "cidade.php";
+    include_once "pessoa.php";
+    include_once "aluno.php";
+    include_once "professor.php";
+    include_once "secretaria.php";
+    include_once "autor.php";
+    include_once "avaliacao.php";
+    include_once "curso.php";
+    include_once "diasemana.php";
+    include_once "endereco.php";
+    include_once "telefone.php";
+    include_once "frequencia.php";
+    include_once "material.php";
+    include_once "matricula.php";
+    include_once "nota.php";
+    include_once "responsavel.php";
+    include_once "material-has-autor.php";
+    include_once "turma-has-dia-semana.php";
+    include_once "curso-has-material.php";
+    include_once "professor-has-turma.php";
+    include_once "turma.php";
+?>
