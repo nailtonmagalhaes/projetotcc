@@ -11,7 +11,7 @@
 
         public function __construct(){
             $this->avaId = 0;
-            $this->avaMatricula = new Matricula();
+            $this->avaMatricula = null;
             $this->avaData = null;
             $this->avaTipo = ETipoAvaliacao::normal;
             $this->avaAtivo = 1;

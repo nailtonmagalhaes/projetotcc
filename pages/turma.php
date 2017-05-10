@@ -11,7 +11,7 @@
 
         public function __construct(){
             $this->turId = 0;
-            $this->turCurso = new Curso();
+            $this->turCurso = null;
             $this->turDataInicio = null;
             $this->turAtivo = 1;
             $this->turMatriculas = array();

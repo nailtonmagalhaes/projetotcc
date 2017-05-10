@@ -12,7 +12,7 @@
 
 		public function __construct(){
 			$this->telId = 0;
-			$this->telPessoa = new Pessoa();
+			$this->telPessoa = null;
 			$this->telNumero = "";			
 			$this->telTipo = ETipoTelefone::none;
 			$this->telAtivo = 1;			

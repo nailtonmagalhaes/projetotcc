@@ -8,7 +8,7 @@
 
 		public function __construct(){
 			$this->cidId = 0;
-			$this->cidEstado = new Estado();
+			$this->cidEstado = null;
 			$this->cidNome = "";
 		}
 

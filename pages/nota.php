@@ -11,8 +11,8 @@
 
         public function __construct(){
             $this->notId = 0;
-            $this->notProfessor = new Professor();
-            $this->notAvaliacao = new Avaliacao();
+            $this->notProfessor = null;
+            $this->notAvaliacao = null;
             $this->notNota = 0;
             $this->notAtivo = 1;
         }

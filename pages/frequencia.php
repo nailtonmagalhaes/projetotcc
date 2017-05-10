@@ -11,8 +11,8 @@
 
         public function __construct(){
             $this->frqId = 0;
-            $this->frqHasDiaSemana = new TurmaHasDiaSemana();
-            $this->frqMatricula = new Matricula();
+            $this->frqHasDiaSemana = null;
+            $this->frqMatricula = null;
             $this->frqData = null;
             $this->frqPresente = true;
             $this->frqAtivo = 1;
