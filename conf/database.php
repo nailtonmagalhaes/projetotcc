@@ -28,14 +28,14 @@
 		}
 	}
 
-	function alterar($str){
+	function alterar($sql){
 		$conn;
 		try{
 			$conn = open_database();
 			//$stmt = $conn->prepare("INSERT INTO `cliente` (`nome`,`email`,`cidade`,`uf`) VALUES (?,?,?,?)"); 
 			//$stmt->bind_param('ssss', $nome, $email, $cidade, $uf); 
-			$stmt = $conn->prepare($str);
-			if(!$stmt->execute()) { 
+			
+			if($conn->query($sql) === TRUE) { 
 				return false;
 			} else { 
 				return true;
@@ -48,12 +48,11 @@
 		}
 	}
 
-	function insere($str){
+	function insere($sql){
 		$conn;
 		try{
 			$conn = open_database();
-			$stmt = $conn->prepare($str);
-			if(!$stmt->execute()) { 
+			if($conn->query($sql) === TRUE) { 
 				return false;
 			} else { 
 				return $conn->insert_id;

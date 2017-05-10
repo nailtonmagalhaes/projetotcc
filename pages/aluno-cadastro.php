@@ -280,24 +280,18 @@ echo '
     $(document).ready(function(){
 
 		// Função que será acionada quando o campo CEP do endereço 1 perder o foco
-		$('#alnCep_1').blur(function(){
-			busca_autocomplete = false;
-			
+		$('#alnCep_1').blur(function(){			
 			return carregaCep($(this), $('#alnLogradouro_1'), $("#alnCidade_1"), $("#alnEstado_1"),$('#alnBairro_1'), $('#alnNumeroCasa_1'));
 		})
 		
 		// Função que será acionada quando o campo CEP do endereço 2 perder o foco
 		$('#alnCep_2').blur(function(){
-			busca_autoc = false;
-			
 			return carregaCep($(this), $('#alnLogradouro_2'), $("#alnCidade_2"), $("#alnEstado_2"),$('#alnBairro_2'), $('#alnNumeroCasa_2'));
 		})
 
 		function carregaCep(cpcep, cplog, cpcid, cpest, cpbair, cpnum){
 			if(cpcep.val() == null || cpcep.val() == "" || cpcep.val().replace(/\D/g, '').length < 8) return;
 			
-			busca_autocomplete = false;
-
 			/* Configura a requisição AJAX */
 			$.ajax({
 				url : 'consultar_cep.php', /* URL que será chamada */ 
@@ -353,7 +347,7 @@ echo '
 			orientation: "bottom",
 			todayHighlight: true,
 			autoclose: true,
-			startDate: '0',
+			endDate: '-30',
 			calendarWeeks: true,
 			clearBtn: true,
 		});

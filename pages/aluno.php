@@ -33,7 +33,7 @@
 		}
 
 		public function salvarDados(){
-			$salvou = parent::salvarDados($sql);
+			$salvou = parent::salvarDados();
 		}
 
 	}

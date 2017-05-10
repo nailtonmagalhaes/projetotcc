@@ -15,24 +15,41 @@
 		return $maskared;
 	}
 
-	class Mascaras{
-		 function geraMascara($texto, $mascara){
-			if(empty($texto)) return "";
+class Mascaras{
+	function geraMascara($texto, $mascara){
+		if(empty($texto)) return "";
 
-			$maskared = '';
-			$k = 0;
-			for($i = 0; $i<=strlen($mascara)-1; $i++){
-				if($mascara[$i] == '#'){
-					if(isset($texto[$k]))
-					$maskared .= $texto[$k++];
-				}else{
-					if(isset($mascara[$i]))
-					$maskared .= $mascara[$i];
-				}
+		$maskared = '';
+		$k = 0;
+		for($i = 0; $i<=strlen($mascara)-1; $i++){
+			if($mascara[$i] == '#'){
+			if(isset($texto[$k]))
+			$maskared .= $texto[$k++];
+			}else{
+			if(isset($mascara[$i]))
+			$maskared .= $mascara[$i];
 			}
-			return $maskared;
 		}
+		return $maskared;
 	}
+
+	function removeMascara($texto){
+		$texto = trim($texto);
+		$texto = str_replace(".", "", $texto);
+		$texto = str_replace(",", "", $texto);
+		$texto = str_replace("-", "", $texto);
+		$texto = str_replace("_", "", $texto);
+		$texto = str_replace(" ", "", $texto);
+		$texto = str_replace("/", "", $texto);
+		$texto = str_replace("\\", "", $texto);
+		return $texto;
+	}
+
+	function getNumeros($texto){
+		$texto = preg_replace('/[0-9]/', '', $texto);
+		return $texto;
+	}
+}
 
 	class Validacoes{
 		

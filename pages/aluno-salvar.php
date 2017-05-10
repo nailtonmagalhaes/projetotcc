@@ -1,20 +1,19 @@
 <?php //include_once 'menu.php'; 
     include_once 'aluno.php';
-
+    include_once 'utils.php';
+	echo "--------------------------------------------------------------111111";
  ?>
-    <!--Alert Top Cheio de Viadagem mais e Top--> 
-    <script src="../sweetalert-master/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">  
+<!--Alert Top Cheio de Viadagem mais e Top--> 
+<script src="../sweetalert-master/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">  
 
-<style type="text/css">
-	.msg-erro{ color: #D2691E; }
-</style>
 
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
 				<?php
 
+echo "--------------------------------------------------------------111111";
 					/* VERIFICO SE HOUVE UM POST */
 					if(count($_POST) > 0) {
 					    $aluno = new Aluno();
@@ -29,10 +28,10 @@
 							$aluno->pesNome = $_POST["alnNome"];
 						}
 						if(isset($_POST["alnCpf"])){
-							$aluno->pesCpf = $_POST["alnCpf"];
+							$aluno->pesCpf = Mascaras::removeMascara($_POST["alnCpf"]);
 						}
 						if(isset($_POST["alnRg"])){
-							$aluno->pesRg = $_POST["alnRg"];
+							$aluno->pesRg = Mascaras::removeMascara($_POST["alnRg"]);
 						}
 						if(isset($_POST["alnSenha"])){
 							$aluno->pesSenha = $_POST["alnSenha"];
@@ -48,12 +47,10 @@
 						}
 
 						if(isset($_POST["alnCep_1"])){
-							$end1->endCep = $_POST["alnCep_1"];
-						}
-						if(isset($_POST["alnEstado_1"])){
-							$end1->endCidade->cidEstado->estId = $_POST["alnEstado_1"];
+							$end1->endCep = Mascaras::removeMascara($_POST["alnCep_1"]);
 						}
 						if(isset($_POST["alnCidade_1"])){
+							$end1->endCidade = new Cidade();
 							$end1->endCidade->cidId = $_POST["alnCidade_1"];
 						}
 						if(isset($_POST["alnLogradouro_1"])){
@@ -74,7 +71,7 @@
 						if(isset($_POST["alnSegundoEndereco"])){
 							$end2 = new Endereco();
 							if(isset($_POST["alnCep_2"])){
-								$end2->endCep = $_POST["alnCep_2"];
+								$end2->endCep = Mascaras::removeMascara($_POST["alnCep_2"]);
 							}
 							if(isset($_POST["alnCidade_2"])){
 								$end2->endCidade = new Cidade();
@@ -86,19 +83,19 @@
 							if(isset($_POST["alnBairro_2"])){
 								$end2->endBairro = $_POST["alnBairro_2"];
 							}
-							if(isset($_POST["alnNumeroCasa_2"])){
-								$end2->endNumero = $_POST["alnNumeroCasa_2"];
+							if(isset($_POST["alnNumero_2"])){
+								$end2->endNumero = $_POST["alnNumero_2"];
 							}
 							if(isset($_POST["alnComplemento_2"])){
 								$end2->endComplemento = $_POST["alnComplemento_2"];
 							}
 							$aluno->addEndereco($end2);
-						}												
-print_r($aluno);
+						}
+print_r($aluno);die;
 						if(empty($aluno->pesNome) || empty($aluno->pesCpf)){
 							header('location: ..\pages\aluno-cadastro.php?id='.$aluno->pesId);
 							die;
-						}		
+						}
 
 				    	try{ 				 			
 
