@@ -1,5 +1,5 @@
 <?php
-	include_once "..cidade.php";
+	include_once "cidade.php";
 
 	$estado = isset($_GET['estado']) ? $_GET['estado'] : ''; 
 	if(!empty($estado)){
@@ -18,7 +18,7 @@
 		$result = Cidade::listarPorEstado($estado);
 		//header('Content-type: text/html; charset=ISO-8859-1');
 		if ($result && $result->num_rows > 0) {
-			while($row = $result->fetch_array(MYSQL_ASSOC)) {
+			while($row = $result->fetch_assoc()) {
 					$cidade = new Cidade();
 					$cidade->cidId = utf8_encode($row["Id"]);
 					$cidade->cidNome = utf8_encode($row["Nome"]);

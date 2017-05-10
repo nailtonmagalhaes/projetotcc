@@ -4,8 +4,8 @@
 
  ?>
 <!--Alert Top Cheio de Viadagem mais e Top--> 
-<script src="../sweetalert-master/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">  
+<script src="../sweetalert-master/dist/sweetalert.min.js"></script>
 
 <div id="page-wrapper">
     <div class="row">
@@ -34,11 +34,9 @@
 					try{ 				 			
 						$idinserido = $curso->salvarDados();
 						if($idinserido){
+							header("location: ..\pages\curso-listar.php");
 							?>
-							<script>
-								swal("Dados salvos com sucesso!", "", "success");
-								window.setTimeout("location.href='../pages/curso-listar.php'",2000);
-							</script>
+	
 							<?php //header("location: ..\pages\curso-listar.php");
 						}else{
 							header('location: ..\pages\curso-cadastro.php?id='.$curso->crsId.'&descricao='.$curso->crsDescricao.'&duracao='.$curso->crsDuracao);
