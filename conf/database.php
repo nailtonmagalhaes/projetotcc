@@ -6,10 +6,10 @@
 
 	function open_database() {
 		try {
-			//echo "DB_HOST: ".DB_HOST;
-			//echo "DB_USER: ".DB_USER;
-			//echo "DB_PASSWORD: ".DB_PASSWORD;
-			//echo "DB_NAME: ".DB_NAME;
+			//echo "</br>-----------------------------------------------------> DB_HOST: ".DB_HOST;
+			//echo "</br>-----------------------------------------------------> DB_USER: ".DB_USER;
+			//echo "</br>-----------------------------------------------------> DB_PASSWORD: ".DB_PASSWORD;
+			//echo "</br>-----------------------------------------------------> DB_NAME: ".DB_NAME;
 
 			$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 			return $conn;

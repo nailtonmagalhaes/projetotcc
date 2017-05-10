@@ -51,5 +51,9 @@
 		public function carregarDados(){
 			 
 		}
+
+		public function salvarDados(){
+			 
+		}
 	}
 ?>

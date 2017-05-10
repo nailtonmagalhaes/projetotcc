@@ -3,12 +3,11 @@
     include_once 'aluno.php';
 
     $aluno = new Aluno();
-	$estado = new Estado();
 	$end1 = new Endereco();
 	$end2 = new Endereco();
 	$telefone = new Telefone();
 	
-	$estados = $estado->listar();
+	$estados = Estado::listar();
 	$cidades1;
 	$cidades2;
 
@@ -136,7 +135,7 @@ echo '
 								                try{
 								                    if ($estados && $estados->num_rows > 0) {
 								                        while($row = $estados->fetch_assoc()){
-								                            echo '<option value="'.$row["Id"].'" estado="'.utf8_encode($row["Sigla"]).'" '.($qtdEnd >= 1 && $row["Id"] == $aluno->pesEnderecos[0]->endCidade->cidEstado->estId ? "selected" : null).'>'.utf8_encode($row["Nome"]).'</option>';
+								                            echo '<option value="'.$row["Id"].'" estado="'.$row["Sigla"].'" '.($qtdEnd >= 1 && $row["Id"] == $aluno->pesEnderecos[0]->endCidade->cidEstado->estId ? "selected" : null).'>'.utf8_encode($row["Nome"]).'</option>';
 								                        }
 								                    }
 								                } catch (Exception $e) {

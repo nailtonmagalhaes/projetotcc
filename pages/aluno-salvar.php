@@ -34,7 +34,7 @@ echo "--------------------------------------------------------------111111";
 							$aluno->pesRg = Mascaras::removeMascara($_POST["alnRg"]);
 						}
 						if(isset($_POST["alnSenha"])){
-							$aluno->pesSenha = $_POST["alnSenha"];
+							$aluno->pesSenha = sha1($_POST["alnSenha"]);
 						}
 						if(isset($_POST["alnSexo"])){
 							$aluno->pesSexo = $_POST["alnSexo"];

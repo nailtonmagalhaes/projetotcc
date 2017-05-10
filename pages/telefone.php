@@ -41,7 +41,7 @@
 			return insere("DELETE FROM tbTelefone WHERE Id = ".$this->telId);
 		}
 
-		function salvar(){
+		function salvarDados(){
 			if($this->crsId > 0){
 				return insere("UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo." WHERE Id = ".addslashes($this->telId));
 			}else{

@@ -15,7 +15,7 @@
 		public $pesAtivo;
 
 		public $pesEnderecos;		/*Endereco*/
-		public $pesTelefone;		/*Telefone*/
+		public $pesTelefones;		/*Telefone*/
 		
 		//construtor da classe
 		public function __construct(){
@@ -39,7 +39,7 @@
 			$this->pesAtivo = 1;
 
 			$this->pesEnderecos = array();
-			$this->pesTelefone = array();
+			$this->pesTelefones = array();
 		}
 
 		public function addEndereco(Endereco $ed){
@@ -126,9 +126,23 @@
 			}else{
 				$sql = "INSERT INTO tbPessoa (Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', ".$this->pesCpf.", ".$this->pesRg.", ".$this->pesSexo.", ".$this->pesDataNascimento.", ".$this->pesPerfil.", ".$this->pesSenha.", ".$this->pesAtivo.");";
 				$this->pesId = insere($sql);
-							}
+				if($this->pesId > 0){
+					$sucesso = true;
+				}
+			}
 
+			if($sucesso)
+			{
+				foreach($this->pesEnderecos as $e){
+					$e->endPessoa = $this;
+					$e->salvarDados();
+				}
 
+				foreach($this->pesTelefones as $t){
+					$t->telPessoa = $this;
+					$t->salvarDados();
+				}
+			}
 		}
 	}
 ?>
