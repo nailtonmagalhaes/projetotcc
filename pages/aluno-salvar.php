@@ -1,7 +1,6 @@
 <?php //include_once 'menu.php'; 
     include_once 'aluno.php';
     include_once 'utils.php';
-	echo "--------------------------------------------------------------111111";
  ?>
 <!--Alert Top Cheio de Viadagem mais e Top--> 
 <script src="../sweetalert-master/dist/sweetalert.min.js"></script>
@@ -12,8 +11,6 @@
     <div class="row">
         <div class="col-lg-12">
 				<?php
-
-echo "--------------------------------------------------------------111111";
 					/* VERIFICO SE HOUVE UM POST */
 					if(count($_POST) > 0) {
 					    $aluno = new Aluno();
@@ -91,7 +88,10 @@ echo "--------------------------------------------------------------111111";
 							}
 							$aluno->addEndereco($end2);
 						}
-print_r($aluno);die;
+
+						print_r($aluno);
+						die;
+
 						if(empty($aluno->pesNome) || empty($aluno->pesCpf)){
 							header('location: ..\pages\aluno-cadastro.php?id='.$aluno->pesId);
 							die;

@@ -1,5 +1,5 @@
 <?php
-    include_once 'includes.php';
+    include_once 'pessoa.php';
 
         
 	class Professor extends Pessoa{
@@ -13,16 +13,7 @@
 		//Construtor
 		public function __construct(){
 			parent::__construct();//Chamando o construtor da classe pai                      
-                        $this->pesPerfil = EPerfil::Professor;
-			$this->profId           = 0;
-                        $this->profNome         = '';
-                        $this->profData_nasc    = '';
-                        $this->profCpf          = '';
-                        $this->profRg           = '';
-                        $this->profSexo         = 0;
-                        $this->profSenha        = '';
-                        $this->profSituacao     = '';  
-                        
+                        $this->pesPerfil = EPerfil::Professor;                         
 		}
 
                 public function listar(){

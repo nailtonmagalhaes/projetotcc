@@ -21,6 +21,7 @@
 		}
 
 		public function listarPorEstado($idEstado){
+			echo "--------------------------------------------------------> Pedro Gay";
 			return listar("SELECT Id, IdEstado, Nome FROM tbCidade WHERE IdEstado = ".$idEstado." ORDER BY Nome");
 		}
 

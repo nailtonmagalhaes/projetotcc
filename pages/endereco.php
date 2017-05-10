@@ -53,7 +53,16 @@
 		}
 
 		public function salvarDados(){
-			 
+			 $sql = "";
+			 if($this->endId > 0){
+				$sql = "UPDATE tbendereco SET IdPessoa = ".$this->endPessoa->pesId.", IdCidade = ".$this->endCidade->cidId.", Logradouro = '".$this->endLogradouro."', Bairro = '".$this->endBairro."', Numero = '".$this->endNumero."', Complemento = '".$this->endComplemento."', Cep = '".$this->endCep."', Ativo = ".$this->endAtivo." WHERE Id = ".$this->endId;
+				return alterar($sql);
+			 }else{
+				$sql = "INSERT INTO tbendereco (IdPessoa, IdCidade, Logradouro, Bairro, Numero, Complemento, Cep, Ativo) 
+										VALUES (".$this->endPessoa->pesId.", ".$this->endCidade->cidId.", '".$this->endLogradouro."', '".$this->endBairro."', '".$this->endNumero."', '".$this->endComplemento."', '".$this->endCep."', 1);";
+				$this->endId = insere($sql);
+				return $this->endId > 0;
+			 }
 		}
 	}
 ?>

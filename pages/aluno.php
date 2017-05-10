@@ -1,7 +1,6 @@
 <?php
     include_once 'pessoa.php';
     include_once 'aluno-has-responsavel.php';
-	ini_set('memory_limit', '1024M');
     
 	class Aluno extends Pessoa{
 
@@ -35,6 +34,5 @@
 		public function salvarDados(){
 			$salvou = parent::salvarDados();
 		}
-
 	}
 ?>

@@ -1,6 +1,5 @@
 <?php
-	include_once "../conf/database.php";
-	include_once "../pages/cidade.php";
+	include_once "..cidade.php";
 
 	$estado = isset($_GET['estado']) ? $_GET['estado'] : ''; 
 	if(!empty($estado)){

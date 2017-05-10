@@ -42,11 +42,10 @@
 		}
 
 		function salvarDados(){
-			if($this->crsId > 0){
-				return insere("UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo." WHERE Id = ".addslashes($this->telId));
+			if($this->telId > 0){
+				return alterar("UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo.", IdPessoa = ".$this->telPessoa->pesId." WHERE Id = ".addslashes($this->telId));
 			}else{
-				//Ver como pega o Id da pessoa
-				return insere("INSERT INTO tbTelefone (Numero, Tipo, Ativo) VALUES ('".$this->alnNumero."', ".$this->alnTipo.", 1)");
+				return insere("INSERT INTO tbTelefone (IdPessoa, Tipo, Numero, Ativo) VALUES (".$this->telPessoa->pesId.", ".$this->telTipo.", '".$this->telNumero."', 1);");
 			}
 		}
 
