@@ -40,7 +40,7 @@
     <!-- Custom Fonts -->
     <link rel="stylesheet" type="text/css" href="../vendor/font-awesome/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../sweetalert2-master/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">
 
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
 
@@ -460,7 +460,7 @@
         <!-- Metis Menu Plugin JavaScript -->
         <script type="text/javascript" src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-        <script type="text/javascript" src="../sweetalert2-master/dist/sweetalert2.min.js"></script>
+        <script type="text/javascript" src="../sweetalert-master/dist/sweetalert.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
         <script type="text/javascript" src="../dist/js/sb-admin-2.js"></script>
