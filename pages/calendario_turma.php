@@ -3,16 +3,17 @@
     include_once '../conf/database.php'; 
     include_once '../conf/config.php';
     
-    $sql = "SELECT 
-                    tds.IdTurma as id
-                    ,concat(tc.Descricao, \" - \",TIME(HoraInicio),\" - \",TIME(HoraTermino)) as title
-                    ,HoraInicio as start
-                    ,null as teste
-                    
-            FROM 
-                    tbturma_has_diasemana tds
-                    INNER JOIN tbturma tt  ON(tds.IdTurma = tt.id)
-                    INNER JOIN tbCurso tc ON(tc.Id = tt.IdCurso)
+    $sql = "
+                    SELECT
+                            IdAluno
+                            ,IdTurma
+                            ,NumeroMatricula
+                            ,Nome
+                    FROM
+                            tbmatricula mat
+                            INNER JOIN tbpessoa pes ON(mat.IdAluno = pes.Id)
+                    WHERE
+                            IdTurma = {$_POST["IdTurma"]}
             ";
     
     $consulta = listar($sql); 

@@ -15,13 +15,16 @@
                 <div class="panel-heading">
                     Frequência do Aluno
                 </div>
+                <div id="mensagem" title="Título da mensagem" style="display:none">
+                    <p>Aqui fica o conteúdo da mensagem.</p>
+                </div>
                 <div class="panel-body">
                     <head>
                         <meta charset="utf-8">
                         <meta lang="pt-BR">
 
                         <link rel='stylesheet' href='../Arquivos/fullcalendar-3.4.0/fullcalendar.css' />
-                        <script src='../Arquivos/fullcalendar-3.4.0/lib/jquery.min.js'></script>
+                        <!--<script src='../Arquivos/fullcalendar-3.4.0/lib/jquery.min.js'></script>-->
                         <script src='../Arquivos/fullcalendar-3.4.0/lib/moment.min.js'></script>
                         <script src='../Arquivos/fullcalendar-3.4.0/fullcalendar.js'></script>
 
@@ -29,44 +32,107 @@
                         <script src='../Arquivos/fullcalendar-3.4.0/locale/pt-br.js'></script>
 
                         <script>
-                           $(document).ready(function() {	
+                            
+                            var date = new Date();
+                            
+                            $.ajax({
+                                url: "calendario_evento.php"
+                                ,type: "POST"
+                                ,dataType: 'json'
+                                ,success: function(data){
+                                    if(data!=null){
+                                       
+                                       var contador = 0;
+                                       
+                                       $(document).ready(function() {	
+                                            //CARREGA CALENDÁRIO E EVENTOS DO BANCO
+                                            $('#calendario').fullCalendar({
+                                                header: {
+                                                    left: 'prev,next today',
+                                                    center: 'title',
+                                                    right: 'month,agendaWeek,agendaDay'
+                                                },
+                                                defaultDate: date,
+                                                editable: true,
+                                                eventLimit: true, 
+                                                events: data,           
+                                                eventColor: '#dd6777',
+                                                eventRender: function (event,element,view){
+            //                                        console.log(event);
+            //                                        console.log(element);
+            //                                        console.log(view);
+//                                                      console.log(data[contador]);
+//                                                      console.log('OIoi')
+//                                                      console.log(data[contador].id)
+                                                    element.attr("idTurma",data[contador].id);
+                                                    element.click(function(){ turmaDialog($(this).attr('idturma')) })
+                                                    contador++;
+                                                }
+                                            });	
+                                        });
+                                       
+                                    } else {
+                                        alert('Problema de conexao')
+                                    }
+                                }
+                            })
+                            
+                            function turmaDialog(id){
+                                
+//                                console.log('TESTE')
+//                                console.log(id)
+                                
+                                var div = "";
+                                var inputs = "";
+                                
+                                $.ajax({
+                                        url: "calendario_turma.php"
+                                        ,type: "POST"
+                                        ,data: 'IdTurma='+id
+                                        ,dataType: 'json'
+                                        ,success: function(data){
+                                            $.each(data,function(idx,elem){
+                                                
+//                                                  console.log(idx,elem)
+                                                  
+                                                  var checkbox = '<label><div class="checkbox"><input name="box" type="checkbox" IdAluno="+elem.IdAluno+" IdTurma="+elem.IdTurma+" NumeroMatricula="+elem.NumeroMatricula+"/>'+elem.Nome+'</div></label></br>';
+                                                
+//                                                console.log(checkbox)
+                                                inputs +=checkbox;
+                                            })
+                                            div = '<div name="divTurma">'+inputs+'</div>';
+//                                            console.log(div);
 
-                                //CARREGA CALENDÁRIO E EVENTOS DO BANCO
-                                $('#calendario').fullCalendar({
-                                    header: {
-                                        left: 'prev,next today',
-                                        center: 'title',
-                                        right: 'month,agendaWeek,agendaDay'
-                                    },
-                                    defaultDate: '2017-04-01',
-                                    editable: true,
-                                    eventLimit: true, 
-                                    events: 'calendario_evento.php',           
-                                    eventColor: '#dd6777'
-                                });	
-
-                                //CADASTRA NOVO EVENTO
-                                $('#novo_evento').submit(function(){
-                                    //serialize() junta todos os dados do form e deixa pronto pra ser enviado pelo ajax
-                                    var dados = jQuery(this).serialize();
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "calendario_cadastro_evento.php",
-                                        data: dados,
-                                        success: function(data)
-                                        {   
-                                            if(data == "1"){
-                                                alert("Cadastrado com sucesso! ");
-                                                //atualiza a página!
-                                                location.reload();
-                                            }else{
-                                                alert("Houve algum problema.. ");
-                                            }
+                                            swal({
+                                                title: "Presenca de alunos",
+                                                html:div,
+                                                preConfirm: function () {
+                                                    return new Promise(function (resolve) {
+                                                      resolve([
+                                                        $('input[name="box"]')
+                                                        
+                                                      ])
+                                                    })
+                                                  },
+                                                  onOpen: function () {
+                                                    $('#swal-input1').focus()
+                                                  }
+                                                }).then(function (result) {
+                                                  swal(JSON.stringify(result))
+                                                }).catch(swal.noop)
                                         }
-                                    });                
-                                    return false;
-                                });	
-                               }); 
+                                })
+                                
+//                                console.log('123123',div)
+//                                console.log('TEST 2')
+//                                console.log($(inputs))
+                                
+                                
+                                
+                            }
+                            
+                            
+                            
 
                         </script>
 
@@ -81,12 +147,7 @@
                     </head>
                     <body>    
                         <div id='calendario'>
-                            <br/>
-                            <form id="novo_evento" action="" method="post">
-                                Nome do Evento: <input type="text" name="nome" required/><br/><br/>            
-                                Data do Evento: <input type="date" name="data" required/><br/><br/>            
-                                <button type="submit"> Cadastrar novo evento </button>
-                            </form>
+                            
                         </div>
                     </body>
                 </div>
@@ -112,40 +173,6 @@
 	});
 
 
-    $('button[name="btn-excluir-curso"]').on('click', function (e) {
-        
-        e.preventDefault();
-
-        //var $form = $(this).closest('form');
-        var id =  $(this).parent().siblings('.idcurso').text();
-        var nomecurso =  $(this).parent().siblings('.nomecurso').text();
-        swal({
-              title: "Deseja excluir o curso '"+ nomecurso +"'?",
-              text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Excluir",
-              cancelButtonText: "Cancelar",
-              closeOnConfirm: false
-            },
-            function(){
-                $.post("curso-excluir.php", {id:id}, function(data){
-                    if(data){
-                        swal("Curso excluído com sucesso!","","success");
-                        window.setTimeout("location.href='../pages/curso-listar.php'",2000);
-                    }else{
-                        swal("Error","","warning");
-                    }
-                    // if(data.error)
-                    // {
-                    //     swal(data, "", "warning");
-                    // }else{
-                    //     swal(data, "", "success");
-                    //     window.setTimeout("location.href='../pages/curso-listar.php'",2000);
-                    // }
-                });
-            });
-    });
+    
 
 </script>
