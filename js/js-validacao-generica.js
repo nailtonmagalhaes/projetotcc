@@ -30,15 +30,19 @@ function validaAoSalvar(evt){
 
 //Percorre todos os inputs do formulário e define o maxlength de acordo com a classe
 //OBS: Mudar para class
-$("#formcadastrar input").each(function(idx, elm){
-	if($(elm).hasClass("cpf") || $(elm).hasClass("telefone")){
-		$(elm).attr('maxlength','14'); //000.000.000-00 / (00) 0000-0000
-	}else if($(elm).hasClass("cep") || $(elm).hasClass("datepicker")){
-		$(elm).attr('maxlength','10'); //00.000-000 / 00/00/0000
+$("input").each(function(idx, elm){
+	if($(elm).hasClass("cpf")){
+		$(elm).attr('maxlength','14').on('keyup', function(){ keyupcpf(elm); });        // 000.000.000-00
+	} else if($(elm).hasClass("telefone")){
+		$(elm).attr('maxlength','14').on('keyup', function(){ keyuptelefone(elm); });   // (00) 0000-0000
+	}else if($(elm).hasClass("cep")){
+		$(elm).attr('maxlength','10').on('keyup', function(){ keyupcep(elm); });        // 00.000-000
+	}else if ($(elm).hasClass("datepicker")){
+		$(elm).attr('maxlength','10').on('keyup', function(){ keyupdatepicker(elm); }); // 00/00/0000
 	}else if($(elm).hasClass("celular")){
-		$(elm).attr('maxlength','15'); //(00) 00000-0000
+		$(elm).attr('maxlength','15').on('keyup', function(){ keyupcelular(elm); });    //(00) 00000-0000
 	}else if($(elm).hasClass("rg")){
-		$(elm).attr('maxlength','12'); //00.000.000-0
+		$(elm).attr('maxlength','12').on('keyup', function(){ keyuprg(elm); });         //00.000.000-0
 	}
 });
 
@@ -61,62 +65,57 @@ $("#formcadastrar input").each(function(idx, elm){
 //});
 
 //Evento que ocorre ao perder o foco do campo
-$("#formcadastrar input, select").blur(function(){
+$("input, select").blur(function(){
 	validaCampo($(this)); 
 });
 
-//Evento que ocorre quando uma tecla é pressionada no campo que tem a classe telefone
-$("#formcadastrar input.telefone").keyup(function(){
-	var conteudo = $(this).val();
+function keyuptelefone(elm){
+	var conteudo = $(elm).val();
 	conteudo = getNumbers(conteudo);		             		//Remove tudo o que não é dígito
     conteudo = conteudo.replace(/^(\d{2})(\d)/g,"($1) $2"); 	//Coloca parênteses em volta dos dois primeiros dígitos
     conteudo = conteudo.replace(/(\d)(\d{4})$/,"$1-$2");    	//Coloca hífen entre o quarto e o quinto dígitos
-    console.log(conteudo);
-    $(this).val(conteudo);
-});
+    $(elm).val(conteudo);
+}
 
-//Evento que ocorre quando uma tecla é pressionada no campo que tem a classe telefone
-$("#formcadastrar input.celular").keyup(function(){
-	var conteudo = $(this).val();
+function keyupcelular(elm){
+	var conteudo = $(elm).val();
 	conteudo = getNumbers(conteudo);		             		//Remove tudo o que não é dígito
     conteudo = conteudo.replace(/^(\d{2})(\d)/g,"($1) $2"); 	//Coloca parênteses em volta dos dois primeiros dígitos
     conteudo = conteudo.replace(/(\d)(\d{4})$/,"$1-$2");    	//Coloca hífen entre o quarto e o quinto dígitos
-    console.log(conteudo);
-    $(this).val(conteudo);
-});
+    $(elm).val(conteudo);
+}
 
 //Evento que ocorre quanto uma tecla é pressionada no campo que tem a classe cep
-$("#formcadastrar input.cep").keyup(function(){
-	var conteudo = $(this).val();
+function keyupcep(elm){
+	var conteudo = $(elm).val();
 	conteudo = getNumbers(conteudo)					 		//Remove tudo o que não é dígito
 	conteudo = conteudo.replace(/(\d)(\d{6})$/,"$1.$2");    //Coloca ponto entre o segundo e o terceiro dígitos 00.000-000
 	conteudo = conteudo.replace(/(\d)(\d{3})$/,"$1-$2");    //Coloca hífen entre o quinto e o sexto dígitos 00.000-000
-	$(this).val(conteudo);
-});
+	$(elm).val(conteudo);
+};
 
 //Evento que ocorre quanto uma tecla é pressionada no campo que tem a classe datepicker
-$("#formcadastrar input.datepicker").keyup(function(){
-	var conteudo = $(this).val();
+function keyupdatepicker(elm){
+	var conteudo = $(elm).val();
 	conteudo = getNumbers(conteudo)					 		//Remove tudo o que não é dígito
 	conteudo = conteudo.replace(/(\d)(\d{6})$/,"$1/$2");    //Coloca barra entre o segundo e o terceiro dígitos
 	conteudo = conteudo.replace(/(\d)(\d{4})$/,"$1/$2");    //Coloca barra entre o quarto e o quinto dígitos
-	$(this).val(conteudo);
-});
+	$(elm).val(conteudo);
+};
 
 //Evento que ocorre quanto uma tecla é pressionada no campo que tem a classe RG
-$("#formcadastrar input.rg").keyup(function(){
-	var conteudo = $(this).val();
+function keyuprg(elm){
+	var conteudo = $(elm).val();
 	conteudo = getNumbers(conteudo)					 		//Remove tudo o que não é dígito
 	conteudo = conteudo.replace(/(\d)(\d{7})$/,"$1.$2");    //Coloca ponto entre o segundo e o terceiro dígitos 00.000.000-0
 	conteudo = conteudo.replace(/(\d)(\d{4})$/,"$1.$2");    //Coloca hífen entre o quinto e o sexto dígitos 00.000.000-0
-	conteudo = conteudo.replace(/(\d)(\d{1})$/,"$1-$2");    //Coloca hífen entre o quinto e o sexto dígitos 00.000.000-0
-	
-	$(this).val(conteudo);
-});
+	conteudo = conteudo.replace(/(\d)(\d{1})$/,"$1-$2");    //Coloca hífen entre o quinto e o sexto dígitos 00.000.000-0	
+	$(elm).val(conteudo);
+};
 
 //Evento que ocorre quando uma tecla é pressionada no campo que tem a classe cpf
-$("#formcadastrar input.cpf").keyup(function(){
-	var conteudo = $(this).val();
+function keyupcpf(elm){
+	var conteudo = $(elm).val();
 
 	//Remove tudo o que não é dígito
 	conteudo = getNumbers(conteudo);             
@@ -130,9 +129,9 @@ $("#formcadastrar input.cpf").keyup(function(){
     //Coloca um hífen entre o terceiro e o quarto dígitos
     conteudo = conteudo.replace(/(\d{3})(\d{1,2})$/,"$1-$2")    
 
-    $(this).val(conteudo);
-});
-
+    $(elm).val(conteudo);
+};
+//############ VALIDAÇÕES ####################################################################
 //Validação genérica para validar vários tipos de campo
 function validaCampo(elm){
 	var nome = $(elm).attr('name');
@@ -143,7 +142,6 @@ function validaCampo(elm){
 
  	if($(elm).hasClass("obrigatorio") && removeMascara($(elm).val()) == ""){   
  		mensagem = "Campo obrigatório";
-        //$(this).css({"border" : "1px solid #F00", "padding": "2px"});
     }else if(tipo == "number" && $(elm).val() != ""){
     	if(!isNumber($(elm).val())){		 		
  			mensagem = "Informe um número válido para o campo";
@@ -154,7 +152,7 @@ function validaCampo(elm){
  		mensagem = "Informe um e-mail válido";
  	}else if($(elm).hasClass("cpf") && !validarCPF($(elm).val())){
  		mensagem = "O CPF informado é inválido"
- 	}else if($(elm).hasClass("cep") && !isCEP($(elm).val())){
+ 	}else if($(elm).hasClass("cep") &&  $(elm).val().length > 0 && !isCEP($(elm).val())){
  		mensagem = "O CEP informado não é válido"
  	}else if($(elm).hasClass("telefone") && !isTelefone($(elm).val())){
  		mensagem = "O Telefone informado não é válido"
@@ -163,7 +161,6 @@ function validaCampo(elm){
  	}
 
  	if(mensagem != ""){
- 		//$(elm).css({"border-color" : "#D2691E"});
  		if(caixa_msg != null){
          	caixa_msg.innerHTML = mensagem;
 			caixa_msg.style.display = "block";
@@ -227,23 +224,6 @@ function isEmail(email){
 	}else{
 		return false;
 	}
-
-	//if(email.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+.[a-zA-Z0-9._-]+)/gi)){
-	//	return true;
-	//}else{
-	//	return false;
-	//}
-
-
-    //var exclude=/[^@-.w]|^[_@.-]|[._-]{2}|[@.]{2}|(@)[^@]*1/;
-    //var check=/@[w-]+./;
-    //var checkend=/.[a-zA-Z]{2,3}$/;
-    //if(((email.search(exclude) != -1)||(email.search(check)) == -1)||(email.search(checkend) == -1)){
-    //	return false;
-    //}
-    //else {
-    //	return true;
-    //}
 }
 
 // Função para validação de CEP.

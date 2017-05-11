@@ -5,9 +5,9 @@
 	// Usuário do banco de dados MySQL 
 	define('DB_USER', 'root');
 	// Senha do banco de dados MySQL 
-	define('DB_PASSWORD', '');
+	define('DB_PASSWORD', '4321#');
 	// nome do host do MySQL 
-	define('DB_HOST', 'localhost:3360');
+	define('DB_HOST', 'localhost:3306');
 	
 	
 	/*
