@@ -5,7 +5,6 @@
     $aluno = new Aluno();
 	$end1 = new Endereco();
 	$end2 = new Endereco();
-	$telefone = new Telefone();
 	
 	$estados = Estado::listar();
 	$cidades1;
@@ -18,7 +17,6 @@
 	}
 
 	$aluno->carregarDados();
-	$telefone->carregarDados();
 
 	
 	if(count($aluno->getEnderecos()) == 1){
@@ -33,7 +31,6 @@
 	}
 	
 	$qtdEnd = count($aluno->getEnderecos());
-//	$qtdTel = count($telefone->getTelefone());
 	
 	$isNew = $aluno->pesId > 0;
 
@@ -72,7 +69,7 @@ echo '
 						                <span class="msg-alnCpf"></span>
 						            </div>
 						            <div class="form-group">
-						                <label for="alnCpf">Senha de Acesso Ao Portal</label>
+						                <label for="alnSenha">Senha de Acesso Ao Portal</label>
 						                <input type="password" class="form-control obrigatorio" name="alnSenha" id="alnSenha" placeholder="Senha" value="'.$aluno->pesSenha.'">
 						                <span class="msg-alnSenha"></span>
 						            </div>
@@ -95,12 +92,7 @@ echo '
 						            	<input type="text" class="form-control datepicker" name="alnDataNascimento" id="alnDataNascimento" placeholder="Data Nascimento" value="'.date('d/m/Y', strtotime($aluno->pesDataNascimento)).'">
 						            	<span class="msg-alnDataNascimento"></span>
 						            </div>
-									<div class="form-group">
-						            	<label for="alnCelular">Celular</label>
-						            	<input type="text" class="form-control celular" name="alnCelular1" id="alnCelular" placeholder="Telefone Celular" value="'.Mascaras::geraMascara($telefone->telNumero,"(##)#####.####").'">
-						            	<span class="msg-alnTelefone"></span>
-						            </div>
-					            	<div class="form-group">
+					            	<div class="form-group" hidden>
                                         <label for="alnPerfil">Perfil</label>
                                     	<select class="form-control" name="alnPerfil" id="alnPerfil">
                                     		<option value="'.EPerfil::Aluno.'" '.(EPerfil::Aluno == $aluno->pesPerfil ? "selected" : null).'>Aluno</option>
@@ -119,13 +111,69 @@ echo '
                                          </label>
                                 	</div>
                                 </div>
-                                 <div class="panel panel-default">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+	                           			<label>Contato</label>
+	                        		</div>
+									<div class="form-group">
+										<table class="table" id="tbhorarios" name="tbhorarios">
+											<thead>
+												<tr>
+													<th>Tipo</th>
+													<th>Número</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<select class="form-control slctipotel" name="tipotelefone[]">
+															<option value="">Selecione um tipo de contato</option>
+															<option value="'.ETipoTelefone::residencial.'">Residencial</option>
+															<option value="'.ETipoTelefone::celular.'">Celular</option>
+															<option value="'.ETipoTelefone::comercial.'">Comercial</option>
+														</select>
+													</td>
+													<td class="tdnumero">
+														<input type="text" class="form-control" name="numerotelefone[]" value="'.Mascaras::geraMascara("","(##)#####.####").'">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<select class="form-control slctipotel" name="tipotelefone[]">
+															<option value="">Selecione um tipo de contato</option>
+															<option value="'.ETipoTelefone::residencial.'">Residencial</option>
+															<option value="'.ETipoTelefone::celular.'">Celular</option>
+															<option value="'.ETipoTelefone::comercial.'">Comercial</option>
+														</select>
+													</td>
+													<td class="tdnumero">
+														<input type="text" class="form-control" name="numerotelefone[]" value="'.Mascaras::geraMascara("","(##)#####.####").'">
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<select class="form-control slctipotel" name="tipotelefone[]">
+															<option value="">Selecione um tipo de contato</option>
+															<option value="'.ETipoTelefone::residencial.'">Residencial</option>
+															<option value="'.ETipoTelefone::celular.'">Celular</option>
+															<option value="'.ETipoTelefone::comercial.'">Comercial</option>
+														</select>
+													</td>
+													<td class="tdnumero">
+														<input type="text" class="form-control" name="numerotelefone[]" value="'.Mascaras::geraMascara("","(##)#####.####").'">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+						            </div>
+								</div>
+								<div class="panel panel-default">
 						            <div class="panel-heading">
 	                           			<label>Endereço Principal</label>
 	                        		</div>
 						            <div class="form-group">
 						            	<label for="alnCep_1">Cep</label>
-						            	<input type="text"  class="form-control" name="alnCep_1" id="alnCep_1" placeholder="00.000-000" value="'.Mascaras::geraMascara($end1->endCep, "##.###-###").'">
+						            	<input type="text"  class="form-control cep" name="alnCep_1" id="alnCep_1" placeholder="00.000-000" value="'.Mascaras::geraMascara($end1->endCep, "##.###-###").'">
 						            	<span class="msg-alnCep_1"></span>
 						            </div>
 								    <div class="form-group">
@@ -194,7 +242,7 @@ echo '
 	                        		</div>
                                    	<div class="form-group">
                                         <label for="alnCep_2">CEP</label>
-                                        <input type="text" class="form-control" name="alnCep_2" id="alnCep_2" placeholder="Cep" value="'.Mascaras::geraMascara($end2->endCep, "##.###-###").'">
+                                        <input type="text" class="form-control cep" name="alnCep_2" id="alnCep_2" placeholder="Cep" value="'.Mascaras::geraMascara($end2->endCep, "##.###-###").'">
                                         <span class="msg-alnCep_2"></span>
                                     </div>
 								    <div class="form-group">
@@ -361,6 +409,50 @@ echo '
                 campo.css("color", "#000");
             }
         });
+
+		$('.slctipotel').change(function(){
+			var tipoSelecionado = $(this).val();
+			var campo = $(this).parent().parent().find("input");
+			switch(tipoSelecionado){
+				case "1":
+				case "3":
+					$(campo).mask("(99) 9999-9999");
+					break;
+				case "2":
+					$(campo).mask("(99) 99999-9999");
+					break;
+			}
+
+			
+			/*
+			campo.val('');
+			$(campo).keyup(function(){
+				var valor = $(campo).val().replace(/\D/g,"");
+				switch(tipoSelecionado){
+					case "1":
+					case "3":
+						$(campo).attr('maxlength','14');
+						valor = valor.replace(/^(\d{2})(\d)/g,"($1) $2"); 	//Coloca parênteses em volta dos dois primeiros dígitos
+						valor = valor.replace(/(\d)(\d{4})$/,"$1-$2");    	//Coloca hífen entre o quarto e o quinto dígitos
+						$(campo).val(valor);
+					break;
+					case "2":
+						$(campo).attr('maxlength','15');
+						valor = valor.replace(/^(\d{2})(\d)/g,"($1) $2"); 	//Coloca parênteses em volta dos dois primeiros dígitos
+						valor = valor.replace(/(\d)(\d{3})$/,"$19$2");    	//Coloca hífen entre o quarto e o quinto dígitos
+						valor = valor.replace(/(\d)(\d{4})$/,"$1-$2");    	//Coloca hífen entre o quarto e o quinto dígitos
+						$(campo).val(valor);	
+					break;
+				}
+			});
+			*/
+		});
+
+
+
+
+			
+
         
 		//Quando o estado do endereço 1 for alterado
         $('#alnEstado_1').change(function(){
