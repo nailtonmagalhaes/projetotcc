@@ -7,7 +7,7 @@
                     SELECT
                             IdAluno
                             ,IdTurma
-                            ,NumeroMatricula
+                            ,mat.Id as NumeroMatricula
                             ,Nome
                     FROM
                             tbmatricula mat
