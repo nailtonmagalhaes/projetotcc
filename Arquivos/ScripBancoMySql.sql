@@ -18,45 +18,45 @@ latin1_swedish_ci: Não distingue letras minúsculas e maiúsculas e nem caracte
 USE DBEscolaMusica;
 
 CREATE TABLE tbDiaSemana (
-  Id INT NOT NULL,
+  Id  INT         NOT NULL,
   Dia VARCHAR(30) NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbPessoa (
-  Id INT NOT NULL AUTO_INCREMENT,
-  Nome VARCHAR(50) NULL,
-  Cpf VARCHAR(11) NULL,
-  Rg VARCHAR(15) NULL,
-  Sexo SMALLINT NULL,
-  DataNascimento DATETIME NULL,
-  Perfil SMALLINT NULL,
-  Senha VARCHAR(255) NULL,
-  Situacao TINYINT NULL,
+  Id             INT          NOT NULL AUTO_INCREMENT,
+  Nome           VARCHAR(50)  NULL,
+  Cpf            VARCHAR(11)  NULL,
+  Rg             VARCHAR(15)  NULL,
+  Sexo           SMALLINT     NULL,
+  DataNascimento DATETIME     NULL,
+  Perfil         SMALLINT     NULL,
+  Senha          VARCHAR(255) NULL,
+  Situacao       TINYINT      NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbEstado (
-  Id INT NOT NULL,
-  Nome VARCHAR(50) NULL,
-  Sigla CHAR(2) NULL,
+  Id    INT         NOT NULL,
+  Nome  VARCHAR(50) NULL,
+  Sigla CHAR(2)     NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbMaterial (
-  Id INT NOT NULL AUTO_INCREMENT,
+  Id        INT          NOT NULL AUTO_INCREMENT,
   Descricao VARCHAR(150) NULL,
-  Link VARCHAR(255) NULL,
-  Ano INT NULL,
-  Ativo TINYINT NULL,
+  Link      VARCHAR(255) NULL,
+  Ano       INT          NULL,
+  Ativo     TINYINT      NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbCurso (
-  Id INT NOT NULL AUTO_INCREMENT,
+  Id        INT          NOT NULL AUTO_INCREMENT,
   Descricao VARCHAR(150) NULL,
-  Duracao INT NULL,
-  Ativo TINYINT NULL,
+  Duracao   INT          NULL,
+  Ativo     TINYINT      NULL,
   PRIMARY KEY(Id)
 );
 
@@ -125,20 +125,20 @@ CREATE TABLE tbEndereco (
 );
 
 CREATE TABLE tbNota (
-  Id INT NOT NULL AUTO_INCREMENT,
+  Id          INT NOT NULL AUTO_INCREMENT,
   IdProfessor INT NOT NULL,
   IdAvaliacao INT NOT NULL,
-  Nota DECIMAL(10,2) NULL,
-  Ativo TINYINT NULL,
+  Nota        DECIMAL(10,2) NULL,
+  Ativo       TINYINT NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbMatricula (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdAluno INT NOT NULL,
-  IdTurma INT NOT NULL,
+  Id              INT NOT NULL AUTO_INCREMENT,
+  IdAluno         INT NOT NULL,
+  IdTurma         INT NOT NULL,
   NumeroMatricula INT NULL,
-  Ativo TINYINT NULL,
+  Ativo           TINYINT NULL,
   PRIMARY KEY(Id)
 );
 

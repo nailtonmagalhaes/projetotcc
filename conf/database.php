@@ -22,7 +22,6 @@
 	function close_database($conn) {
 		try {
 			mysqli_close($conn);
-			//echo "conexao fechada com sucesso<br />";
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
