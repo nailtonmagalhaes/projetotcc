@@ -33,6 +33,7 @@
 
 		public function salvarDados(){
 			$salvou = parent::salvarDados();
+			return $salvou;
 		}
 	}
 ?>

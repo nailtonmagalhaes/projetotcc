@@ -88,19 +88,16 @@
 							}
 							$aluno->addEndereco($end2);
 						}
-
-						print_r($aluno);
-						die;
-
+						//print_r($aluno);
+						
 						if(empty($aluno->pesNome) || empty($aluno->pesCpf)){
 							header('location: ..\pages\aluno-cadastro.php?id='.$aluno->pesId);
 							die;
 						}
 
-				    	try{ 				 			
-
+				    	try{ 	
 				            $insert = $aluno->salvarDados();
-
+			
 				            if($insert){
 			            		?>
 				            	<script>

@@ -119,12 +119,18 @@
 
 		public function salvarDados(){
 			$sql = "";
-			$sucesso = false;
+			$sucesso = (bool)false;
+			//echo "</br>--------------------------------------------------- ssss".$sucesso;
 			if($this->pesId > 0){
+				//echo "</br>-------------------------------------------------- UPDATE";
 				$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId;
+				//echo "</br>--------------------------------------------------- SQL: ".$sql;
+				//echo "</br>--------------------------------------------------- SUCESSO ANTES: ".$sucesso;
 				$sucesso = alterar($sql);
+				//echo "</br>--------------------------------------------------- SUCESSO DEPOIS: ".$sucesso;
+				
 			}else{
-				$sql = "INSERT INTO tbPessoa (Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', ".$this->pesCpf.", ".$this->pesRg.", ".$this->pesSexo.", ".$this->pesDataNascimento.", ".$this->pesPerfil.", ".$this->pesSenha.", ".$this->pesAtivo.");";
+				$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', '".$this->pesCpf."', '".$this->pesRg."', ".$this->pesSexo.", '".$this->pesDataNascimento."', ".$this->pesPerfil.", '".$this->pesSenha."', ".$this->pesAtivo.");";
 				$this->pesId = insere($sql);
 				if($this->pesId > 0){
 					$sucesso = true;
@@ -143,6 +149,7 @@
 					$t->salvarDados();
 				}
 			}
+			return $sucesso;
 		}
 	}
 ?>

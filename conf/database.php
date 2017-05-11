@@ -36,9 +36,9 @@
 			//$stmt->bind_param('ssss', $nome, $email, $cidade, $uf); 
 			
 			if($conn->query($sql) === TRUE) { 
-				return false;
-			} else { 
 				return true;
+			} else { 
+				return false;
 			}
 
 		}catch(Exception $e){
@@ -52,10 +52,10 @@
 		$conn;
 		try{
 			$conn = open_database();
-			if($conn->query($sql) === TRUE) { 
-				return false;
-			} else { 
+			if($conn->query($sql) == TRUE) {	
 				return $conn->insert_id;
+			} else { 
+				return false;	
 			}
 		}catch(Exception $e){
 			echo "<h1>Erro: ".$e->getMessage()."</h1>";
