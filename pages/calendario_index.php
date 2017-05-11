@@ -95,7 +95,7 @@
                                                 
 //                                                  console.log(idx,elem)
                                                   
-                                                  var checkbox = '<label><div class="checkbox"><input name="box" type="checkbox" IdAluno="+elem.IdAluno+" IdTurma="+elem.IdTurma+" NumeroMatricula="+elem.NumeroMatricula+"/>'+elem.Nome+'</div></label></br>';
+                                                  var checkbox = '<label><div class="checkbox"><input name="box" type="checkbox" IdAluno="'+elem.IdAluno+'" IdTurma="'+elem.IdTurma+'" NumeroMatricula="'+elem.NumeroMatricula+'"/>'+elem.Nome+'</div></label></br>';
                                                 
 //                                                console.log(checkbox)
                                                 inputs +=checkbox;
@@ -106,16 +106,43 @@
                                             swal({
                                                 title: "Presenca de alunos",
                                                 html:div,
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                confirmButtonText: 'Inserir',
+                                                cancelButtonText: 'Cancelar',
                                                 preConfirm: function () {
+                                                    
+                                                    var campo = '';
+
+                                                    $('input[name="box"]:checked').each(function(idx,elm){
+                                                        campo += '&idaluno'+idx+'='+$(elm).attr('idaluno')+'&idturma'+idx+'='+$(elm).attr('idturma')+'&numeromatricula'+idx+'='+$(elm).attr('numeromatricula')+'&total='+idx
+                                                    })
+                                                    
+//                                                    console.log(campo)
                                                     return new Promise(function (resolve) {
-                                                      resolve([
-                                                        $('input[name="box"]')
+//                                                      resolve([
+                                                          $.ajax({
+                                                                url: "frequencia-salvar.php"
+                                                                ,type: "POST"
+                                                                ,data: campo
+                                                                ,dataType: 'json'
+                                                                ,success: function(data){
+//                                                                    alert('asdasd')
+//                                                                    console.log(data)
+                                                                    if(!data){
+                                                                        swal("Sucesso!","Frequencias foram salvas!",'success')
+                                                                    } else {
+                                                                        swal("Houve algum erro!","E possivel que algo tenha dado errado!",'error')
+                                                                    }
+                                                                }
+                                                            })
                                                         
-                                                      ])
+//                                                      ])
                                                     })
                                                   },
                                                   onOpen: function () {
-                                                    $('#swal-input1').focus()
+//                                                    $('#swal-input1').focus()
                                                   }
                                                 }).then(function (result) {
                                                   swal(JSON.stringify(result))
