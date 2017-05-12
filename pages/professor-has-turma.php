@@ -9,8 +9,8 @@
         
         public function __construct(){
             $this->phtTipo = ETipoProfessor::None;
-            $this->phtTurma =  new Turma();
-            $this->phtProfessor = new Professor();
+            $this->phtTurma =  null;
+            $this->phtProfessor = null;
         }        
 
         public function listar(){

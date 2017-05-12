@@ -89,72 +89,48 @@ function configuraCampoHora(classecampo){
 
 $("#botao-salvar").on('click', function(){
     /*
-    $('#formcadastrar').submit(function(event){
-        event.preventDefault();
+    var contErros = 0;
 
-        var serializedData = $form.serialize();
-
-        var request =  $.ajax({
-            url: "turma-salvar.php",
-            type: "post",
-            data: serializedData
-        });
-
-        // Callback handler that will be called on success
-        request.done(function (response, textStatus, jqXHR){
-            // Log a message to the console
-            console.log("Hooray, it worked!");
-        });
-
-        // Callback handler that will be called on failure
-        request.fail(function (jqXHR, textStatus, errorThrown){
-            // Log the error to the console
-            console.error(
-                "The following error occurred: "+
-                textStatus, errorThrown
-            );
-        });
-
-        // Callback handler that will be called regardless
-        // if the request failed or succeeded
-        request.always(function () {
-            // Reenable the inputs
-            $inputs.prop("disabled", false);
-        });
+	$("input, select").each(function(idx, elm){
+		if(!validaCampo(elm)){
+			contErros++;
+		}
     });
-    */
-    var horarios ='';
-    var campos = "Id=" + $('#turId').val() + "&DataInicio=" + $('#turDataInicio').val() + "&Curso=" + $('#turCurso').val() + "&ProfessorPrincipal=" + $("#turProfessorPrincipal").val() + "&ProfessorApoio=" + $("#turProfessorApoio").val();
-
-    $('.campos').each(function(idx, elm){
-        //campos += '&'+$(elm).attr('name') +'&'+$(elm).val();
-    })
     
+    if(contErros > 0){ return false;}    
+    */
+    var objeto = {
+        Id: $("#turId").val(),
+        Curso: $("#turCurso").val(),
+        DataInicio: $("#turDataInicio").val(),
+        ProfessorPrincipal: $("#turProfessorPrincipal").val(),
+        ProfessorApoio: $("#turProfessorApoio").val(),
+        Datas:[]
+    }
 
     $('.horario').each(function(idx, elm){
-
         var numero = $(elm).attr('id').split("_")[1]
 
-        console.log(numero)
+        var objData = {
+            DiaSemana: $('#diasemana_' + numero).val(),
+            HoraInicio: $('#horainicio_' + numero).val(),
+            HoraTermino: $('#horatermino_' + numero).val()
+        };
 
-        //horarios += 'LL&diasemanaid_'+numero+'='+$('#diasemanaid_'+numero).val()+'&horainicioid_'+numero+'='+$('#horainicioid_'+numero).val()+'&horaterminoid_'+numero+'='+$('#horaterminoid_'+numero).val()
-        horarios += 'LL'+$('#diasemana_' + numero).val()+'&'+$('#horainicio_' + numero).val()+'&'+$('#horatermino_' + numero).val();
-
+        objeto.Datas.push(objData);
     })
-
-    horarios = horarios.substring(2);
-    console.log(horarios)
 
     $.ajax({
         type: "POST",
         url: "turma-salvar.php",
-        data: campos,
+        data: objeto,
         cache: false,
         success: function(result){
-            alert(result);
+            swal("Turma salva com sucesso!","","success");
+            window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
         }
     });
-
+    /*
     $.post("turma-salvar.php", {horarios:horarios, campos:campos}, function(data){
         if(data){
             swal("Turma salva com sucesso!","","success");
@@ -162,7 +138,8 @@ $("#botao-salvar").on('click', function(){
         }else{
             swal("Error",data,"warning");
         }
-    });      
+    });
+    */
 });
 
 $(document).ready(function(){
