@@ -2,6 +2,11 @@
 	include_once "menu.php";
     include_once 'includes.php';
  ?>
+
+ <head>
+    <link rel="stylesheet" type="text/css" href="../sweetalert2-master/dist/sweetalert2.css">
+    <script type="text/javascript" src="../sweetalert2-master/dist/sweetalert2.min.js"></script>
+ </head>
   
 <div id="page-wrapper">
     <div class="row">

@@ -4,8 +4,10 @@
     /* VERIFICO SE HOUVE UM POST */
     if(count($_POST) > 0) {
         $turma = new Turma();
-
+        echo '<pre>';
         print_r($_POST);
+        echo '</pre>';
+        die;
 
         if(isset($_POST["turId"])){
             $turma->turId = $_POST["turId"];

@@ -250,7 +250,7 @@ function isCEP(cep){
 // Função para validação de Telefone.
 function isTelefone(telefone){
     // Caso o Telefone não esteja nesse formato ele é inválido!
-    var objER =  /\([1-9]{2}\)\ [3-9]{1}\d{3}\-\d{4}/;
+    var objER =  /\([1-9]{2}\)\ [2-9]{1}\d{3}\-\d{4}/;
     // Substitui os espaços vazios no inicio e no fim da string por vazio.
     telefone = telefone.replace(/^s+|s+$/g, '');
     if(telefone.length > 0){

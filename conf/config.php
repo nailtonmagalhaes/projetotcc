@@ -1,11 +1,11 @@
-<?php
+﻿<?php
 	
 	// O nome do banco de dados
 	define('DB_NAME', 'dbescolamusica');
 	// Usuário do banco de dados MySQL 
 	define('DB_USER', 'root');
 	// Senha do banco de dados MySQL 
-	define('DB_PASSWORD', '4321#');
+	define('DB_PASSWORD', '');
 	// nome do host do MySQL 
 	define('DB_HOST', 'localhost:3306');
 	
