@@ -47,18 +47,18 @@
                             <div class="col-lg-8">
                                 <form role="form" id="formcadastrar" action="turma-salvar.php" method="post">
                                     <div class="form-group">
-                                        <input type="hidden" class="form-control" name="turId" id="turId" value="'.($turma->turId > 0 ? $turma->turId : null).'">
+                                        <input type="hidden" class="form-control enviarpost" name="turId" id="turId" value="'.($turma->turId > 0 ? $turma->turId : null).'">
                                     </div>
                                     <div class="form-group">
                                         <label for="turDataInicio">Data Início</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control obrigatorio datepicker" name="turDataInicio" id="turDataInicio" value="'.$turma->turDataInicioFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" class="form-control obrigatorio datepicker enviarpost" name="turDataInicio" id="turDataInicio" value="'.$turma->turDataInicioFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <span class="msg-turDataInicio"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turCurso">Curso</label>
-                                        <select class="form-control obrigatorio" name="turCurso" id="turCurso" style="color: gray;">
+                                        <select class="form-control obrigatorio enviarpost" name="turCurso" id="turCurso" style="color: gray;">
                                             <option value="">Selecione um curso</option>';
                                             try{
                                                 if ($cursos && $cursos->num_rows > 0) {
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turProfessorPrincipal">Professor Principal</label>
-                                        <select class="form-control obrigatorio" name="turProfessorPrincipal" id="turProfessorPrincipal" style="color: gray;">
+                                        <select class="form-control obrigatorio enviarpost" name="turProfessorPrincipal" id="turProfessorPrincipal" style="color: gray;">
                                             <option value="">Selecione um professor</option>';
                                             try{
                                                 if ($professores && $professores->num_rows > 0) {
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turProfessorApoio">Professor Apoio</label>
-                                        <select class="form-control obrigatorio" name="turProfessorApoio" id="turProfessorApoio" style="color: gray;">
+                                        <select class="form-control obrigatorio enviarpost" name="turProfessorApoio" id="turProfessorApoio" style="color: gray;">
                                             <option value="">Selecione um professor</option>';
                                             try{
                                                 if ($professores && $professores->num_rows > 0) {
@@ -132,7 +132,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <select class="form-control" name="diasemana[]">
+                                                            <select class="form-control horario" name="diasemana[]" id="diasemanaid_1">
                                                                 <option value="">Selecione um dia da semana</option>';
                                                                 if($dias && $dias->num_rows > 0){
                                                                     foreach($dias as $dia){
@@ -143,7 +143,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="input-group clockpicker">
-                                                                <input type="text" name="hora[]" class="form-control hora" value="">
+                                                                <input type="text" name="hora[]" id="horainicioid_1" class="form-control hora" value="">
                                                                 <span class="input-group-addon">
                                                                     <span class="glyphicon glyphicon-time"></span>
                                                                 </span>
@@ -151,7 +151,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="input-group clockpicker">
-                                                                <input type="text" name="hora[]" class="form-control hora" value="">
+                                                                <input type="text" name="hora[]" id="horaterminoid_1" class="form-control hora" value="">
                                                                 <span class="input-group-addon">
                                                                     <span class="glyphicon glyphicon-time"></span>
                                                                 </span>
@@ -167,7 +167,7 @@
                                             </table>
                                         </div>
                                     </div>                                    
-                                    <button type="submit" class="btn btn-primary" id="botao-salvar">
+                                    <button type="button" class="btn btn-primary" id="botao-salvar">
                                         <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
                                     </button>
                                     <button type="reset" class="btn btn-default">
@@ -198,7 +198,7 @@
         var cell1 = row.insertCell(0);
         
         $.getJSON('diasemana-consulta.php', function(dias){
-            var optionsDias = '<select class="form-control" name="diasemana[]">'+
+            var optionsDias = '<select class="form-control horario" name="diasemana[]" id="diasemanaid_'+rowCount+'">'+
                                     '<option value="">Selecione um dia da semana</option>';
             $.each(dias, function(i, obj){
                 optionsDias += '<option value="' + obj.disId + '">' + obj.disDia + '</option>';
@@ -207,16 +207,23 @@
             cell1.innerHTML = optionsDias;
         });
 
-        var cellhorahtml = '<div class="input-group clockpicker">'+
-                                '<input type="text" name="hora[]" class="form-control hora" value="">'+
-                                '<span class="input-group-addon">'+
-                                    '<span class="glyphicon glyphicon-time"></span>'+
-                                '</span>'+
-                            '</div>';
+        var cellhorainiciohtml = '<div class="input-group clockpicker">'+
+                                    '<input type="text" name="hora[]" id="horainicioid_'+rowCount+'" class="form-control hora " value="">'+
+                                    '<span class="input-group-addon">'+
+                                        '<span class="glyphicon glyphicon-time"></span>'+
+                                    '</span>'+
+                                '</div>';
+
+        var cellhoraterminohtml = '<div class="input-group clockpicker">'+
+                                        '<input type="text" name="hora[]" id="horaterminoid_'+rowCount+'" class="form-control hora " value="">'+
+                                        '<span class="input-group-addon">'+
+                                            '<span class="glyphicon glyphicon-time"></span>'+
+                                        '</span>'+
+                                    '</div>';
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = cellhorahtml;
+        cell2.innerHTML = cellhorainiciohtml;
         var cell3 = row.insertCell(2);        
-        cell3.innerHTML = cellhorahtml;
+        cell3.innerHTML = cellhoraterminohtml;
 
         var cellbotaohtml = '<button type="button" onClick="removerLinha(this, \'tbhorarios\')" class="btn btn-danger">'+
                                 '<span class="glyphicon glyphicon-remove"></span>'+
@@ -269,6 +276,38 @@
         });
     }
 
+    $("#botao-salvar").on('click', function(){
+
+        var campos ='';
+        var outroscampos = '';
+
+        $('.enviarpost').each(function(idx, elm){
+            outroscampos += '&'+$(elm).attr('name') +'&'+$(elm).val();
+        })
+        
+
+        $('.horario').each(function(idx,elm){
+
+            var numero = $(elm).attr('id').split("_")[1]
+
+            console.log(numero)
+
+            //campos += 'LL&diasemanaid_'+numero+'='+$('#diasemanaid_'+numero).val()+'&horainicioid_'+numero+'='+$('#horainicioid_'+numero).val()+'&horaterminoid_'+numero+'='+$('#horaterminoid_'+numero).val()
+            campos += 'LL'+$('#diasemanaid_'+numero).val()+'&'+$('#horainicioid_'+numero).val()+'&'+$('#horaterminoid_'+numero).val();
+
+        })
+
+        console.log(campos)
+
+        $.post("turma-salvar.php", {campos:campos, outroscampos:outroscampos}, function(data){
+            if(data){
+                swal("Curso excluído com sucesso!","","success");
+                window.setTimeout("location.href='../pages/curso-listar.php'", 2000);
+            }else{
+                swal("Error",data,"warning");
+            }
+        });      
+    });
     
     $(document).ready(function(){
 

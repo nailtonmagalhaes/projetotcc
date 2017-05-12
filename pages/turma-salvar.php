@@ -1,5 +1,11 @@
 <?php
-    include_once 'includes.php';
+    include_once 'Turma.php';
+
+echo '<pre>';
+    var_dump($_REQUEST);
+    $explodido = explode("LL", $_REQUEST['campos']);
+    var_dump($explodido);
+    
 
     /* VERIFICO SE HOUVE UM POST */
     if(count($_POST) > 0) {
