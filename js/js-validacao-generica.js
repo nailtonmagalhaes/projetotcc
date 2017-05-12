@@ -43,6 +43,8 @@ $("input").each(function(idx, elm){
 		$(elm).attr('maxlength','15').on('keyup', function(){ keyupcelular(elm); });    //(00) 00000-0000
 	}else if($(elm).hasClass("rg")){
 		$(elm).attr('maxlength','12').on('keyup', function(){ keyuprg(elm); });         //00.000.000-0
+	}else if($(elm).hasClass("hora")){
+		$(elm).attr('maxlength','5').on('keyup', function(){ keyuphora(elm); });         //00:00
 	}
 });
 
@@ -102,6 +104,13 @@ function keyupdatepicker(elm){
 	conteudo = conteudo.replace(/(\d)(\d{4})$/,"$1/$2");    //Coloca barra entre o quarto e o quinto dígitos
 	$(elm).val(conteudo);
 };
+
+function keyuphora(campo){
+    var conteudo = $(campo).val();
+    conteudo = conteudo.replace(/\D/g,"");					 //Remove tudo o que não é dígito
+    conteudo = conteudo.replace(/(\d)(\d{2})$/,"$1:$2");    //Coloca barra entre o segundo e o terceiro dígitos
+    $(campo).val(conteudo);
+}
 
 //Evento que ocorre quanto uma tecla é pressionada no campo que tem a classe RG
 function keyuprg(elm){

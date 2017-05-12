@@ -1,0 +1,190 @@
+function adicionarLinha(tableID) {
+
+    var table = document.getElementById(tableID);
+
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+
+    var cell1 = row.insertCell(0);
+    var nomeiddiasemana = 'diasemana_' + rowCount;
+    
+    $.getJSON('diasemana-consulta.php', function(dias){
+        var optionsDias = '<select class="form-control horario" name="'+nomeiddiasemana+'" id="'+nomeiddiasemana+'">'+
+                                '<option value="">Selecione um dia da semana</option>';
+        $.each(dias, function(i, obj){
+            optionsDias += '<option value="' + obj.disId + '">' + obj.disDia + '</option>';
+        })
+        optionsDias += '</select><span class="msg-'+nomeiddiasemana+'"></span>';
+        cell1.innerHTML = optionsDias;
+
+        $('#'+nomeiddiasemana).addClass("obrigatorio").blur(function(){ validaCampo($(this)); });
+    });
+
+    var nomeidhorainicio = 'horainicio_' + rowCount;
+    var cellhorainiciohtml = '<div class="input-group clockpicker">'+
+                                    '<input type="text" name="'+ nomeidhorainicio +'" id="'+nomeidhorainicio+'" class="form-control hora obrigatorio" value="">'+
+                                    '<span class="input-group-addon">'+
+                                        '<span class="glyphicon glyphicon-time"></span>'+
+                                    '</span>'+
+                                '</div>'+
+                                '<span class="msg-'+nomeidhorainicio+'"></span>';
+    var cell2 = row.insertCell(1);
+    cell2.innerHTML = cellhorainiciohtml;
+
+    var nomeidhoratermino = 'horatermino_' + rowCount;
+    var cellhoraterminohtml = '<div class="input-group clockpicker">'+
+                                    '<input type="text" name="'+ nomeidhoratermino +'" id="'+nomeidhoratermino+'" class="form-control hora obrigatorio" value="">'+
+                                    '<span class="input-group-addon">'+
+                                        '<span class="glyphicon glyphicon-time"></span>'+
+                                    '</span>'+
+                                '</div>'+
+                                '<span class="msg-'+nomeidhoratermino+'"></span>';
+    var cell3 = row.insertCell(2);        
+    cell3.innerHTML = cellhoraterminohtml;
+
+    var cellbotaohtml = '<button type="button" onClick="removerLinha(this, \'tbhorarios\')" class="btn btn-danger">'+
+                            '<span class="glyphicon glyphicon-remove"></span>'+
+                        '</button>';  
+
+    var cell4 = row.insertCell(3);
+    cell4.innerHTML = cellbotaohtml;   
+
+    configuraCampoHora('.clockpicker');
+}
+
+function removerLinha(botao, tableID) {
+    swal({
+            title: "Deseja realmente remover a linha?",
+            text: "Clique em Sim para confirmar ou em Não para cancelar!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            closeOnConfirm: true
+    },
+    function(){
+        try {                 /*td*/     /*tr*/
+            var row = botao.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }catch(e) {
+            alert(e);
+        }
+    });      
+}
+
+function configuraCampoHora(classecampo){
+    $(classecampo).clockpicker({
+        autoclose: true,
+        align: 'top',
+        placement: 'left',
+    });
+
+    $(".hora").attr('maxlength','5').keyup(function(){
+        keyuphora($(this));
+    }).blur(function(){
+        validaCampo($(this));
+    });
+}
+
+$("#botao-salvar").on('click', function(){
+    /*
+    $('#formcadastrar').submit(function(event){
+        event.preventDefault();
+
+        var serializedData = $form.serialize();
+
+        var request =  $.ajax({
+            url: "turma-salvar.php",
+            type: "post",
+            data: serializedData
+        });
+
+        // Callback handler that will be called on success
+        request.done(function (response, textStatus, jqXHR){
+            // Log a message to the console
+            console.log("Hooray, it worked!");
+        });
+
+        // Callback handler that will be called on failure
+        request.fail(function (jqXHR, textStatus, errorThrown){
+            // Log the error to the console
+            console.error(
+                "The following error occurred: "+
+                textStatus, errorThrown
+            );
+        });
+
+        // Callback handler that will be called regardless
+        // if the request failed or succeeded
+        request.always(function () {
+            // Reenable the inputs
+            $inputs.prop("disabled", false);
+        });
+    });
+    */
+    var horarios ='';
+    var campos = "Id=" + $('#turId').val() + "&DataInicio=" + $('#turDataInicio').val() + "&Curso=" + $('#turCurso').val() + "&ProfessorPrincipal=" + $("#turProfessorPrincipal").val() + "&ProfessorApoio=" + $("#turProfessorApoio").val();
+
+    $('.campos').each(function(idx, elm){
+        //campos += '&'+$(elm).attr('name') +'&'+$(elm).val();
+    })
+    
+
+    $('.horario').each(function(idx, elm){
+
+        var numero = $(elm).attr('id').split("_")[1]
+
+        console.log(numero)
+
+        //horarios += 'LL&diasemanaid_'+numero+'='+$('#diasemanaid_'+numero).val()+'&horainicioid_'+numero+'='+$('#horainicioid_'+numero).val()+'&horaterminoid_'+numero+'='+$('#horaterminoid_'+numero).val()
+        horarios += 'LL'+$('#diasemana_' + numero).val()+'&'+$('#horainicio_' + numero).val()+'&'+$('#horatermino_' + numero).val();
+
+    })
+
+    horarios = horarios.substring(2);
+    console.log(horarios)
+
+    $.ajax({
+        type: "POST",
+        url: "turma-salvar.php",
+        data: campos,
+        cache: false,
+        success: function(result){
+            alert(result);
+        }
+    });
+
+    $.post("turma-salvar.php", {horarios:horarios, campos:campos}, function(data){
+        if(data){
+            swal("Turma salva com sucesso!","","success");
+            window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+        }else{
+            swal("Error",data,"warning");
+        }
+    });      
+});
+
+$(document).ready(function(){
+
+    configuraCampoHora('.clockpicker');        
+
+    $("select").change(function(){
+        var campo = $(this);
+        if(campo.val() == "" || campo.val() == "0"){
+            campo.css("color", "gray");
+        }else{
+            campo.css("color", "#000");
+        }
+    });
+
+    $('.input-group.date').datepicker({
+        format: "dd/mm/yyyy",
+        startDate: '0',
+        language: "pt-BR",
+        autoclose: true,
+        clearBtn: true,
+        todayHighlight: true,
+        calendarWeeks: true,
+    });
+});

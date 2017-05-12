@@ -1,12 +1,26 @@
 <?php
-    include_once 'Turma.php';
+    include_once 'turma.php';
 
-echo '<pre>';
-    var_dump($_REQUEST);
-    $explodido = explode("LL", $_REQUEST['campos']);
-    var_dump($explodido);
-    
+    echo '<pre>';
 
+    print_r($_REQUEST);
+
+    $campos = explode("&", $_REQUEST['campos']);
+    //$horarios = $_REQUEST['horarios'];
+    var_dump($campos);
+
+    echo "<br>Id: ".$_REQUEST['Id'];
+    echo "<br>DataInicio: ".$_REQUEST['DataInicio'];
+    echo "<br>Curso: ".$_REQUEST['Curso'];
+    echo "<br>ProfessorPrincipal: ".$_REQUEST['ProfessorPrincipal'];
+    echo "<br>ProfessorApoio: ".$_REQUEST['ProfessorApoio'];
+
+
+    //var_dump($_REQUEST);
+    //$explodido = explode("LL", $_REQUEST['horarios']);
+    //var_dump($explodido);
+    return true;
+    die;
     /* VERIFICO SE HOUVE UM POST */
     if(count($_POST) > 0) {
         $turma = new Turma();
