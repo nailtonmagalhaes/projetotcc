@@ -12,8 +12,8 @@
 
         public function __construct(){
             $this->thdId = 0;
-            $this->thdDiaSemana = new DiaSemana();
-            $this->thdTurma = new Turma();
+            $this->thdDiaSemana = null;
+            $this->thdTurma = null;
             $this->thdHoraInicio = "";
             $this->thdHoraTermino = "";
             $this->thdFrequencias = array();

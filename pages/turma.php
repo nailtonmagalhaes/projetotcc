@@ -1,5 +1,7 @@
 <?php
-    include_once 'includes.php';
+    include_once 'professor-has-turma.php';
+    include_once 'turma-has-dia-semana.php';
+    include_once 'matricula.php';
     class Turma{
         public $turId;
         public $turCurso;
@@ -94,11 +96,31 @@
                 INNER JOIN tbCurso c ON c.Id = t.IdCurso");
         }
 
-        function salvar(){
-            if($this->turId > 0){
-                return insere("UPDATE tbTurma SET IdCurso = ".$this->turcrsId.", DataInicio = '".$this->turDataInicio."', Ativo = ".$this->turAtivo." WHERE Id = ".addslashes($this->turId));
-            }else{
-                return insere("INSERT INTO tbTurma (IdCurso, DataInicio, Ativo) VALUES (".$this->turCurso->crsId.", '".$this->turDataInicio."', 1);");
+        function salvarDados(){
+            try{
+                $sucesso = false;
+                if($this->turId > 0){
+                    $sucesso = alterar("UPDATE tbTurma SET IdCurso = ".$this->turCurso->crsId.", DataInicio = '".$this->turDataInicio."', Ativo = ".$this->turAtivo." WHERE Id = ".$this->turId);
+                }else{
+                    $this->turId = insere("INSERT INTO tbTurma (IdCurso, DataInicio, Ativo) VALUES (".$this->turCurso->crsId.", '".$this->turDataInicio."', 1);");
+                    $sucesso = $this->turId > 0;
+                }
+
+                if($sucesso){
+                    foreach($this->turHasDiaSemana as $dia){
+                        if(!$dia->salvarDados()){
+                            throw new Exception("Ocorreu um erro ao salvar os dias da semana.");
+                        }
+                    }
+
+                    foreach($this->turProfessorHasTurma as $prof){
+                       if(!$prof->salvarDados()){
+                           throw new Exception("Ocorreu um erro ao salvar os professores.")
+                       }
+                    }
+                }
+            }catch(Exception $ex){
+                echo "Ocorreu um erro ao salvar os dados.</br>".$ex->getMessage();
             }
         }
 

@@ -130,42 +130,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <select class="form-control horario obrigatorio" name="diasemana_1" id="diasemana_1">
-                                                                <option value="">Selecione um dia da semana</option>';
-                                                                if($dias && $dias->num_rows > 0){
-                                                                    foreach($dias as $dia){
-                                                                        echo '<option value="'.$dia["Id"].'">'.utf8_encode($dia["Dia"]).'</option>';
-                                                                    }
-                                                                }
-                                                            echo '</select>
-                                                            <span class="msg-diasemana_1"></span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group clockpicker">
-                                                                <input type="text" name="horainicio_1" id="horainicio_1" class="form-control hora obrigatorio" value="">
-                                                                <span class="input-group-addon">
-                                                                    <span class="glyphicon glyphicon-time"></span>
-                                                                </span>
-                                                            </div>                                                            
-                                                            <span class="msg-horainicio_1"></span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group clockpicker">
-                                                                <input type="text" name="horatermino_1" id="horatermino_1" class="form-control hora obrigatorio" value="">
-                                                                <span class="input-group-addon">
-                                                                    <span class="glyphicon glyphicon-time"></span>
-                                                                </span>
-                                                            </div>
-                                                            <span class="msg-horatermino_1"></span>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" onClick="removerLinha(this, \'tbhorarios\')" class="btn btn-danger">
-                                                                <span class="glyphicon glyphicon-remove"></span>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>

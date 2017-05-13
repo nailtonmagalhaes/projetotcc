@@ -88,17 +88,18 @@ function configuraCampoHora(classecampo){
 }
 
 $("#botao-salvar").on('click', function(){
-    /*
-    var contErros = 0;
+    var validar = false;
+    if(validar){
+        var contErros = 0;
 
-	$("input, select").each(function(idx, elm){
-		if(!validaCampo(elm)){
-			contErros++;
-		}
-    });
-    
-    if(contErros > 0){ return false;}    
-    */
+        $("input, select").each(function(idx, elm){
+            if(!validaCampo(elm)){
+                contErros++;
+            }
+        });
+        
+        if(contErros > 0){ return false;}    
+    }
     var objeto = {
         Id: $("#turId").val(),
         Curso: $("#turCurso").val(),
