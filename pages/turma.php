@@ -2,6 +2,7 @@
     include_once 'professor-has-turma.php';
     include_once 'turma-has-dia-semana.php';
     include_once 'matricula.php';
+    include_once '../conf/acesso-dados.php';
     class Turma{
         public $turId;
         public $turCurso;
@@ -98,29 +99,37 @@
 
         function salvarDados(){
             try{
+                AcessoDados::abreTransacao();
                 $sucesso = false;
                 if($this->turId > 0){
-                    $sucesso = alterar("UPDATE tbTurma SET IdCurso = ".$this->turCurso->crsId.", DataInicio = '".$this->turDataInicio."', Ativo = ".$this->turAtivo." WHERE Id = ".$this->turId);
+                    $sucesso = AcessoDados::alterar("UPDATE tbTurma SET IdCurso = ".$this->turCurso->crsId.", DataInicio = '".$this->turDataInicio."', Ativo = ".$this->turAtivo." WHERE Id = ".$this->turId);
                 }else{
-                    $this->turId = insere("INSERT INTO tbTurma (IdCurso, DataInicio, Ativo) VALUES (".$this->turCurso->crsId.", '".$this->turDataInicio."', 1);");
+                    $this->turId = AcessoDados::inserir("INSERT INTO tbTurma (IdCurso, DataInicio, Ativo) VALUES (".$this->turCurso->crsId.", '".$this->turDataInicio."', 1);");
                     $sucesso = $this->turId > 0;
                 }
 
                 if($sucesso){
                     foreach($this->turHasDiaSemana as $dia){
-                        if(!$dia->salvarDados()){
-                            throw new Exception("Ocorreu um erro ao salvar os dias da semana.");
+                        $dia->thdTurma = $this;
+                        $sucesso = $dia->salvarDados();
+                        if(!$sucesso){
+                            throw new Exception("Ocorreu um erro ao salvar os dias da semana.</br>");
                         }
                     }
-
+                    
                     foreach($this->turProfessorHasTurma as $prof){
-                       if(!$prof->salvarDados()){
-                           throw new Exception("Ocorreu um erro ao salvar os professores.")
-                       }
+                        $prof->phtTurma = $this;
+                        $sucesso = $prof->salvarDados();
+                        if(!$sucesso){
+                            throw new Exception("Ocorreu um erro ao salvar os professores.</br>");
+                        }
                     }
+                    
                 }
+                AcessoDados::confirmaTransacao();
+                return $sucesso;
             }catch(Exception $ex){
-                echo "Ocorreu um erro ao salvar os dados.</br>".$ex->getMessage();
+                throw new Exception("Ocorreu um erro ao salvar os dados.</br>".$ex->getMessage());
             }
         }
 

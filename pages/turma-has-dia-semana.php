@@ -1,7 +1,4 @@
 <?php
-	
-    include_once 'includes.php';
-
     class TurmaHasDiaSemana{
         public $thdId;
         public $thdDiaSemana;   /*DiaSemana*/
@@ -20,13 +17,11 @@
         }
 
         public function salvarDados(){
-            $sql = "";
             if($this->thdId > 0){
-                $sql = "UPDATE tbTurma_has_DiaSemana SET IdDiaSemana = ".$this->thdDiaSemana->disId.", IdTurma = ".$this->thdTurma->turId.", HoraInicio = '".$this->thdHoraInicio."', HoraTermino = '".$this->thdHoraTermino."' WHERE Id = ".$this->thdId;
+                return AcessoDados::alterar("UPDATE tbTurma_has_DiaSemana SET IdDiaSemana = ".$this->thdDiaSemana->disId.", IdTurma = ".$this->thdTurma->turId.", HoraInicio = '".$this->thdHoraInicio."', HoraTermino = '".$this->thdHoraTermino."' WHERE Id = ".$this->thdId.";");
             }else{
-                $sql = "INSERT INTO tbTurma_has_DiaSemana (IdTurma, IdDiaSemana, HoraInicio, HoraTermino) VALUES (".$this->thdTurma->turId.", ".$this->thdDiaSemana->disId.", '".$this->thdHoraInicio."', '".$this->thdHoraTermino."')";
+                return AcessoDados::inserir("INSERT INTO tbTurma_has_DiaSemana (IdTurma, IdDiaSemana, HoraInicio, HoraTermino) VALUES (".$this->thdTurma->turId.", ".$this->thdDiaSemana->disId.", '".$this->thdHoraInicio."', '".$this->thdHoraTermino."');");
             }
-            return insere($sql);
         }
 
         public function listar(){

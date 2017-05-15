@@ -129,9 +129,12 @@
                                                         <th></th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody>';
                                                     
-                                                </tbody>
+                                                    foreach($turma->turHasDiaSemana as $dia){
+
+                                                    }
+                                                echo '</tbody>
                                             </table>
                                         </div>
                                     </div>                                    

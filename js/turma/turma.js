@@ -9,7 +9,7 @@ function adicionarLinha(tableID) {
     var nomeiddiasemana = 'diasemana_' + rowCount;
     
     $.getJSON('diasemana-consulta.php', function(dias){
-        var optionsDias = '<select class="form-control horario" name="'+nomeiddiasemana+'" id="'+nomeiddiasemana+'">'+
+        var optionsDias = '<select class="form-control horario" idhasdia="0" name="'+nomeiddiasemana+'" id="'+nomeiddiasemana+'">'+
                                 '<option value="">Selecione um dia da semana</option>';
         $.each(dias, function(i, obj){
             optionsDias += '<option value="' + obj.disId + '">' + obj.disDia + '</option>';
@@ -88,7 +88,7 @@ function configuraCampoHora(classecampo){
 }
 
 $("#botao-salvar").on('click', function(){
-    var validar = false;
+    var validar = true;
     if(validar){
         var contErros = 0;
 
@@ -100,6 +100,7 @@ $("#botao-salvar").on('click', function(){
         
         if(contErros > 0){ return false;}    
     }
+
     var objeto = {
         Id: $("#turId").val(),
         Curso: $("#turCurso").val(),
@@ -115,12 +116,14 @@ $("#botao-salvar").on('click', function(){
         var objData = {
             DiaSemana: $('#diasemana_' + numero).val(),
             HoraInicio: $('#horainicio_' + numero).val(),
-            HoraTermino: $('#horatermino_' + numero).val()
+            HoraTermino: $('#horatermino_' + numero).val(),
+            IdHasDia: $(elm).attr('idhasdia'),
         };
 
         objeto.Datas.push(objData);
     })
 
+    
     $.ajax({
         type: "POST",
         url: "turma-salvar.php",
@@ -129,10 +132,16 @@ $("#botao-salvar").on('click', function(){
         success: function(result){
             swal("Turma salva com sucesso!","","success");
             window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
-        }
+        },
+        error: function(result){
+        	swal("Ocorreu um erro ao salvar a turma.");
+        } 
     });
+
+    $.post()
+    
     /*
-    $.post("turma-salvar.php", {horarios:horarios, campos:campos}, function(data){
+    $.post("turma-salvar.php", {data: objeto}, function(data){
         if(data){
             swal("Turma salva com sucesso!","","success");
             window.setTimeout("location.href='../pages/turma-listar.php'", 2000);

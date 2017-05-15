@@ -1,16 +1,15 @@
 <?php
-    include_once 'turma.php';
-    include_once 'professor.php';
-
     class ProfessorHasTurma{
         public $phtTipo;
         public $phtTurma;
         public $phtProfessor;
+        public $phtIdProfessor;
         
         public function __construct(){
             $this->phtTipo = ETipoProfessor::None;
             $this->phtTurma =  null;
             $this->phtProfessor = null;
+            $this->phtIdProfessor = 0;
         }
 
         public function listar(){
@@ -26,11 +25,13 @@
         }
 
         public function salvarDados(){
-            $professorcommesmaturma = listar("SELECT * FROM tbProfessor_has_Turma WHERE IdTurma = ".$this->phtTurma->turId);
-            if($professorcommesmaturma->num_rows > 0){
-                return alterar("UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtProfessor->pesId.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId);
+            $professorcommesmaturma = AcessoDados::listar("SELECT * FROM tbProfessor_has_Turma WHERE IdTurma = ".$this->phtTurma->turId);
+            if($professorcommesmaturma != null && $professorcommesmaturma->num_rows > 0){
+                $sql = "UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtIdProfessor.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId.";";
+                return AcessoDados::alterar($sql);
             }else{
-                return insere("INSERT INTO tbProfessor_has_Turma(IdProfessor, IdTurma, Tipo) VALUES (".$this->phtProfessor->pesId.", ".$this->phtTurma->turId.", ".$this->phtTipo.")");
+                $sql = "INSERT INTO tbProfessor_has_Turma(IdProfessor, IdTurma, Tipo) VALUES (".$this->phtIdProfessor.", ".$this->phtTurma->turId.", ".$this->phtTipo.");";
+                return AcessoDados::inserir($sql);
             }
         }
 

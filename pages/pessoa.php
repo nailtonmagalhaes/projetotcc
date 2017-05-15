@@ -61,9 +61,9 @@
 		}
 
 		public function listar(){
-			$sql = "SELECT * FROM tbPessoa WHERE Perfil = ".$this->pesPerfil;
+			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 1 AND Perfil = ".$this->pesPerfil;
 			//echo "----------------------------------------- SQL: ".$sql;
-			return listar($sql);
+			return AcessoDados::listar($sql);
 		}
 		
 		public function carregarDados(){

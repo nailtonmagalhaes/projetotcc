@@ -1,6 +1,7 @@
 <?php
 	include_once 'config.php';
-	mysqli_report(MYSQLI_REPORT_STRICT);
+	//mysqli_report(MYSQLI_REPORT_STRICT);
+	mysqli_report(MYSQLI_REPORT_ALL);
 	
 	//header('Content-type: text/html; charset=utf-8');
 
@@ -21,7 +22,8 @@
 
 	function close_database($conn) {
 		try {
-			mysqli_close($conn);
+			//mysqli_close($conn);
+			$conn->close();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
@@ -81,4 +83,6 @@
 			close_database($conn);
 		}
 	}
+
+
 ?>
