@@ -109,19 +109,20 @@
                 }
 
                 if($sucesso){
-                    foreach($this->turHasDiaSemana as $dia){
-                        $dia->thdTurma = $this;
-                        $sucesso = $dia->salvarDados();
-                        if(!$sucesso){
-                            throw new Exception("Ocorreu um erro ao salvar os dias da semana.</br>");
-                        }
-                    }
                     
                     foreach($this->turProfessorHasTurma as $prof){
                         $prof->phtTurma = $this;
                         $sucesso = $prof->salvarDados();
                         if(!$sucesso){
-                            throw new Exception("Ocorreu um erro ao salvar os professores.</br>");
+                            throw new Exception("Ocorreu um erro ao salvar os professores.<br>");
+                        }
+                    }
+
+                    foreach($this->turHasDiaSemana as $dia){
+                        $dia->thdTurma = $this;
+                        $sucesso = $dia->salvarDados();
+                        if(!$sucesso){
+                            throw new Exception("Ocorreu um erro ao salvar os dias da semana.<br>");
                         }
                     }
                     
@@ -129,7 +130,7 @@
                 AcessoDados::confirmaTransacao();
                 return $sucesso;
             }catch(Exception $ex){
-                throw new Exception("Ocorreu um erro ao salvar os dados.</br>".$ex->getMessage());
+                throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
             }
         }
 

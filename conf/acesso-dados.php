@@ -17,7 +17,7 @@
 				self::$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 				self::$conn->autocommit(FALSE);
 			}catch(Exception $ex){
-				throw new Exception("Erro ao abrir transação.</br>".$ex->getMessage());
+				throw new Exception("Erro ao abrir transação.<br>".$ex->getMessage());
 			}
 		}
 
@@ -37,10 +37,10 @@
                 return $idinserido;
             }catch(mysqli_sql_exception $ex){
                 self::abortaTrasacao();
-				throw new Exception("Ocorreu um erro ao inserir o registro. Transação abortada.</br>".$ex->getMessage());//."<br>".$sql."<br>");
+				throw new Exception("Ocorreu um erro ao inserir o registro. Transação abortada.<br>".$ex->getMessage());//."<br>".$sql."<br>");
 			}catch(Exception $ex){
 				self::abortaTrasacao();
-				throw new Exception("Ocorreu um erro ao inserir o registro. Transação abortada.</br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao inserir o registro. Transação abortada.<br>".$ex->getMessage());
 			}
 		}
 
@@ -49,11 +49,11 @@
 				if(self::$conn->query($sql) == true){
 					return true;
 				}else{
-					throw new Exception("Falha ao alterar o registro.</br>");
+					throw new Exception("Falha ao alterar o registro.<br>");
 				}
 			}catch(Exception $ex){
 				self::abortaTrasacao();
-				throw new Exception("Ocorreu um erro ao alterar o registro. Transação abortada.</br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao alterar o registro. Transação abortada.<br>".$ex->getMessage());
 			}
 		}
 
@@ -62,7 +62,7 @@
 				self::$conn->commit();
 				self::$conn->close();
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao executar o commit da transação.</br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao executar o commit da transação.<br>".$ex->getMessage());
 			}
 		}
 
@@ -71,7 +71,7 @@
 				self::$conn->rollback();
 				self::$conn->close();
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao executar o rollback da transação.</br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao executar o rollback da transação.<br>".$ex->getMessage());
 			}
 		}
 		
@@ -85,7 +85,7 @@
 					return null;
 				}
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao listar os dados.</br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao listar os dados.<br>".$ex->getMessage());
 			}finally{
 				self::$conn->close();
 			}
