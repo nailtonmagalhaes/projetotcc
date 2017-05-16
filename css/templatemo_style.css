@@ -86,13 +86,13 @@ h2 {
 .templatemo-login-form-2 {
 	background-color: rgba(13,13,13,0.25);
 	border-radius: 10px;
-	color: #ffff;
+	color: #fff;
 	font-weight: 300;
 	max-width: 650px;
 	padding: 0 30px 30px 30px;
 	margin: 10px auto 0 auto;
 }
-.templatemo-login-form-2 h1 { color: #ffff; margin-bottom: 40px; }
+.templatemo-login-form-2 h1 { color: #fff; margin-bottom: 40px; }
 .templatemo-login-form-2 a { color: #DBDBDB; }
 .templatemo-login-form-2 .form-control {
 	background-color: rgba(83, 78, 78, 0.35);
