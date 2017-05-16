@@ -68,9 +68,10 @@
             //                                        console.log(view);
 //                                                      console.log(data[contador]);
 //                                                      console.log('OIoi')
-//                                                      console.log(data[contador].id)
-                                                    element.attr("idTurma",data[contador].id);
-                                                    element.click(function(){ turmaDialog($(this).attr('idturma')) })
+                                                      console.log(data[contador])
+                                                    element.attr("idTurma",data[contador].IdTurma);
+                                                    element.attr("id",data[contador].id);
+                                                    element.click(function(){ turmaDialog($(this).attr('id'),$(this).attr('idturma')) })
                                                     contador++;
                                                 }
                                             });	
@@ -82,7 +83,7 @@
                                 }
                             })
                             
-                            function turmaDialog(id){
+                            function turmaDialog(id,idturma){
                                 
 //                                console.log('TESTE')
 //                                console.log(id)
@@ -93,14 +94,14 @@
                                 $.ajax({
                                         url: "calendario_turma.php"
                                         ,type: "POST"
-                                        ,data: 'IdTurma='+id
+                                        ,data: 'Id='+id+'&IdTurma='+idturma
                                         ,dataType: 'json'
                                         ,success: function(data){
                                             $.each(data,function(idx,elem){
                                                 
 //                                                  console.log(idx,elem)
-                                                  
-                                                  var checkbox = '<label><div class="checkbox"><input name="box" type="checkbox" IdAluno="'+elem.IdAluno+'" IdTurma="'+elem.IdTurma+'" NumeroMatricula="'+elem.NumeroMatricula+'"/>'+elem.Nome+'</div></label></br>';
+//                                                  console.log(elem,1)
+                                                  var checkbox = '<label><div class="checkbox"><input name="box" type="checkbox" FreqId="'+(elem.freqId>0?elem.freqId:0)+'" IdDiaSemana="'+elem.Id+'" IdAluno="'+elem.IdAluno+'" IdTurma="'+elem.IdTurma+'" NumeroMatricula="'+elem.NumeroMatricula+'"'+(elem.Presente==1?'checked':'')+'/>'+elem.Nome+'</div></label></br>';
                                                 
 //                                                console.log(checkbox)
                                                 inputs +=checkbox;
@@ -120,11 +121,12 @@
                                                     
                                                     var campo = '';
 
-                                                    $('input[name="box"]:checked').each(function(idx,elm){
-                                                        campo += '&idaluno'+idx+'='+$(elm).attr('idaluno')+'&idturma'+idx+'='+$(elm).attr('idturma')+'&numeromatricula'+idx+'='+$(elm).attr('numeromatricula')+'&total='+idx
+                                                    $('input[name="box"]').each(function(idx,elm){
+//                                                        console.log(elm.checked)
+                                                        campo += '&idaluno'+idx+'='+$(elm).attr('idaluno')+'&idturma'+idx+'='+$(elm).attr('idturma')+'&numeromatricula'+idx+'='+$(elm).attr('numeromatricula')+'&IdDiaSemana'+idx+'='+$(elm).attr('IdDiaSemana')+'&FreqId'+idx+'='+$(elm).attr('freqid')+'&Presenca'+idx+'='+elm.checked+'&total='+idx
                                                     })
                                                     
-//                                                    console.log(campo)
+                                                    console.log(campo)
                                                     return new Promise(function (resolve) {
 //                                                      resolve([
                                                           $.ajax({
@@ -138,7 +140,7 @@
                                                                     if(!data){
                                                                         swal("Sucesso!","Frequencias foram salvas!",'success')
                                                                     } else {
-                                                                        swal("Houve algum erro!","E possivel que algo tenha dado errado!",'error')
+                                                                        swal("Houve algum erro!",data,'error')
                                                                     }
                                                                 }
                                                             })
