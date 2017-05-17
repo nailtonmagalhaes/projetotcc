@@ -1,6 +1,7 @@
 <?php 
 	include_once "menu.php";
-    include_once 'includes.php';
+    include_once '../conf/acesso-dados.php';
+    include_once 'professor.php';
  ?>
 
     
@@ -35,7 +36,8 @@
                         <tbody> 
                             <?php 
                                 try{
-                                    $resultado = listar("SELECT * FROM tbPessoa WHERE Situacao = 1 AND Perfil = 2");
+                                    $p = new Professor();
+                                    $resultado = $p->listar();
                                     if ($resultado && $resultado->num_rows > 0) {
                                         while($row = $resultado->fetch_assoc()){                                                                                                                      
                                             $id = $row["Id"];

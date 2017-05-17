@@ -32,7 +32,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
 
         function carregarDados(){
-            $resultado = listar("SELECT t.Id, t.DataInicio, t.Ativo, date_format(t.DataInicio, '%d/%m/%Y') DataInicioFormatada,
+            $resultado = AcessoDados::listar("SELECT t.Id, t.DataInicio, t.Ativo, date_format(t.DataInicio, '%d/%m/%Y') DataInicioFormatada,
                                     c.Id AS IdCurso, c.Descricao, c.Duracao
                                     FROM tbTurma t 
                                     INNER JOIN tbCurso c ON c.Id = t.IdCurso
@@ -49,7 +49,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 $this->turCurso->crsDuracao = $row["Duracao"];
 
 /***************CARREGA OS DIAS DA SEMANA DA TURMA*/
-                $dias = listar("SELECT
+                $dias = AcessoDados::listar("SELECT
                                 hs.Id, hs.HoraInicio, hs.HoraTermino,
                                 d.Id AS IdDiaSemana, d.Dia
                                 FROM tbTurma_has_DiaSemana hs 
@@ -72,7 +72,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 }
 
 /***************CARREGA OS PROFESSORES DA TURMA*/
-                $professores = listar("SELECT IdProfessor, Tipo FROM tbProfessor_has_Turma IdTurma WHERE IdTurma = ".$this->turId);
+                $professores = AcessoDados::listar("SELECT IdProfessor, Tipo FROM tbProfessor_has_Turma IdTurma WHERE IdTurma = ".$this->turId);
                 if($professores && $professores->num_rows > 0){
                     while($rowprof = $professores->fetch_assoc()){
                         $tprofessor = new ProfessorHasTurma();

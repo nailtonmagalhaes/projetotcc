@@ -67,7 +67,7 @@
 		}
 		
 		public function carregarDados(){
-			$resultado = listar("SELECT Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, COALESCE(Situacao, 1) AS Situacao FROM tbPessoa WHERE Id = ".$this->pesId);
+			$resultado = AcessoDados::listar("SELECT Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, COALESCE(Situacao, 1) AS Situacao FROM tbPessoa WHERE Id = ".$this->pesId);
             if ($resultado && $resultado->num_rows > 0) {
                 $row = $resultado->fetch_assoc();                                                                                                                   
                 $this->pesNome = $row["Nome"];
@@ -79,7 +79,7 @@
 				$this->pesSexo = $row["Sexo"];
 				$this->pesDataNascimento = $row["DataNascimento"];
 
-				$listaEnderecos = listar("SELECT e.Id, e.Logradouro, e.Bairro, e.Numero, e.Complemento, e.Cep,
+				$listaEnderecos = AcessoDados::listar("SELECT e.Id, e.Logradouro, e.Bairro, e.Numero, e.Complemento, e.Cep,
 											c.Id AS IdCidade, c.Nome, 
 											est.Id as IdEstado, est.Nome as NomeEstado, est.Sigla
 											FROM tbEndereco e
@@ -118,38 +118,44 @@
 		}
 
 		public function salvarDados(){
-			$sql = "";
-			$sucesso = (bool)false;
-			//echo "</br>--------------------------------------------------- ssss".$sucesso;
-			if($this->pesId > 0){
-				//echo "</br>-------------------------------------------------- UPDATE";
-				$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId;
-				//echo "</br>--------------------------------------------------- SQL: ".$sql;
-				//echo "</br>--------------------------------------------------- SUCESSO ANTES: ".$sucesso;
-				$sucesso = alterar($sql);
-				//echo "</br>--------------------------------------------------- SUCESSO DEPOIS: ".$sucesso;
-				
-			}else{
-				$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', '".$this->pesCpf."', '".$this->pesRg."', ".$this->pesSexo.", '".$this->pesDataNascimento."', ".$this->pesPerfil.", '".$this->pesSenha."', ".$this->pesAtivo.");";
-				$this->pesId = insere($sql);
+			try{
+				AcessoDados::abreTransacao();
+				$sql = "";
+				$sucesso = (bool)false;
+				//echo "</br>--------------------------------------------------- ssss".$sucesso;
 				if($this->pesId > 0){
-					$sucesso = true;
+					//echo "</br>-------------------------------------------------- UPDATE";
+					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId;
+					//echo "</br>--------------------------------------------------- SQL: ".$sql;
+					//echo "</br>--------------------------------------------------- SUCESSO ANTES: ".$sucesso;
+					$sucesso = AcessoDados::alterar($sql);
+					//echo "</br>--------------------------------------------------- SUCESSO DEPOIS: ".$sucesso;
+					
+				}else{
+					$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', '".$this->pesCpf."', '".$this->pesRg."', ".$this->pesSexo.", '".$this->pesDataNascimento."', ".$this->pesPerfil.", '".$this->pesSenha."', ".$this->pesAtivo.");";
+					$this->pesId = AcessoDados::inserir($sql);
+					if($this->pesId > 0){
+						$sucesso = true;
+					}
 				}
-			}
 
-			if($sucesso)
-			{
-				foreach($this->pesEnderecos as $e){
-					$e->endPessoa = $this;
-					$e->salvarDados();
-				}
+				if($sucesso)
+				{
+					foreach($this->pesEnderecos as $e){
+						$e->endPessoa = $this;
+						$e->salvarDados();
+					}
 
-				foreach($this->pesTelefones as $t){
-					$t->telPessoa = $this;
-					$t->salvarDados();
+					foreach($this->pesTelefones as $t){
+						$t->telPessoa = $this;
+						$t->salvarDados();
+					}
 				}
+				AcessoDados::confirmaTransacao();
+				return $sucesso;
+			}catch(Exception $ex){
+				throw new Exception("Erro ao salvar os dados da pessoa.<br>".$ex->getMessage());
 			}
-			return $sucesso;
 		}
 	}
 ?>

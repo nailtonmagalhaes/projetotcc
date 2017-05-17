@@ -1,5 +1,6 @@
 <?php 
 	include_once "menu.php";
+    include_once '../conf/acesso-dados.php';
     include_once 'material.php';
  ?>
   

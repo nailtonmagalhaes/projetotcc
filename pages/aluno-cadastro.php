@@ -1,6 +1,8 @@
 <?php 
 	include_once "menu.php";
+    include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
+    include_once 'utils.php';
 
     $aluno = new Aluno();
 	$end1 = new Endereco();

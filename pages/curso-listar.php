@@ -1,6 +1,7 @@
 <?php 
 	include_once "menu.php";
-    include_once 'includes.php';
+    include_once '../conf/acesso-dados.php';
+    include_once 'curso.php';
  ?>
   
 <div id="page-wrapper">

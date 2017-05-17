@@ -51,7 +51,7 @@
                                         <input type="hidden" class="form-control campos" name="turId" id="turId" value="'.($turma->turId > 0 ? $turma->turId : null).'">
                                     </div>
                                     <div class="form-group">
-                                        <label for="turDataInicio">Data Início</label>
+                                        <label class="control-label" for="turDataInicio">Data Início</label>
                                         <div class="input-group date">
                                             <input type="text" class="form-control obrigatorio datepicker campos" name="turDataInicio" id="turDataInicio" value="'.$turma->turDataInicioFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>

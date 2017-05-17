@@ -1,6 +1,7 @@
  <?php 
 	include_once "menu.php";
-    include_once 'includes.php';
+    include_once '../conf/acesso-dados.php';
+    include_once 'aluno.php';
  ?>
 
     
@@ -33,7 +34,8 @@
                                 <tbody> 
                                         <?php 
                                                 try{
-                                                    $resultado = listar("SELECT * FROM tbPessoa where Situacao <> 0 AND Perfil = ".EPerfil::Aluno);
+                                                    $a = new Aluno();
+                                                    $resultado = $a->listar();
                                                     if ($resultado !=  null) {
                                                     if ($resultado->num_rows > 0) {
                                                     while($row = $resultado->fetch_assoc())

@@ -1,6 +1,7 @@
 <?php
 	
     include_once 'curso.php';
+	include_once '../conf/acesso-dados.php';
 
  ?>
 <!--Alert Top Cheio de Viadagem mais e Top--> 
@@ -31,8 +32,10 @@
 						die;
 					}		
 
-					try{ 				 			
+					try{
+						AcessoDados::abreTransacao();
 						$idinserido = $curso->salvarDados();
+						AcessoDados::confirmaTransacao();
 						if($idinserido){
 							header("location: ..\pages\curso-listar.php");
 							?>

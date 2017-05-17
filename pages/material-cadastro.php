@@ -1,6 +1,7 @@
 <?php 
 	include_once "menu.php";
     include_once 'material.php';
+    include_once '../conf/acesso-dados.php';
 
     $material = new Material();
 

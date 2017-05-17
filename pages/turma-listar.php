@@ -123,27 +123,6 @@
                 });
             }
         );
-
-
-        /*modo antigo
-        e.preventDefault();
-
-        var $form = $(this).closest('form');
-
-        swal({
-              title: "Deseja excluir a turma?",
-              text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "Excluir",
-              cancelButtonText: "Cancelar",
-              closeOnConfirm: false
-            },
-            function(){
-                $form.trigger('submit');
-            });
-        */
     });
 
 </script>

@@ -16,7 +16,7 @@
 		}
 
 		function carregarDados(){
-			$resultado = listar("SELECT Id, Descricao, Duracao, COALESCE(Ativo, 1) Ativo FROM tbCurso WHERE Id = ".$this->crsId);
+			$resultado = AcessoDados::listar("SELECT Id, Descricao, Duracao, COALESCE(Ativo, 1) Ativo FROM tbCurso WHERE Id = ".$this->crsId);
             if ($resultado && $resultado->num_rows > 0) {
                 $row = $resultado->fetch_assoc();                                                                                                                   
                 $this->crsId = $row["Id"];

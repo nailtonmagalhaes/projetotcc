@@ -16,7 +16,7 @@
 	}
 
 class Mascaras{
-	function geraMascara($texto, $mascara){
+	public static function geraMascara($texto, $mascara){
 		if(empty($texto)) return "";
 
 		$maskared = '';

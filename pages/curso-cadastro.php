@@ -1,6 +1,7 @@
 <?php 
 	include_once "menu.php";
-    include_once 'includes.php';
+    include_once '../conf/acesso-dados.php';
+    include_once 'curso.php';
 
     $curso = new Curso();
 
@@ -33,12 +34,12 @@
 					                <input type="hidden" class="form-control" name="crsId" id="crsId" value="<?php echo $curso->crsId; ?>">
 					            </div>
 					            <div class="form-group">
-					                <label for="crsDescricao">Descrição</label>
+					                <label class="control-label" for="crsDescricao">Descrição</label>
 					                <input type="text" class="form-control obrigatorio" name="crsDescricao" id="crsDescricao" placeholder="Informe a descrição do curso" value="<?php echo $curso->crsDescricao; ?>">
 					                <span class='msg-crsDescricao'></span>
 					            </div>
 					            <div class="form-group">
-					                <label for="crsDuracao">Duração (horas)</label>
+					                <label class="control-label" for="crsDuracao">Duração (horas)</label>
 					                <input type="number" class="form-control obrigatorio" name="crsDuracao" id="crsDuracao" placeholder="Informe a duração do curso em horas" value="<?php echo $curso->crsDuracao; ?>">
 					                <span class='msg-crsDuracao'></span>
 					            </div>

@@ -170,12 +170,14 @@ function validaCampo(elm){
  	}
 
  	if(mensagem != ""){
+		$(elm).parent().removeClass("has-success").addClass("has-error");
  		if(caixa_msg != null){
          	caixa_msg.innerHTML = mensagem;
 			caixa_msg.style.display = "block";
 			caixa_msg.style.color = "#D2691E";        		
     	}
  	}else{
+		$(elm).parent().removeClass("has-error").addClass("has-success");
  		if(caixa_msg != null){
     		caixa_msg.style.display = "none";
 		}
