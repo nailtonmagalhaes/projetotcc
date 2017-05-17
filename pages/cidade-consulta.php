@@ -1,6 +1,6 @@
 <?php
+	include_once '../conf/acesso-dados.php';
 	include_once "cidade.php";
-
 	$estado = isset($_GET['estado']) ? $_GET['estado'] : ''; 
 	if(!empty($estado)){
 

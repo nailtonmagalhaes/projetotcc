@@ -1,6 +1,7 @@
 <?php 
 	include_once "menu.php";
-    include_once 'includes.php';
+	include_once "turma.php";
+    include_once '../conf/acesso-dados.php';
  ?>
   
 <div id="page-wrapper">

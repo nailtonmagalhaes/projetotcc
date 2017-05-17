@@ -1,5 +1,6 @@
 <?php
-    include_once 'includes.php';
+    include_once 'responsavel.php';
+    include_once 'aluno.php';
 
     class AlunoHasResponsavel{
         public $ahrResponsavel;

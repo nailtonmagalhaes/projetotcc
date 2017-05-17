@@ -1,6 +1,7 @@
 <?php
 
-    include_once 'includes.php';
+    include_once 'material.php';
+    include_once 'autor.php';
 
     class MaterialHasAutor{
         public $mhaAutor;       /*Autor*/

@@ -21,7 +21,7 @@
 		}
 
 		public function listarPorEstado($idEstado){
-			return listar("SELECT Id, IdEstado, Nome FROM tbCidade WHERE IdEstado = ".$idEstado." ORDER BY Nome");
+			return AcessoDados::listar("SELECT Id, IdEstado, Nome FROM tbCidade WHERE IdEstado = ".$idEstado." ORDER BY Nome");
 		}
 
 		public function listar(){

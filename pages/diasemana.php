@@ -1,5 +1,4 @@
 <?php
-    include_once '../conf/acesso-dados.php';
     class DiaSemana{
         public $disId;
         public $disDia;
@@ -12,7 +11,7 @@
         }
 
         public function listar(){
-            return listar("SELECT Id, Dia FROM tbDiaSemana ORDER BY Id");
+            return AcessoDados::listar("SELECT Id, Dia FROM tbDiaSemana ORDER BY Id");
         }
 
         public function carregarDados(){

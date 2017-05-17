@@ -1,7 +1,5 @@
 <?php
-	include_once '../conf/database.php';
     include_once 'curso-has-material.php';
-
 	class Curso{
 		public $crsId;
 		public $crsDescricao;
@@ -32,23 +30,23 @@
 		}
 
 		function excluirLogicamente(){
-			return insere("UPDATE tbCurso SET Ativo = 0 WHERE Id = ".$this->crsId);
+			return AcessoDados::inserir("UPDATE tbCurso SET Ativo = 0 WHERE Id = ".$this->crsId);
 		}
 
 		function excluirFisicamente(){
-			return insere("DELETE FROM tbCurso WHERE Id = ".$this->crsId);
+			return AcessoDados::inserir("DELETE FROM tbCurso WHERE Id = ".$this->crsId);
 		}
 
 		function salvarDados(){
 			if($this->crsId > 0){
-				return alterar("UPDATE tbCurso SET Descricao = '".$this->crsDescricao."', Duracao = ".$this->crsDuracao.", Ativo = ".$this->crsAtivo." WHERE Id = ".addslashes($this->crsId));
+				return AcessoDados::alterar("UPDATE tbCurso SET Descricao = '".$this->crsDescricao."', Duracao = ".$this->crsDuracao.", Ativo = ".$this->crsAtivo." WHERE Id = ".addslashes($this->crsId));
 			}else{
-				return insere("INSERT INTO tbCurso (Descricao, Duracao, Ativo) VALUES ('".$this->crsDescricao."', ".$this->crsDuracao.", 1)");
+				return AcessoDados::inserir("INSERT INTO tbCurso (Descricao, Duracao, Ativo) VALUES ('".$this->crsDescricao."', ".$this->crsDuracao.", 1)");
 			}
 		}
 
 		function listar(){
-			return listar("SELECT Id, Descricao, Duracao, Ativo, CASE WHEN Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END AS Situacao FROM tbCurso ORDER BY Descricao");
+			return AcessoDados::listar("SELECT Id, Descricao, Duracao, Ativo, CASE WHEN Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END AS Situacao FROM tbCurso ORDER BY Descricao");
 		}
 	}
 ?>

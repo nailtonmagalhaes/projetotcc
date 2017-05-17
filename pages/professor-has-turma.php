@@ -1,4 +1,7 @@
 <?php
+    include_once 'tipo-professor.php';
+    include_once 'professor.php';
+    include_once 'turma.php';
     class ProfessorHasTurma{
         public $phtTipo;
         public $phtTurma;
@@ -25,11 +28,15 @@
         }
 
         public function salvarDados(){
+            
             $professorcommesmaturma = AcessoDados::listar("SELECT * FROM tbProfessor_has_Turma WHERE IdTurma = ".$this->phtTurma->turId);
+
             if($professorcommesmaturma != null && $professorcommesmaturma->num_rows > 0){
+                echo "entrou no update";
                 $sql = "UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtIdProfessor.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId.";";
                 return AcessoDados::alterar($sql);
             }else{
+                echo "entrou no insert";
                 $sql = "INSERT INTO tbProfessor_has_Turma(IdProfessor, IdTurma, Tipo) VALUES (".$this->phtIdProfessor.", ".$this->phtTurma->turId.", ".$this->phtTipo.");";
                 return AcessoDados::inserir($sql);
             }

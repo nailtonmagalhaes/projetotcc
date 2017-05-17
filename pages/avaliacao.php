@@ -1,6 +1,6 @@
 <?php
 
-    include_once 'includes.php';
+    include_once 'tipo-avaliacao.php';
 
     class Avaliacao{
         public $avaId;

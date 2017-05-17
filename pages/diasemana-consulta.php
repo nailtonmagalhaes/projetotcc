@@ -1,5 +1,5 @@
 <?php
-	include_once "../conf/database.php";
+	include_once '../conf/acesso-dados.php';
 	include_once "diasemana.php";
 		
 	$dias = array();

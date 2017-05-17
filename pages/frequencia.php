@@ -1,8 +1,4 @@
 <?php
-
-//    include_once 'includes.php';
-//    include_once '../conf/database.php';
-    include_once '../conf/acesso-dados.php';
     
     class Frequencia{
         public $frqId;

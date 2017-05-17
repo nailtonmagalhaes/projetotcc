@@ -1,7 +1,5 @@
 <?php
 
-    include_once 'includes.php';
-
 	class Autor{
 
 		public $autId;

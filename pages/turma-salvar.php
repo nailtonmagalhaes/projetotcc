@@ -1,4 +1,5 @@
 <?php
+    ini_set("display_erros", true);
     include_once 'turma.php';
     include_once '../conf/acesso-dados.php';
     date_default_timezone_set('America/Sao_Paulo');

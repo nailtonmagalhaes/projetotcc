@@ -23,17 +23,8 @@
 
 		public static function inserir($sql){
 			try{
-				echo "<br>SQL: ".$sql."<br>";
-				if(self::$conn != null){
-					echo "Conexão antes de inserir:<br>";
-					print_r(self::$conn);
-				}else{
-					echo "A conexão está nula.<br>";
-				}
                 self::$conn->query($sql);
                 $idinserido = self::$conn->insert_id;
-				echo "Conexão depois de inserir:<br>";
-				print_r(self::$conn);
                 return $idinserido;
             }catch(mysqli_sql_exception $ex){
                 self::abortaTrasacao();
@@ -76,9 +67,10 @@
 		}
 		
 		public static function listar($sql){
+			$connCons;
 			try{
-				self::$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-				$resultado = self::$conn->query($sql);
+				$connCons = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+				$resultado = $connCons->query($sql);
 				if ($resultado && $resultado->num_rows > 0) {
 					return $resultado;
 				}else{
@@ -87,7 +79,7 @@
 			}catch(Exception $ex){
 				throw new Exception("Ocorreu um erro ao listar os dados.<br>".$ex->getMessage());
 			}finally{
-				self::$conn->close();
+				$connCons->close();
 			}
 		}
 	}

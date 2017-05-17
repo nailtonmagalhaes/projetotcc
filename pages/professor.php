@@ -1,7 +1,6 @@
 <?php
         include_once 'pessoa.php';
 
-
                 class Professor extends Pessoa{
 
                 //Construtor

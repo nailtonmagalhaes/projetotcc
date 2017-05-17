@@ -1,6 +1,4 @@
 <?php
-    include_once 'includes.php';
-
 
     class Nota{
         public $notId;

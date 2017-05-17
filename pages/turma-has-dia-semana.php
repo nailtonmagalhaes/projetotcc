@@ -1,4 +1,7 @@
 <?php
+    include_once 'turma.php';
+    include_once 'diasemana.php';
+    include_once 'curso.php';
     class TurmaHasDiaSemana{
         public $thdId;
         public $thdDiaSemana;   /*DiaSemana*/

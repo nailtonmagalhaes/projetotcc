@@ -1,8 +1,17 @@
 <?php
+$consultaTurma = "select
+t.id as CodigoTurma, date(t.DataInicio), c.Descricao as Curso, d.Dia, time(hd.HoraInicio) HoraInicio, time (hd.HoraTermino) HoraTermino,
+(select p.Nome from tbprofessor_has_turma pht inner join tbpessoa p on p.id = pht.IdProfessor where pht.IdTurma = t.id and pht.Tipo = 1) ProfessorPrincipal,
+(select p.Nome from tbprofessor_has_turma pht inner join tbpessoa p on p.id = pht.IdProfessor where pht.IdTurma = t.id and pht.Tipo = 2) ProfessorApoio
+from tbTurma t
+inner join tbcurso c on c.Id = t.idcurso
+inner join tbturma_has_diasemana hd on t.id = hd.IdTurma
+inner join tbdiasemana d on d.Id = hd.IdDiaSemana
+";
+
     include_once 'professor-has-turma.php';
     include_once 'turma-has-dia-semana.php';
     include_once 'matricula.php';
-    include_once '../conf/acesso-dados.php';
     class Turma{
         public $turId;
         public $turCurso;
@@ -91,7 +100,7 @@
 		}
 
         function listar(){
-            return listar("
+            return AcessoDados::listar("
                 SELECT t.Id, t.IdCurso, t.DataInicio, CASE WHEN t.Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END Situacao, date_format(t.DataInicio, '%d/%m/%Y') DataInicioFormatada, c.Descricao AS Curso, c.Duracao
                 FROM tbTurma t
                 INNER JOIN tbCurso c ON c.Id = t.IdCurso");
@@ -110,20 +119,14 @@
 
                 if($sucesso){
                     
-                    foreach($this->turProfessorHasTurma as $prof){
-                        $prof->phtTurma = $this;
-                        $sucesso = $prof->salvarDados();
-                        if(!$sucesso){
-                            throw new Exception("Ocorreu um erro ao salvar os professores.<br>");
-                        }
-                    }
-
                     foreach($this->turHasDiaSemana as $dia){
                         $dia->thdTurma = $this;
                         $sucesso = $dia->salvarDados();
-                        if(!$sucesso){
-                            throw new Exception("Ocorreu um erro ao salvar os dias da semana.<br>");
-                        }
+                    }
+                    
+                    foreach($this->turProfessorHasTurma as $prof){
+                        $prof->phtTurma = $this;
+                        $sucesso = $prof->salvarDados();
                     }
                     
                 }
