@@ -159,5 +159,11 @@
 				return date('d/m/Y', strtotime($this->pesDataNascimento));
 			}
 		}
+
+		public function Logar(){
+			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 1 ";
+			//echo "----------------------------------------- SQL: ".$sql;
+			return AcessoDados::listar($sql);
+		}
 	}
 ?>
