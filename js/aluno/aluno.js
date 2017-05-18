@@ -9,6 +9,9 @@ function mostrarEnderecoSecundario(elm){
         });
     }else{
         comp.style.display = 'none';
+        $("#pnenderecosecundario input, select").each(function(idx, elm){
+            $(elm).removeClass("obrigatorio");
+        });
     }
 };
 
@@ -77,15 +80,14 @@ $(document).ready(function(){
         return false;   
     };
 
-    $(".datepicker").datepicker({
+    $('.input-group.date').datepicker({
         format: "dd/mm/yyyy",
-        language: "pt-BR",
-        orientation: "bottom",
-        todayHighlight: true,
-        autoclose: true,
         endDate: '0',
-        calendarWeeks: true,
+        language: "pt-BR",
+        autoclose: true,
         clearBtn: true,
+        todayHighlight: true,
+        calendarWeeks: true,
     });
 
     //Evento que será disparado sempre que um campo do tipo "select" for alterado.

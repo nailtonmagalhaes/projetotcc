@@ -160,29 +160,59 @@ function validaCampo(elm){
  	}else if((tipo == "email" || $(elm).hasClass("email")) && !isEmail($(elm).val())){
  		mensagem = "Informe um e-mail válido";
  	}else if($(elm).hasClass("cpf") && !validarCPF($(elm).val())){
- 		mensagem = "O CPF informado é inválido"
+ 		mensagem = "O CPF informado é inválido";
  	}else if($(elm).hasClass("cep") &&  $(elm).val().length > 0 && !isCEP($(elm).val())){
- 		mensagem = "O CEP informado não é válido"
+ 		mensagem = "O CEP informado não é válido";
  	}else if($(elm).hasClass("telefone") && !isTelefone($(elm).val())){
- 		mensagem = "O Telefone informado não é válido"
+ 		mensagem = "O Telefone informado não é válido";
  	}else if($(elm).hasClass("celular") && !isCelular($(elm).val())){
- 		mensagem = "O Celular informado não é válido"
- 	}
+ 		mensagem = "O Celular informado não é válido";
+ 	}else if($(elm).hasClass("data")&&!validaData($(elm).val())){
+		mensagem = "A data informada é inválida";			
+	}
 
  	if(mensagem != ""){
-		$(elm).parent().removeClass("has-success").addClass("has-error");
+		if($(elm).hasClass("data")){
+			$(elm).parent().parent().addClass("has-error");
+		}else{
+			$(elm).parent().addClass("has-error");
+		}
  		if(caixa_msg != null){
          	caixa_msg.innerHTML = mensagem;
 			caixa_msg.style.display = "block";
 			caixa_msg.style.color = "#D2691E";        		
     	}
  	}else{
-		$(elm).parent().removeClass("has-error").addClass("has-success");
+		if($(elm).hasClass("data")){
+			$(elm).parent().parent().removeClass("has-error");
+		}else{
+			$(elm).parent().removeClass("has-error");
+		}
  		if(caixa_msg != null){
     		caixa_msg.style.display = "none";
 		}
  	}
  	return mensagem == "";
+}
+
+function validaData(data) {
+	var expReg = /^((0[1-9]|[12]\d)\/(0[1-9]|1[0-2])|30\/(0[13-9]|1[0-2])|31\/(0[13578]|1[02]))\/(19|20)?\d{2}$/;
+	var aRet = true;
+	if (data.match(expReg)) {
+		var dia = data.substring(0,2);
+		var mes = data.substring(3,5);
+		var ano = data.substring(6,10);
+		if ((mes == 4 || mes == 6 || mes == 9 || mes == 11 ) && dia > 30) 
+		aRet = false;
+		else 
+		if ((ano % 4) != 0 && mes == 2 && dia > 28) 
+			aRet = false;
+		else
+			if ((ano%4) == 0 && mes == 2 && dia > 29)
+			aRet = false;
+	}  else 
+		aRet = false;  
+	return aRet;
 }
 
 function isNumber(texto) {

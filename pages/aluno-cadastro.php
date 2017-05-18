@@ -61,41 +61,43 @@ echo '
 						                <input type="hidden" class="form-control" name="alnId" id="alnId" value="'.$aluno->pesId.'">
 						            </div>
 						            <div class="form-group">
-						                <label for="alnNome">Nome</label>
+						                <label class="control-label" for="alnNome">Nome</label>
 						                <input type="text" class="form-control obrigatorio" name="alnNome" id="alnNome" placeholder="Nome" value="'.$aluno->pesNome.'">
 						                <span class="msg-alnNome"></span>
 						            </div>
 						            <div class="form-group">
-						                <label for="alnCpf">CPF</label>
+						                <label class="control-label" for="alnCpf">CPF</label>
 						                <input type="text" class="form-control obrigatorio cpf" name="alnCpf" id="alnCpf" placeholder="CPF" value="'.Mascaras::geraMascara($aluno->pesCpf, "###.###.###-##").'">
 						                <span class="msg-alnCpf"></span>
 						            </div>
 						            <div class="form-group">
-						                <label for="alnSenha">Senha de Acesso Ao Portal</label>
+						                <label class="control-label" for="alnSenha">Senha de Acesso Ao Portal</label>
 						                <input type="password" class="form-control obrigatorio" name="alnSenha" id="alnSenha" placeholder="Senha" value="'.$aluno->pesSenha.'">
 						                <span class="msg-alnSenha"></span>
 						            </div>
 						            <div class="form-group">
-						            	<label for="alnRg">RG</label>
+						            	<label class="control-label" for="alnRg">RG</label>
 						            	<input type="text" class="form-control obrigatorio rg" name="alnRg" id="alnRg" placeholder="RG" value="'.Mascaras::geraMascara($aluno->pesRg, "##.###.###-#").'">
 						            	<span class="msg-alnRg"></span>
 						            </div>
 						            <div class="form-group">
-                                        <label for="alnSexo">Sexo</label>
+                                        <label class="control-label" for="alnSexo">Sexo</label>
                                         <label class="radio-inline">
-	                                        <input type="radio" name="alnSexo" id="alnSexoMasculino" value="1"'.($aluno->pesSexo == 1 ? "checked" : null).'/>Masculino
+	                                        <input type="radio" name="alnSexo" id="alnSexoMasculino" value="1"'.($aluno->pesSexo == 1 || $aluno->pesSexo == null || $aluno->pesSexo == ""  ? "checked" : null).'/>Masculino
 	                                    </label>
 	                                    <label class="radio-inline">
 	                                        <input type="radio" name="alnSexo" id="alnSexoFeminino" value="2"'.($aluno->pesSexo == 2 ? "checked" : null).'/>Feminino
                                          </label>
 	                                </div>
-	                                <div class="form-group">
-						            	<label for="alnDataNascimento">Data Nascimento</label>
-						            	<input type="text" class="form-control datepicker" name="alnDataNascimento" id="alnDataNascimento" placeholder="Data Nascimento" value="'.date('d/m/Y', strtotime($aluno->pesDataNascimento)).'">
-						            	<span class="msg-alnDataNascimento"></span>
-						            </div>
+									<div class="form-group">
+                                        <label class="control-label" for="alnDataNascimento">Data Nascimento</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control obrigatorio datepicker data" name="alnDataNascimento" id="alnDataNascimento" value="'.date('d/m/Y', strtotime($aluno->pesDataNascimento)).'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        </div>
+                                        <span class="msg-alnDataNascimento"></span>
+                                    </div>
 					            	<div class="form-group" hidden>
-                                        <label for="alnPerfil">Perfil</label>
+                                        <label class="control-label" for="alnPerfil">Perfil</label>
                                     	<select class="form-control" name="alnPerfil" id="alnPerfil">
                                     		<option value="'.EPerfil::Aluno.'" '.(EPerfil::Aluno == $aluno->pesPerfil ? "selected" : null).'>Aluno</option>
 											<option value="'.EPerfil::Professor.'" '.(EPerfil::Professor == $aluno->pesPerfil ? "selected" : null).'>Professor</option>
@@ -104,7 +106,7 @@ echo '
 									    <span class="msg-alnPerfil"></span>
                                 	</div>
                                 	<div class="form-group"'.($aluno->pesId > 0 ? null : "hidden").'>
-                                		<label for="alnSituacao">Situação</label>
+                                		<label class="control-label" for="alnSituacao">Situação</label>
                                         <label class="radio-inline">
 	                                        <input type="radio" name="alnSituacao" id="alnSituacaoAtivo" value="1"'.($aluno->pesAtivo == 1 ? "checked" : null).'/>Ativo
 	                                    </label>
@@ -177,12 +179,12 @@ echo '
 	                           			<label>Endereço Principal</label>
 	                        		</div>
 						            <div class="form-group">
-						            	<label for="alnCep_1">Cep</label>
-						            	<input type="text"  class="form-control cep" name="alnCep_1" id="alnCep_1" placeholder="00.000-000" value="'.Mascaras::geraMascara($end1->endCep, "##.###-###").'">
+						            	<label class="control-label" for="alnCep_1">Cep</label>
+						            	<input type="text"  class="form-control cep obrigatorio" name="alnCep_1" id="alnCep_1" placeholder="00.000-000" value="'.Mascaras::geraMascara($end1->endCep, "##.###-###").'">
 						            	<span class="msg-alnCep_1"></span>
 						            </div>
 								    <div class="form-group">
-								        <label for="alnEstado_1">Estado</label>
+								        <label class="control-label" for="alnEstado_1">Estado</label>
 								        <select class="form-control obrigatorio" name="alnEstado_1" id="alnEstado_1" style="color: gray;">
 								            <option value="" selected>Selecione um estado</option>';
 								                try{
@@ -198,8 +200,8 @@ echo '
 								        <span class="msg-alnEstado_1"></span>
 								    </div>
 									<div class="form-group">
-								        <label for="alnCidade_1">Cidade</label>
-								        <select class="form-control cidade" name="alnCidade_1" id="alnCidade_1" style="color: gray;">
+								        <label class="control-label" for="alnCidade_1">Cidade</label>
+								        <select class="form-control cidade obrigatorio" name="alnCidade_1" id="alnCidade_1" style="color: gray;">
 								            <option value="0">Selecione uma cidade</option>';
 											if($qtdEnd >= 1 ){
 												if($cidades1->num_rows > 0){
@@ -212,22 +214,22 @@ echo '
 								        <span class="msg-alnCidade_1"></span>
 								    </div>
 	                                <div class="form-group">
-						            	<label for="alnLogradouro_1">Logradouro</label>
-						            	<input type="text" class="form-control" name="alnLogradouro_1" id="alnLogradouro_1" placeholder="Logradouro" value="'.$end1->endLogradouro.'">
+						            	<label class="control-label" for="alnLogradouro_1">Logradouro</label>
+						            	<input type="text" class="form-control obrigatorio" name="alnLogradouro_1" id="alnLogradouro_1" placeholder="Logradouro" value="'.$end1->endLogradouro.'">
 						            	<span class="msg-alnLogradouro_1"></span>
 						            </div>
 						            <div class="form-group">
-						            	<label for="alnBairro_1">Bairro</label>
-						            	<input type="text" class="form-control" name="alnBairro_1" id="alnBairro_1" placeholder="Bairro" value="'.$end1->endBairro.'">
+						            	<label class="control-label" for="alnBairro_1">Bairro</label>
+						            	<input type="text" class="form-control obrigatorio" name="alnBairro_1" id="alnBairro_1" placeholder="Bairro" value="'.$end1->endBairro.'">
 						            	<span class="msg-alnBairro_1"></span>
 						            </div>
 						            <div class="form-group">
-						            	<label for="alnNumeroCasa_1">Numero</label>
-						            	<input type="number" class="form-control" name="alnNumeroCasa_1" id="alnNumeroCasa_1" placeholder="Numero " value="'.$end1->endNumero.'">
+						            	<label class="control-label" for="alnNumeroCasa_1">Numero</label>
+						            	<input type="number" class="form-control obrigatorio" name="alnNumeroCasa_1" id="alnNumeroCasa_1" placeholder="Numero " value="'.$end1->endNumero.'">
 						            	<span class="msg-alnNumeroCasa_1"></span>
 						            </div>
 						            <div class="form-group">
-						            	<label for="alnComplemento_1">Complemento</label>
+						            	<label class="control-label" for="alnComplemento_1">Complemento</label>
 						            	<input type="tet" class="form-control" name="alnComplemento_1" id="alnComplemento_1" placeholder="Complemento" value="'.$end1->endComplemento.'">
 						            	<span class="msg-alnComplemento_1"></span>
 						            </div>
@@ -246,13 +248,13 @@ echo '
 	                           			<label>Endereço Secundário</label>
 	                        		</div>
                                    	<div class="form-group">
-                                        <label for="alnCep_2">CEP</label>
+                                        <label class="control-label" for="alnCep_2">CEP</label>
                                         <input type="text" class="form-control cep" name="alnCep_2" id="alnCep_2" placeholder="Cep" value="'.Mascaras::geraMascara($end2->endCep, "##.###-###").'">
                                         <span class="msg-alnCep_2"></span>
                                     </div>
 								    <div class="form-group">
-								        <label for="alnEstado_2">Estado</label>
-								        <select class="form-control obrigatorio" name="alnEstado_2" id="alnEstado_2" style="color: gray;">
+								        <label class="control-label" for="alnEstado_2">Estado</label>
+								        <select class="form-control" name="alnEstado_2" id="alnEstado_2" style="color: gray;">
 								            <option value="" selected >Selecione um estado</option>';
 								                try{
 								                    if ($estados && $estados->num_rows > 0) {
@@ -267,7 +269,7 @@ echo '
 								        <span class="msg-alnEstado_2"></span>
 								    </div>
 									<div class="form-group">
-								        <label for="alnCidade_2">Cidade</label>
+								        <label class="control-label" for="alnCidade_2">Cidade</label>
 								        <select class="form-control cidade" name="alnCidade_2" id="alnCidade_2" style="color: gray;">
 								            <option value="0">Selecione uma cidade</option>';
 											if($qtdEnd >= 2 ){
@@ -281,22 +283,22 @@ echo '
 								        <span class="msg-alnCidade_2"></span>
 								    </div>
                                    	<div class="form-group">
-                                        <label for="alnLogradouro_2">Logradouro</label>
+                                        <label class="control-label" for="alnLogradouro_2">Logradouro</label>
                                         <input type="text" class="form-control" name="alnLogradouro_2" id="alnLogradouro_2" placeholder="Logradouro" value="'.$end2->endLogradouro.'">
                                         <span class="msg-alnLogradouro_2"></span>
                                     </div>
                                    	<div class="form-group">
-                                        <label for="alnBairro_2">Bairro</label>
+                                        <label class="control-label" for="alnBairro_2">Bairro</label>
                                         <input type="text" class="form-control" name="alnBairro_2" id="alnBairro_2" placeholder="Bairro" value="'.$end2->endBairro.'">
                                         <span class="msg-alnBairro_2"></span>
                                     </div>
                                    	<div class="form-group">
-                                        <label for="alnNumero_2">Número</label>
+                                        <label class="control-label" for="alnNumero_2">Número</label>
                                         <input type="number" class="form-control" name="alnNumero_2" id="alnNumero_2" placeholder="Numero" value="'.$end2->endNumero.'">
                                         <span class="msg-alnNumero_2"></span>
                                     </div>
                                    	<div class="form-group">
-                                        <label for="alnComplemento_2">Complemento</label>
+                                        <label class="control-label" for="alnComplemento_2">Complemento</label>
                                         <input type="text" class="form-control" name="alnComplemento_2" id="alnComplemento_2" placeholder="Complemento" value="'.$end2->endComplemento.'">
                                         <span class="msg-alnComplemento_2"></span>
                                     </div>
@@ -320,5 +322,4 @@ echo '
 
 <script type="text/javascript" src="../js/js-validacao-generica.js"></script>
 <script type="text/javascript" src="../js/aluno/aluno.js"></script>
-
-
+<script type="text/javascript" src="../js/utils.js"></script>

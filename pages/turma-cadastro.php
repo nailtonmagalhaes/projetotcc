@@ -48,18 +48,18 @@
                             <div class="col-lg-8">
                                 <form role="form" id="formcadastrar" action="turma-salvar.php" method="post">
                                     <div class="form-group">
-                                        <input type="hidden" class="form-control campos" name="turId" id="turId" value="'.($turma->turId > 0 ? $turma->turId : null).'">
+                                        <input type="hidden" class="form-control" name="turId" id="turId" value="'.($turma->turId > 0 ? $turma->turId : null).'">
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turDataInicio">Data Início</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control obrigatorio datepicker campos" name="turDataInicio" id="turDataInicio" value="'.$turma->turDataInicioFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" class="form-control obrigatorio datepicker data" name="turDataInicio" id="turDataInicio" value="'.$turma->turDataInicioFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <span class="msg-turDataInicio"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turCurso">Curso</label>
-                                        <select class="form-control obrigatorio campos" name="turCurso" id="turCurso" style="color: gray;">
+                                        <select class="form-control obrigatorio" name="turCurso" id="turCurso" style="color: gray;">
                                             <option value="">Selecione um curso</option>';
                                             try{
                                                 if ($cursos && $cursos->num_rows > 0) {
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turProfessorPrincipal">Professor Principal</label>
-                                        <select class="form-control obrigatorio campos" name="turProfessorPrincipal" id="turProfessorPrincipal" style="color: gray;">
+                                        <select class="form-control obrigatorio" name="turProfessorPrincipal" id="turProfessorPrincipal" style="color: gray;">
                                             <option value="">Selecione um professor</option>';
                                             try{
                                                 if ($professores && $professores->num_rows > 0) {
@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="turProfessorApoio">Professor Apoio</label>
-                                        <select class="form-control obrigatorio campos" name="turProfessorApoio" id="turProfessorApoio" style="color: gray;">
+                                        <select class="form-control obrigatorio" name="turProfessorApoio" id="turProfessorApoio" style="color: gray;">
                                             <option value="">Selecione um professor</option>';
                                             try{
                                                 if ($professores && $professores->num_rows > 0) {
@@ -157,6 +157,7 @@
 
 <script type="text/javascript" src="../js/js-validacao-generica.js"></script>
 <script type="text/javascript" src="../js/turma/turma.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
 
 
 <script>    
