@@ -161,8 +161,10 @@
 		}
 
 		public function Logar(){
-			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 1 ";
-			//echo "----------------------------------------- SQL: ".$sql;
+			$sql="";
+			$sql = "SELECT Id, Nome, Cpf, Perfil FROM tbPessoa WHERE (Cpf = '".$this->pesCpf"') AND ('Senha` = '".this->sha1($senha) ."') AND (`Situacao` = 1) LIMIT 1";
+			
+			//echo "-------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);
 		}
 	}
