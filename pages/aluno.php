@@ -23,7 +23,7 @@
 			return parent::listar();
 		}
 
-		public function addResponsavel( Responsavel $resp ) {
+		public function addResponsavel(Responsavel $resp) {
 			$this->alnResponsaveis[] = $resp;
 		}
 		
@@ -32,8 +32,17 @@
 		}
 
 		public function salvarDados(){
-			$salvou = parent::salvarDados();
-			return $salvou;
+			try{
+				AcessoDados::abreTransacao();
+				$salvou = parent::salvarDados();
+				//foreach($this->alnResponsaveis as $responsavel){
+
+				//}
+				AcessoDados::confirmaTransacao();
+				return $salvou;
+			}catch(Exception $ex){
+				throw new Exception("Ocorreu um erro ao salvar o aluno.<br>".$ex->getMessage());
+			}
 		}
 	}
 ?>

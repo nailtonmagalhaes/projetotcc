@@ -2,6 +2,7 @@
     include_once 'perfil.php';
     include_once 'endereco.php';
     include_once 'telefone.php';
+    include_once 'sexo.php';
 	
 	class Pessoa{
 		public $pesId;
@@ -32,7 +33,7 @@
 			$this->pesNome = "";
 			$this->pesCpf = "";
 			$this->pesRg = "";
-			$this->pesSexo = "";
+			$this->pesSexo = ESexo::Masculino;
 			$this->pesSenha = "";
 			$this->pesDataNascimento = "";
 			$this->pesPerfil = EPerfil::None;
@@ -119,26 +120,20 @@
 
 		public function salvarDados(){
 			try{
-				AcessoDados::abreTransacao();
 				$sql = "";
 				$sucesso = (bool)false;
-				//echo "</br>--------------------------------------------------- ssss".$sucesso;
 				if($this->pesId > 0){
-					//echo "</br>-------------------------------------------------- UPDATE";
-					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId;
-					//echo "</br>--------------------------------------------------- SQL: ".$sql;
-					//echo "</br>--------------------------------------------------- SUCESSO ANTES: ".$sucesso;
-					$sucesso = AcessoDados::alterar($sql);
-					//echo "</br>--------------------------------------------------- SUCESSO DEPOIS: ".$sucesso;
-					
+					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId.";";
+					$sucesso = AcessoDados::alterar($sql);					
 				}else{
 					$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', '".$this->pesCpf."', '".$this->pesRg."', ".$this->pesSexo.", '".$this->pesDataNascimento."', ".$this->pesPerfil.", '".$this->pesSenha."', ".$this->pesAtivo.");";
 					$this->pesId = AcessoDados::inserir($sql);
+
 					if($this->pesId > 0){
 						$sucesso = true;
 					}
 				}
-
+		
 				if($sucesso)
 				{
 					foreach($this->pesEnderecos as $e){
@@ -151,10 +146,17 @@
 						$t->salvarDados();
 					}
 				}
-				AcessoDados::confirmaTransacao();
 				return $sucesso;
 			}catch(Exception $ex){
 				throw new Exception("Erro ao salvar os dados da pessoa.<br>".$ex->getMessage());
+			}
+		}
+
+		public function dataNascimentoFormatada(){
+			if(empty($this->pesDataNascimento)){
+				return "";
+			}else{
+				return date('d/m/Y', strtotime($this->pesDataNascimento));
 			}
 		}
 	}

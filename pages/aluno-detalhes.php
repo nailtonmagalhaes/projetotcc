@@ -1,11 +1,12 @@
 <?php
 	include_once "menu.php";
-    include_once 'includes.php';
+    include_once '../conf/acesso-dados.php';
+    include_once 'aluno.php';
 
 	if(count($_GET) > 0 && $_GET['id'] <> ""){
 		//$sql = "SELECT * FROM tbPessoa p inner join tbEndereco e  on p.id = e.idpessoa  WHERE p.Id = ".$_GET['id'];
 		$sql = "SELECT * From tbPessoa where id =".$_GET['id'];
-		 $resultado = listar($sql);
+		 $resultado = AcessoDados::listar($sql);
 		 $id;
 		 $nome;
 		 $cpf;

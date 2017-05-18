@@ -83,7 +83,7 @@ echo '
 						            <div class="form-group">
                                         <label class="control-label" for="alnSexo">Sexo</label>
                                         <label class="radio-inline">
-	                                        <input type="radio" name="alnSexo" id="alnSexoMasculino" value="1"'.($aluno->pesSexo == 1 || $aluno->pesSexo == null || $aluno->pesSexo == ""  ? "checked" : null).'/>Masculino
+	                                        <input type="radio" name="alnSexo" id="alnSexoMasculino" value="1"'.($aluno->pesSexo == ESexo::Masculino || $aluno->pesSexo == null || $aluno->pesSexo == ""  ? "checked" : null).'/>Masculino
 	                                    </label>
 	                                    <label class="radio-inline">
 	                                        <input type="radio" name="alnSexo" id="alnSexoFeminino" value="2"'.($aluno->pesSexo == 2 ? "checked" : null).'/>Feminino
@@ -92,19 +92,10 @@ echo '
 									<div class="form-group">
                                         <label class="control-label" for="alnDataNascimento">Data Nascimento</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control obrigatorio datepicker data" name="alnDataNascimento" id="alnDataNascimento" value="'.date('d/m/Y', strtotime($aluno->pesDataNascimento)).'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" class="form-control obrigatorio datepicker data" name="alnDataNascimento" id="alnDataNascimento" value="'.$aluno->dataNascimentoFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <span class="msg-alnDataNascimento"></span>
                                     </div>
-					            	<div class="form-group" hidden>
-                                        <label class="control-label" for="alnPerfil">Perfil</label>
-                                    	<select class="form-control" name="alnPerfil" id="alnPerfil">
-                                    		<option value="'.EPerfil::Aluno.'" '.(EPerfil::Aluno == $aluno->pesPerfil ? "selected" : null).'>Aluno</option>
-											<option value="'.EPerfil::Professor.'" '.(EPerfil::Professor == $aluno->pesPerfil ? "selected" : null).'>Professor</option>
-											<option value="'.EPerfil::Secretaria.'" '.(EPerfil::Secretaria == $aluno->pesPerfil ? "selected" : null).'>Secretaria</option>
-									    </select>
-									    <span class="msg-alnPerfil"></span>
-                                	</div>
                                 	<div class="form-group"'.($aluno->pesId > 0 ? null : "hidden").'>
                                 		<label class="control-label" for="alnSituacao">Situação</label>
                                         <label class="radio-inline">
@@ -178,6 +169,9 @@ echo '
 						            <div class="panel-heading">
 	                           			<label>Endereço Principal</label>
 	                        		</div>
+									<div class="form-group">
+						                <input type="hidden" class="form-control" name="alnIdEndereco1" id="alnIdEndereco1" value="'.$end1->endId.'">
+						            </div>
 						            <div class="form-group">
 						            	<label class="control-label" for="alnCep_1">Cep</label>
 						            	<input type="text"  class="form-control cep obrigatorio" name="alnCep_1" id="alnCep_1" placeholder="00.000-000" value="'.Mascaras::geraMascara($end1->endCep, "##.###-###").'">
@@ -202,7 +196,7 @@ echo '
 									<div class="form-group">
 								        <label class="control-label" for="alnCidade_1">Cidade</label>
 								        <select class="form-control cidade obrigatorio" name="alnCidade_1" id="alnCidade_1" style="color: gray;">
-								            <option value="0">Selecione uma cidade</option>';
+								            <option value="">Selecione uma cidade</option>';
 											if($qtdEnd >= 1 ){
 												if($cidades1->num_rows > 0){
 													while($cid1 = $cidades1->fetch_assoc()){
@@ -246,7 +240,10 @@ echo '
 					            <div class="panel panel-default" '.($qtdEnd < 2 ? "hidden" : null).' id="pnenderecosecundario">
 						            <div class="panel-heading">
 	                           			<label>Endereço Secundário</label>
-	                        		</div>
+	                        		</div>									
+									<div class="form-group">
+						                <input type="hidden" class="form-control" name="alnIdEndereco2" id="alnIdEndereco1" value="'.$end2->endId.'">
+						            </div>
                                    	<div class="form-group">
                                         <label class="control-label" for="alnCep_2">CEP</label>
                                         <input type="text" class="form-control cep" name="alnCep_2" id="alnCep_2" placeholder="Cep" value="'.Mascaras::geraMascara($end2->endCep, "##.###-###").'">
@@ -271,7 +268,7 @@ echo '
 									<div class="form-group">
 								        <label class="control-label" for="alnCidade_2">Cidade</label>
 								        <select class="form-control cidade" name="alnCidade_2" id="alnCidade_2" style="color: gray;">
-								            <option value="0">Selecione uma cidade</option>';
+								            <option value="">Selecione uma cidade</option>';
 											if($qtdEnd >= 2 ){
 												if($cidades2->num_rows > 0){
 													while($cid2 = $cidades2->fetch_assoc()){

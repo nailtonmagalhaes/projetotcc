@@ -1,4 +1,5 @@
-<?php //include_once 'menu.php'; 
+<?php
+    include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
     include_once 'utils.php';
  ?>
@@ -17,6 +18,7 @@
 						$end1 = new Endereco();
 						$tel1 = new Telefone();
 						$tel2 = new Telefone();
+						$tel3 = new Telefone();
 
 					    if(isset($_POST["alnId"])){
 							$aluno->pesId = $_POST["alnId"];
@@ -39,10 +41,26 @@
 						if(isset($_POST["alnDataNascimento"])){
 							$aluno->pesDataNascimento = date("Y-m-d", strtotime(str_replace('/','-', $_POST["alnDataNascimento"])));
 						}
-						if(isset($_POST["alnPerfil"])){
-							$aluno->pesPerfil = $_POST["alnPerfil"];
+						/*CONTATOS*/
+						if(isset($_POST["tipotelefone1"])){
+							$tel1->telTipo = $_POST["tipotelefone1"];
+							$tel1->telNumero = Mascaras::removeMascara($_POST["numerotelefone1"]);
+							$aluno->pesTelefones[] = $tel1;
 						}
-
+						if(isset($_POST["tipotelefone2"])){
+							$tel2->telTipo = $_POST["tipotelefone2"];
+							$tel2->telNumero = Mascaras::removeMascara($_POST["numerotelefone2"]);
+							$aluno->pesTelefones[] = $tel2;
+						}
+						if(isset($_POST["tipotelefone3"])){
+							$tel3->telTipo = $_POST["tipotelefone3"];
+							$tel3->telNumero = Mascaras::removeMascara($_POST["numerotelefone3"]);
+							$aluno->pesTelefones[] = $tel3;
+						}
+						/*ENDEREÇO PRINCIPAL*/
+						if(isset($_POST["alnIdEndereco1"])){
+							$end1->endId = $_POST["alnIdEndereco1"];
+						}
 						if(isset($_POST["alnCep_1"])){
 							$end1->endCep = Mascaras::removeMascara($_POST["alnCep_1"]);
 						}
@@ -67,6 +85,9 @@
 
 						if(isset($_POST["alnSegundoEndereco"])){
 							$end2 = new Endereco();
+							if(isset($_POST["alnIdEndereco2"])){
+								$end2->endId = $_POST["alnIdEndereco2"];
+							}
 							if(isset($_POST["alnCep_2"])){
 								$end2->endCep = Mascaras::removeMascara($_POST["alnCep_2"]);
 							}
@@ -97,7 +118,6 @@
 
 				    	try{ 	
 				            $insert = $aluno->salvarDados();
-			
 				            if($insert){
 			            		?>
 				            	<script>
