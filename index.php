@@ -16,14 +16,14 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 <div class="row">
 	<div class="col-xs-12">
 		<div class="jumbotron">
-			<h1>Welcome to <?php echo $settings->site_name;?></h1>
-			<p class="text-muted">An Open Source PHP User Management Framework. <?php //print_r($_SESSION);?></p>
+			<h1>Bem Vindo  <?php echo $settings->site_name;?></h1>
+			<p class="text-muted">Sistema MNP. <?php //print_r($_SESSION);?></p>
 			<p>
 			<?php if($user->isLoggedIn()){$uid = $user->data()->id;?>
-				<a class="btn btn-default" href="users/account.php" role="button">User Account &raquo;</a>
+				<a class="btn btn-default" href="users/account.php" role="button">Conta de Ususario &raquo;</a>
 			<?php }else{?>
-				<a class="btn btn-warning" href="users/login.php" role="button">Log In &raquo;</a>
-				<a class="btn btn-info" href="users/join.php" role="button">Sign Up &raquo;</a>
+				<a class="btn btn-warning" href="users/login.php" role="button">Logar &raquo;</a>
+				
 			<?php } ?>
 			</p>
 		</div>

@@ -94,7 +94,7 @@ if (Input::exists()) {
                     }
                 }
             } else {
-                $error_message .= 'Log in failed. Please check your username and password and try again.';
+                $error_message .= 'Login Falhou. Por Favor Check seu Usuaroi e Senha e tente novamente.';
             }
         } else{
             $error_message .= '<ul>';
@@ -129,13 +129,13 @@ require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
     <input type="hidden" name="dest" value="<?= $dest ?>" />
  
     <div class="form-group">
-        <label for="username" >Username OR Email</label>
-        <input  class="form-control" type="text" name="username" id="username" placeholder="Username/Email" required autofocus>
+        <label for="username" >Usuario OU Email</label>
+        <input  class="form-control" type="text" name="username" id="username" placeholder="Usuario/Email" required autofocus>
     </div>
  
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control"  name="password" id="password"  placeholder="Password" required autocomplete="off">
+        <label for="password">Senha</label>
+        <input type="password" class="form-control"  name="password" id="password"  placeholder="Senha" required autocomplete="off">
     </div>
  
     <?php
@@ -160,11 +160,9 @@ require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
 </div>
 <div class="row">
     <div class="col-xs-6"><br>
-        <a class="pull-left" href='forgot_password.php'><i class="fa fa-wrench"></i> Forgot Password</a><br><br>
+        <a class="pull-left" href='forgot_password.php'><i class="fa fa-wrench"></i> Esqueci Minha Senha</a><br><br>
     </div>
-    <div class="col-xs-6"><br>
-        <a class="pull-right" href='join.php'><i class="fa fa-plus-square"></i> <?=lang("SIGNUP_TEXT","");?></a><br><br>
-    </div>
+    
 </div>
 </div>
 </div>

@@ -90,7 +90,7 @@ if(!empty($_POST)) {
             ));
             if($validation->passed()){
                 $db->update('users',$userId,$fields);
-                $successes[]='First name updated.';
+                $successes[]='Primeiro Nome Atualizado.';
             }else{
                 //validation did not pass
                 foreach ($validation->errors() as $error) {
@@ -114,7 +114,7 @@ if(!empty($_POST)) {
             ));
             if($validation->passed()){
                 $db->update('users',$userId,$fields);
-                $successes[]='Last name updated.';
+                $successes[]='Sobrenome Nome Atualizado.';
             }else{
                 //validation did not pass
                 foreach ($validation->errors() as $error) {
@@ -143,7 +143,7 @@ if(!empty($_POST)) {
                 if($emailR->email_act==1){
                     $db->update('users',$userId,['email_verified'=>0]);
                 }
-                $successes[]='Email updated.';
+                $successes[]='Email Atualizado.';
             }else{
                 //validation did not pass
                 foreach ($validation->errors() as $error) {
@@ -178,13 +178,13 @@ if(!empty($_POST)) {
                 foreach ($validation->errors() as $error) {
                     $errors[] = $error;
                 }
-                $errors[]='There is a problem with your password.';
+                $errors[]='Ocorreu um problema com a sua senha.';
             }
             if (empty($errors)) {
                 //process
                 $new_password_hash = password_hash(Input::get('password'),PASSWORD_BCRYPT,array('cost' => 12));
                 $user->update(array('password' => $new_password_hash,),$user->data()->id);
-                $successes[]='Password updated.';
+                $successes[]='Senha Atualizada.';
             }
         }
     }
@@ -203,15 +203,15 @@ if(!empty($_POST)) {
                     <p><img src="<?=$grav; ?>" class="img-thumbnail" alt="Generic placeholder thumbnail"></p>
                 </div>
                 <div class="col-xs-12 col-md-10">
-                    <h1>Update your user settings</h1>
-                    <strong>Want to change your profile picture? </strong><br> Visit <a href="https://en.gravatar.com/">https://en.gravatar.com/</a> and setup an account with the email address <?=$email?>.  It works across millions of sites. It's fast and easy!<br>
+                    <h1>Atualizar Suas Configuraçoes</h1>
+                    <strong>Deseja alterar a sua foto de perfil? </strong><br> Visite <a href="https://pt.gravatar.com/">https://pt.gravatar.com/</a> E configurar uma conta com o endereço de e-mail <?=$email?>. Ele funciona em milhões de sites. É rápido e fácil! <br>
                     <span class="bg-danger"><?=display_errors($errors);?></span>
                     <span><?=display_successes($successes);?></span>
  
                     <form name='updateAccount' action='user_settings.php' method='post'>
  
                         <div class="form-group">
-                            <label>Username</label>
+                            <label>Usuario</label>
                             <?php if (($settings->change_un == 0) || (($settings->change_un == 2) && ($user->data()->un_changed == 1)) ) {
                                 echo "<input  class='form-control' type='text' name='username' value='$displayname' readonly/>";
                             }else{
@@ -221,12 +221,12 @@ if(!empty($_POST)) {
                         </div>
  
                         <div class="form-group">
-                            <label>First Name</label>
+                            <label>Primeiro Nome</label>
                             <input  class='form-control' type='text' name='fname' value='<?=$fname?>' />
                         </div>
  
                         <div class="form-group">
-                            <label>Last Name</label>
+                            <label>Ultimo Nome</label>
                             <input  class='form-control' type='text' name='lname' value='<?=$lname?>' />
                         </div>
  
@@ -236,24 +236,24 @@ if(!empty($_POST)) {
                         </div>
  
                         <div class="form-group">
-                            <label>Old Password (required to change password)</label>
+                            <label>Senha Atual (requerido para a troca de senha)</label>
                             <input class='form-control' type='password' name='old' />
                         </div>
  
                         <div class="form-group">
-                            <label>New Password (<?=$settings->min_pw?> char min, <?=$settings->max_pw?> max.)</label>
+                            <label>Nova Senha (<?=$settings->min_pw?> Caracter min, <?=$settings->max_pw?> max.)</label>
                             <input class='form-control' type='password' name='password' />
                         </div>
  
                         <div class="form-group">
-                            <label>Confirm Password</label>
+                            <label>Confirmar Senha</label>
                             <input class='form-control' type='password' name='confirm' />
                         </div>
  
                         <input type="hidden" name="csrf" value="<?=Token::generate();?>" />
  
-                        <p><input class='btn btn-primary' type='submit' value='Update' class='submit' /></p>
-                        <p><a class="btn btn-info" href="account.php">Cancel</a></p>
+                        <p><input class='btn btn-primary' type='submit' value='Salvar' class='submit' /></p>
+                        <p><a class="btn btn-info" href="account.php">Cancelar</a></p>
  
                     </form>
                     <?php
