@@ -50,6 +50,14 @@
 		public function getEnderecos() {
 			return $this->pesEnderecos;
 		}
+
+		public function addTelefone(Telefone $t){
+			$this->pesTelefones[] = $t;
+		}
+
+		public function getTelefones() {
+			return $this->pesTelefones;
+		}
                 
 		public function limparCaracteres($str){			
 			$str = str_replace(".", "", $str);
@@ -83,11 +91,23 @@
 				$listaEnderecos = AcessoDados::listar("SELECT Id FROM tbEndereco WHERE IdPessoa = ".$this->pesId);
 
 				if($listaEnderecos && $listaEnderecos->num_rows > 0){
-					while($rowe = $listaEnderecos->fetch_assoc()){  
-						$endb = new Endereco();                                                                                                                    
-						$endb->endId = $rowe["Id"];
-						$endb->carregarDados();
-						$this->addEndereco($endb);
+					while($row = $listaEnderecos->fetch_assoc()){  
+						$end = new Endereco();                                                                                                                    
+						$end->endId = $row["Id"];
+						$end->carregarDados();
+						$end->endPessoa = $this;
+						$this->addEndereco($end);
+					}
+				}
+
+				$telefones = AcessoDados::listar("SELECT Id FROM tbTelefone WHERE IdPessoa = ".$this->pesId);
+				if($telefones && $telefones->num_rows > 0){
+					while($rt = $telefones->fetch_assoc()){
+						$t = new Telefone();
+						$t->telId = $rt["Id"];
+						$t->carregarDados();
+						$t->telPessoa = $this;
+						$this->addTelefone($t);
 					}
 				}
                 return true;
@@ -104,7 +124,8 @@
 					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId.";";
 					$sucesso = AcessoDados::alterar($sql);					
 				}else{
-		$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('$this->pesNome', '$this->pesCpf', '$this->pesRg', $this->pesSexo, '$this->pesDataNascimento', $this->pesPerfil, '$this->pesSenha', 1)";
+					$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) 
+					VALUES ('$this->pesNome', '$this->pesCpf', '$this->pesRg', $this->pesSexo, '$this->pesDataNascimento', $this->pesPerfil, '$this->pesSenha', 1)";
 
 					$this->pesId = AcessoDados::inserir($sql);
 
@@ -142,7 +163,7 @@
 
 		public function Logar(){
 			$sql="";
-			$sql = "SELECT Id, Nome, Cpf, Perfil FROM tbPessoa WHERE Cpf = '".$this->pesCpf."') AND (Senha = '" .$this->sha1.$senha. "') AND (Situacao = 1) LIMIT 1";
+			$sql = "SELECT Id, Nome, Cpf, Perfil FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".SHA1($this->pesSenha)."') AND (Situacao = 1) LIMIT 1";
 			
 			//echo "-------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);

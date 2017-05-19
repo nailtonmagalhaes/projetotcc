@@ -35,7 +35,7 @@
                 return AcessoDados::alterar($sql);
             }else{
                 echo "entrou no insert";
-                $sql = "INSERT INTO tbProfessor_has_Turma(IdProfessor, IdTurma, Tipo) VALUES (".$this->phtIdProfessor.", ".$this->phtTurma->turId.", ".$this->phtTipo.");";
+                $sql = "INSERT INTO tbProfessor_has_Turma(IdProfessor, IdTurma, Tipo) VALUES (".$this->phtProfessor->pesId.", ".$this->phtTurma->turId.", ".$this->phtTipo.");";
                 return AcessoDados::inserir($sql);
             }
         }

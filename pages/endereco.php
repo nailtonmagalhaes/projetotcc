@@ -26,6 +26,7 @@
 
 		public function setPessoa(Pessoa $pes){
 			$this->endPessoa = $pes;
+			
 		}
 
 		public function getPessoa(){

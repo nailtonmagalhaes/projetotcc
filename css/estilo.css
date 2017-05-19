@@ -11,3 +11,7 @@ option {
 div.form-group{
 	 padding: 0px 10px; 
 }
+
+td.center, th.center{
+	text-align: center;
+}

@@ -80,7 +80,7 @@
         }
 
         if(empty($turma->turDataInicio) || empty($turma->turCurso) || empty($turma->turCurso->crsId) || $turma->turCurso->crsId < 1 || empty($turma->turDataInicio) ||
-            count($turma->turProfessorHasTurma) < 2 || empty($turma->turProfessorHasTurma[0]->phtIdProfessor) || empty($turma->turProfessorHasTurma[1]->phtIdProfessor) < 0 ||
+            count($turma->turProfessorHasTurma) < 2 || empty($turma->turProfessorHasTurma[0]->phtProfessor) || empty($turma->turProfessorHasTurma[1]->phtProfessor->pesId) < 0 ||
             count($turma->turHasDiaSemana) < 1 || empty($turma->turHasDiaSemana[0]->thdDiaSemana) || empty($turma->turHasDiaSemana[0]->thdDiaSemana->disId) || $turma->turHasDiaSemana[0]->thdDiaSemana->disId < 1){
             echo json_encode("Dados invalidos.");
         }else{

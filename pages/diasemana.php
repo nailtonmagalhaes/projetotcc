@@ -15,10 +15,13 @@
         }
 
         public function carregarDados(){
-            $dados = self::listar();
-            if($dados && $dados->num_rows > 0){
-                $row = $dados->fetch_assoc();
+            $resultado = AcessoDados::listar("SELECT Id, Dia FROM tbDiaSemana WHERE Id = ".$this->disId);
+            if ($resultado && $resultado->num_rows > 0) {
+                $row = $resultado->fetch_assoc();                                                                                                                   
                 $this->disDia = $row["Dia"];
+                return true;
+            }else{
+                return false;
             }
         }
 

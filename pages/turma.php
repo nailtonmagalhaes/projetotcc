@@ -32,11 +32,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
 
         function carregarDados(){
-            $resultado = AcessoDados::listar("SELECT t.Id, t.DataInicio, t.Ativo, date_format(t.DataInicio, '%d/%m/%Y') DataInicioFormatada,
-                                    c.Id AS IdCurso, c.Descricao, c.Duracao
-                                    FROM tbTurma t 
-                                    INNER JOIN tbCurso c ON c.Id = t.IdCurso
-                                    WHERE t.Id = ".$this->turId);
+            $resultado = AcessoDados::listar("SELECT Id, IdCurso, DataInicio, Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada FROM tbTurma WHERE Id = ".$this->turId);
 
 /***************CARREGA OS DADOS DA TURMA*/
             if ($resultado && $resultado->num_rows > 0) {
@@ -45,16 +41,10 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 $this->turDataInicio = $row["DataInicio"];
                 $this->turCurso = new Curso();
                 $this->turCurso->crsId = $row["IdCurso"];
-                $this->turCurso->crsDescricao = $row["Descricao"];
-                $this->turCurso->crsDuracao = $row["Duracao"];
+                $this->turCurso->carregarDados();
 
 /***************CARREGA OS DIAS DA SEMANA DA TURMA*/
-                $dias = AcessoDados::listar("SELECT
-                                hs.Id, hs.HoraInicio, hs.HoraTermino,
-                                d.Id AS IdDiaSemana, d.Dia
-                                FROM tbTurma_has_DiaSemana hs 
-                                INNER JOIN tbDiaSemana d ON d.Id = hs.IdDiaSemana
-                                WHERE hs.IdTurma = ".$this->turId);
+                $dias = AcessoDados::listar("SELECT Id, IdDiaSemana, HoraInicio, HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
 
                 if($dias && $dias->num_rows > 0){
                     while($rowdias = $dias->fetch_assoc()){
@@ -64,10 +54,9 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                         $dia->thdHoraTermino = $rowdias["HoraTermino"];
                         $dia->thdDiaSemana = new DiaSemana();
                         $dia->thdDiaSemana->disId = $rowdias["IdDiaSemana"];
-                        $dia->thdDiaSemana->disDia = $rowdias["Dia"];
-                        
-                        $this->turHasDiaSemana[] = $dia;
+                        $dia->thdDiaSemana->carregarDados();
                         $dia->thdTurma = $this;
+                        $this->turHasDiaSemana[] = $dia;      
                     }
                 }
 

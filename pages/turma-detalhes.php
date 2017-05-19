@@ -30,6 +30,8 @@
 	                    <div class="row">
 	                        <div class="col-lg-12">';
                         		if($turma->carregarDados()){
+									//echo "<pre>";
+									//var_dump($turma);
 						       		echo '
 						       		<form action="turma-excluir.php" method="post">
 							       		<input type="hidden" name="id" id="idturma" value="'.$turma->turId.'">
@@ -41,8 +43,23 @@
 								       	</div>
 							       		<div class="form-group">
 								       		<label>Duração:</label> <span>'.$turma->turCurso->crsDuracao.' horas</span></br>
-							       		</div>
-										<div class="panel panel-default col-lg-6"'.(count($turma->turHasDiaSemana) > 0 ? null : "hidden" ).'>
+							       		</div>';
+										if($turma->turProfessorHasTurma[0]->phtTipo == ETipoProfessor::Principal){
+											echo '<div class="form-group">
+													<label>Professor Principal:</label> <span>'.$turma->turProfessorHasTurma[0]->phtProfessor->pesNome.'</span></br>
+												</div>
+												<div class="form-group">
+													<label>Professor Apoio:</label> <span>'.$turma->turProfessorHasTurma[1]->phtProfessor->pesNome.'</span></br>
+												</div>';
+										}else{
+											echo '<div class="form-group">
+													<label>Professor Principal:</label> <span>'.$turma->turProfessorHasTurma[1]->phtProfessor->pesNome.'</span></br>
+												</div>
+												<div class="form-group">
+													<label>Professor Apoio:</label> <span>'.$turma->turProfessorHasTurma[0]->phtProfessor->pesNome.'</span></br>
+												</div>';
+										}
+										echo '<div class="panel panel-default col-lg-6"'.(count($turma->turHasDiaSemana) > 0 ? null : "hidden" ).'>
 											<div class="panel-heading" style="text-align: center;">
 												<label>Dias / Horários</label>
 											</div>
@@ -51,8 +68,8 @@
 													<thead>
 														<tr>
 															<th>Dia da Semana</th>
-															<th>Hora Início</th>
-															<th>Hora Término</th>
+															<th class="center">Hora Início</th>
+															<th class="center">Hora Término</th>
 														</tr>
 													</thead>
 													<tbody>';
@@ -61,10 +78,10 @@
 															<td>
 																<span>'.utf8_encode($diasemana->thdDiaSemana->disDia).'</span>
 															</td>
-															<td>
+															<td class="center">
 																<span>'.$diasemana->horaInicioFormatada().'</span>
 															</td>
-															<td>
+															<td class="center">
 																<span>'.$diasemana->horaTerminoFormatada().'</span>
 															</td>
 														</tr>';}

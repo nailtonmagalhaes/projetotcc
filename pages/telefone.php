@@ -2,7 +2,7 @@
 
     include_once 'tipo-telefone.php';
 
-	class telefone{
+	class Telefone{
 		public $telId;		
 		public $telPessoa;	/*Pessoa*/
 		public $telNumero;
@@ -19,11 +19,10 @@
 			}
 
 		function carregarDados(){
-			$resultado = AcessoDados::listar("SELECT Id,IdPessoa,Tipo,Numero,Ativo FROM tbTelefone WHERE Id = ".$this->telId);
+			$resultado = AcessoDados::listar("SELECT Id, IdPessoa, Tipo, Numero, Ativo FROM tbTelefone WHERE Id = ".$this->telId);
             if ($resultado && $resultado->num_rows > 0) {
                 $row = $resultado->fetch_assoc();                                                                                                                   
                 $this->telId = $row["Id"];
-                $this->telIdPessoa = $row["IdPessoa"];
                 $this->telTipo = $row["Tipo"];
                 $this->telNumero = $row["Numero"];
                 $this->telAtivo = $row["Ativo"];

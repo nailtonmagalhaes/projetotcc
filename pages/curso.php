@@ -5,14 +5,14 @@
 		public $crsDescricao;
 		public $crsDuracao;
 		public $crsAtivo;
-		public $crsMaterias;	/*array CursoHasMaterial*/
+		public $crsMateriais;	/*array CursoHasMaterial*/
 
 		public function __construct(){
 			$this->crsId = 0;
 			$this->crsDescricao = "";
 			$this->crsDuracao = 0;
 			$this->crsAtivo = 1;
-			$this->crsMaterias = array();
+			$this->crsMateriais = array();
 		}
 
 		function carregarDados(){
