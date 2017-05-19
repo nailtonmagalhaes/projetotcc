@@ -24,7 +24,7 @@
 							$aluno->pesId = $_POST["alnId"];
 						}
 						if(isset($_POST["alnNome"])){
-							$aluno->pesNome = $_POST["alnNome"];
+							$aluno->pesNome = addslashes($_POST["alnNome"]);
 						}
 						if(isset($_POST["alnCpf"])){
 							$aluno->pesCpf = Mascaras::removeMascara($_POST["alnCpf"]);
@@ -33,7 +33,7 @@
 							$aluno->pesRg = Mascaras::removeMascara($_POST["alnRg"]);
 						}
 						if(isset($_POST["alnSenha"])){
-							$aluno->pesSenha = sha1($_POST["alnSenha"]);
+							$aluno->pesSenha = sha1(addslashes($_POST["alnSenha"]));
 						}
 						if(isset($_POST["alnSexo"])){
 							$aluno->pesSexo = $_POST["alnSexo"];
@@ -42,17 +42,17 @@
 							$aluno->pesDataNascimento = date("Y-m-d", strtotime(str_replace('/','-', $_POST["alnDataNascimento"])));
 						}
 						/*CONTATOS*/
-						if(isset($_POST["tipotelefone1"])){
+						if(isset($_POST["tipotelefone1"]) && $_POST["tipotelefone1"] != null && $_POST["tipotelefone1"] != ''){
 							$tel1->telTipo = $_POST["tipotelefone1"];
 							$tel1->telNumero = Mascaras::removeMascara($_POST["numerotelefone1"]);
 							$aluno->pesTelefones[] = $tel1;
 						}
-						if(isset($_POST["tipotelefone2"])){
+						if(isset($_POST["tipotelefone2"]) && $_POST["tipotelefone2"] != null && $_POST["tipotelefone2"] != ''){
 							$tel2->telTipo = $_POST["tipotelefone2"];
 							$tel2->telNumero = Mascaras::removeMascara($_POST["numerotelefone2"]);
 							$aluno->pesTelefones[] = $tel2;
 						}
-						if(isset($_POST["tipotelefone3"])){
+						if(isset($_POST["tipotelefone3"]) && $_POST["tipotelefone3"] != null && $_POST["tipotelefone3"] != ''){							 
 							$tel3->telTipo = $_POST["tipotelefone3"];
 							$tel3->telNumero = Mascaras::removeMascara($_POST["numerotelefone3"]);
 							$aluno->pesTelefones[] = $tel3;
@@ -69,16 +69,16 @@
 							$end1->endCidade->cidId = $_POST["alnCidade_1"];
 						}
 						if(isset($_POST["alnLogradouro_1"])){
-							$end1->endLogradouro = $_POST["alnLogradouro_1"];
+							$end1->endLogradouro = addslashes($_POST["alnLogradouro_1"]);
 						}
 						if(isset($_POST["alnBairro_1"])){
-							$end1->endBairro = $_POST["alnBairro_1"];
+							$end1->endBairro = addslashes($_POST["alnBairro_1"]);
 						}
 						if(isset($_POST["alnNumeroCasa_1"])){
 							$end1->endNumero = $_POST["alnNumeroCasa_1"];
 						}
 						if(isset($_POST["alnComplemento_1"])){
-							$end1->endComplemento = $_POST["alnComplemento_1"];
+							$end1->endComplemento = addslashes($_POST["alnComplemento_1"]);
 						}
 
 						$aluno->addEndereco($end1);
@@ -86,7 +86,7 @@
 						if(isset($_POST["alnSegundoEndereco"])){
 							$end2 = new Endereco();
 							if(isset($_POST["alnIdEndereco2"])){
-								$end2->endId = $_POST["alnIdEndereco2"];
+								$end2->endId = addslashes($_POST["alnIdEndereco2"]);
 							}
 							if(isset($_POST["alnCep_2"])){
 								$end2->endCep = Mascaras::removeMascara($_POST["alnCep_2"]);
@@ -96,21 +96,19 @@
 								$end2->endCidade->cidId = $_POST["alnCidade_2"];
 							}
 							if(isset($_POST["alnLogradouro_2"])){
-								$end2->endLogradouro = $_POST["alnLogradouro_2"];
+								$end2->endLogradouro = addslashes($_POST["alnLogradouro_2"]);
 							}
 							if(isset($_POST["alnBairro_2"])){
-								$end2->endBairro = $_POST["alnBairro_2"];
+								$end2->endBairro = addslashes($_POST["alnBairro_2"]);
 							}
 							if(isset($_POST["alnNumero_2"])){
 								$end2->endNumero = $_POST["alnNumero_2"];
 							}
 							if(isset($_POST["alnComplemento_2"])){
-								$end2->endComplemento = $_POST["alnComplemento_2"];
+								$end2->endComplemento = addslashes($_POST["alnComplemento_2"]);
 							}
 							$aluno->addEndereco($end2);
-						}
-						//print_r($aluno);
-						
+						}						
 						if(empty($aluno->pesNome) || empty($aluno->pesCpf)){
 							header('location: ..\pages\aluno-cadastro.php?id='.$aluno->pesId);
 							die;

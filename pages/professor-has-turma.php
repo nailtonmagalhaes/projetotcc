@@ -6,13 +6,11 @@
         public $phtTipo;
         public $phtTurma;
         public $phtProfessor;
-        public $phtIdProfessor;
         
         public function __construct(){
             $this->phtTipo = ETipoProfessor::None;
             $this->phtTurma =  null;
             $this->phtProfessor = null;
-            $this->phtIdProfessor = 0;
         }
 
         public function listar(){
@@ -33,7 +31,7 @@
 
             if($professorcommesmaturma != null && $professorcommesmaturma->num_rows > 0){
                 echo "entrou no update";
-                $sql = "UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtIdProfessor.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId.";";
+                $sql = "UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtProfessor->pesId.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId.";";
                 return AcessoDados::alterar($sql);
             }else{
                 echo "entrou no insert";

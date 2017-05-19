@@ -49,7 +49,19 @@
 		}
 
 		public function carregarDados(){
-			 
+			 $resultado = AcessoDados::listar("SELECT Id, IdPessoa, IdCidade, Logradouro, Bairro, Numero, Complemento, Cep, Ativo FROM tbEndereco WHERE Id =".$this->endId);
+			 if($resultado && $resultado->num_rows > 0){
+					$row = $resultado->fetch_assoc();
+					$this->endLogradouro = $row["Logradouro"];
+					$this->endBairro = $row["Bairro"];
+					$this->endNumero = $row["Numero"];
+					$this->endComplemento = $row["Complemento"];
+					$this->endCep = $row["Cep"];
+					$this->endAtivo = $row["Ativo"];
+					$this->endCidade = new Cidade();
+					$this->endCidade->cidId = $row["IdCidade"];
+					$this->endCidade->carregarDados();
+			 }
 		}
 
 		public function salvarDados(){

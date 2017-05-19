@@ -80,35 +80,13 @@
 				$this->pesSexo = $row["Sexo"];
 				$this->pesDataNascimento = $row["DataNascimento"];
 
-				$listaEnderecos = AcessoDados::listar("SELECT e.Id, e.Logradouro, e.Bairro, e.Numero, e.Complemento, e.Cep,
-											c.Id AS IdCidade, c.Nome, 
-											est.Id as IdEstado, est.Nome as NomeEstado, est.Sigla
-											FROM tbEndereco e
-											INNER JOIN tbCidade c ON c.Id = e.IdCidade
-											INNER JOIN tbEstado est ON est.Id = c.IdEstado
-											WHERE e.IdPessoa = ".$this->pesId);
+				$listaEnderecos = AcessoDados::listar("SELECT Id FROM tbEndereco WHERE IdPessoa = ".$this->pesId);
 
 				if($listaEnderecos && $listaEnderecos->num_rows > 0){
 					while($rowe = $listaEnderecos->fetch_assoc()){  
 						$endb = new Endereco();                                                                                                                    
 						$endb->endId = $rowe["Id"];
-						$endb->endLogradouro = $rowe["Logradouro"];
-						$endb->endBairro = $rowe["Bairro"];
-						$endb->endNumero = $rowe["Numero"];
-						$endb->endComplemento = $rowe["Complemento"];
-						$endb->endCep = $rowe["Cep"];
-
-						$cid = new Cidade();
-						$cid->cidId = $rowe["IdCidade"];
-						$cid->cidNome = $rowe["Nome"];
-						
-						$est = new Estado();
-						$est->estId = $rowe["IdEstado"];
-						$est->estNome = $rowe["Nome"];
-						$est->estSigla = $rowe["Sigla"];
-
-						$cid->setEstado($est);
-						$endb->setCidade($cid);
+						$endb->carregarDados();
 						$this->addEndereco($endb);
 					}
 				}
@@ -126,7 +104,8 @@
 					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId.";";
 					$sucesso = AcessoDados::alterar($sql);					
 				}else{
-					$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('".$this->pesNome."', '".$this->pesCpf."', '".$this->pesRg."', ".$this->pesSexo.", '".$this->pesDataNascimento."', ".$this->pesPerfil.", '".$this->pesSenha."', ".$this->pesAtivo.");";
+		$sql = "INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('$this->pesNome', '$this->pesCpf', '$this->pesRg', $this->pesSexo, '$this->pesDataNascimento', $this->pesPerfil, '$this->pesSenha', 1)";
+
 					$this->pesId = AcessoDados::inserir($sql);
 
 					if($this->pesId > 0){
@@ -145,6 +124,7 @@
 						$t->telPessoa = $this;
 						$t->salvarDados();
 					}
+					
 				}
 				return $sucesso;
 			}catch(Exception $ex){

@@ -43,9 +43,12 @@
 
 		function salvarDados(){
 			if($this->telId > 0){
-				return AcessoDados::alterar("UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo.", IdPessoa = ".$this->telPessoa->pesId." WHERE Id = ".$this->telId);
+				$sqlu = "UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo.", IdPessoa = ".$this->telPessoa->pesId." WHERE Id = ".$this->telId;
+				echo $sqlu;
+				return AcessoDados::alterar($sqlu);
 			}else{
 				$sqlI = "INSERT INTO tbTelefone (IdPessoa, Tipo, Numero, Ativo) VALUES (".$this->telPessoa->pesId.", ".$this->telTipo.", '".$this->telNumero."', 1);";
+				echo $sqlI."<br>";
 				return AcessoDados::inserir($sqlI);
 			}
 		}

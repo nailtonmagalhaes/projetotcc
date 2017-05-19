@@ -72,7 +72,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 }
 
 /***************CARREGA OS PROFESSORES DA TURMA*/
-                $professores = AcessoDados::listar("SELECT IdProfessor, Tipo FROM tbProfessor_has_Turma IdTurma WHERE IdTurma = ".$this->turId);
+                $professores = AcessoDados::listar("SELECT pht.IdProfessor, pht.Tipo FROM tbProfessor_has_Turma pht WHERE pht.IdTurma = ".$this->turId);
                 if($professores && $professores->num_rows > 0){
                     while($rowprof = $professores->fetch_assoc()){
                         $tprofessor = new ProfessorHasTurma();

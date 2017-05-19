@@ -55,17 +55,15 @@
         if(isset($_REQUEST["ProfessorPrincipal"])){
             $profPrincipal = new ProfessorHasTurma();
             $profPrincipal->phtTipo = ETipoProfessor::Principal;
-            //$profPrincipal->phtProfessor = new Professor();
-            //$profPrincipal->phtProfessor->pesId = $_REQUEST["ProfessorPrincipal"];
-            $profPrincipal->phtIdProfessor = $_REQUEST["ProfessorPrincipal"];
+            $profPrincipal->phtProfessor = new Professor();
+            $profPrincipal->phtProfessor->pesId = $_REQUEST["ProfessorPrincipal"];
             $turma->turProfessorHasTurma[] = $profPrincipal;
         }
         if(isset($_REQUEST["ProfessorApoio"])){
             $profApoio = new ProfessorHasTurma();
             $profApoio->phtTipo = ETipoProfessor::Apoio;
-            //$profApoio->phtProfessor = new Professor();
-            //$profApoio->phtProfessor->pesId = $_REQUEST["ProfessorApoio"];            
-            $profApoio->phtIdProfessor = $_REQUEST["ProfessorApoio"];
+            $profApoio->phtProfessor = new Professor();
+            $profApoio->phtProfessor->pesId = $_REQUEST["ProfessorApoio"];
             $turma->turProfessorHasTurma[] = $profApoio;
         }
 

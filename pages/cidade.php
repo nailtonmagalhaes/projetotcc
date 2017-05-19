@@ -29,7 +29,14 @@
         }
 
         public function carregarDados(){
-
+ 			$resultado = AcessoDados::listar("SELECT Id, IdEstado, Nome FROM tbCidade WHERE Id =".$this->cidId);
+			 if($resultado && $resultado->num_rows > 0){
+					$row = $resultado->fetch_assoc();
+					$this->cidNome = $row["Nome"];
+					$this->cidEstado = new Estado();
+					$this->cidEstado->estId = $row["IdEstado"];
+					$this->cidEstado->carregarDados();
+			 }
         }
 
         public function salvarDados(){
