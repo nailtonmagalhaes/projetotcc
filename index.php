@@ -20,7 +20,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			<p class="text-muted">Sistema MNP. <?php //print_r($_SESSION);?></p>
 			<p>
 			<?php if($user->isLoggedIn()){$uid = $user->data()->id;?>
-				<a class="btn btn-default" href="users/account.php" role="button">Conta de Ususario &raquo;</a>
+				<a class="btn btn-default" href=".../pages/aluno-listar.php" role="button">Conta de Ususario &raquo;</a>
 			<?php }else{?>
 				<a class="btn btn-warning" href="users/login.php" role="button">Logar &raquo;</a>
 				
