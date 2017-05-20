@@ -87,7 +87,7 @@ if (Input::exists()) {
                     require_once $abs_us_root.$us_url_root.'usersc/scripts/custom_login_script.php';
                 } else {
                     if (($dest = Config::get('homepage')) ||
-                            ($dest = 'account.php')) {
+                            ($dest = '../pages/aluno-listar.php')) {
                         #echo "DEBUG: dest=$dest<br />\n";
                         #die;
                         Redirect::to($dest);
