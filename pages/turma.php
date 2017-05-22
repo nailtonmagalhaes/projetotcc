@@ -8,7 +8,6 @@ inner join tbcurso c on c.Id = t.idcurso
 inner join tbturma_has_diasemana hd on t.id = hd.IdTurma
 inner join tbdiasemana d on d.Id = hd.IdDiaSemana
 ";
-    include_once 'valida-sessao.php';
     include_once 'professor-has-turma.php';
     include_once 'turma-has-dia-semana.php';
     include_once 'matricula.php';

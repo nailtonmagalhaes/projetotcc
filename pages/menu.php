@@ -1,5 +1,4 @@
 <?php 
-    include_once 'valida-sessao.php'; 
     include_once 'perfil.php';
     $usuarioLogado = $_SESSION['nome'];
     $perfil = $_SESSION['perfil'];

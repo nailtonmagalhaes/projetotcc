@@ -1,5 +1,5 @@
 <?php
-    include_once 'perfil.php';
+
 	class Secretaria extends Pessoa{
 		public $propriedade;
 		

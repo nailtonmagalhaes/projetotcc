@@ -264,6 +264,8 @@ INSERT INTO tbDiaSemana (Id, Dia) VALUES
 (6, 'SEXTA-FEIRA'), 
 (7, 'SÁBADO');
 
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('ALUNO', '00000000001', NULL, NULL, NULL, 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('PROFESSOR', '00000000002', NULL, NULL, NULL, 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
 INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('SECRETARIA', '00000000003', NULL, NULL, NULL, 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
 
 INSERT INTO tbEstado(Id, Nome, Sigla) VALUES (8, 'EXTERIOR', 'EX');

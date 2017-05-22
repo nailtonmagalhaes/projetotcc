@@ -4,8 +4,6 @@
     include_once 'includes.php';
     ?>
 
-    <link href="../css/estilo.css" rel="stylesheet">
-
     <div class="form-group">
         <label for="cep">CEP</label>
         <input type="text" class="form-control" name="cep" id="cep" placeholder="Cep">

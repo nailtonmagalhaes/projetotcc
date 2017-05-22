@@ -6,6 +6,7 @@
         unset($_SESSION['senha']);
         unset($_SESSION['nome']);
         unset($_SESSION['perfil']);
+
         header('location: ../index.php');
     }
 ?>

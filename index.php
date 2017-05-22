@@ -20,7 +20,7 @@
         <div class="col-md-offset-4 col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    Login
+                    Login de Usuário
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -37,7 +37,7 @@
 					                <span class='msg-senha'></span>
 					            </div>
 					            <div class="form-group">
-					            	<button type="submit" class="btn btn-primary" id="botao-salvar">Entrar</button>
+					            	<button type="submit" class="btn btn-success" id="botao-salvar"><span class="glyphicon glyphicon-ok"> Entrar</button>
                                 	<a href="recupera-senha.php">Esqueci minha senha</a>
 					            </div>                                
 					        </form>

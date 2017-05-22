@@ -1,5 +1,5 @@
 <?php
-	include_once 'valida-sessao.php';
+
     include_once 'pessoa.php';
     include_once 'aluno-has-responsavel.php';
     

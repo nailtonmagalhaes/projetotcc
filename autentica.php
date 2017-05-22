@@ -7,6 +7,7 @@
 
 	$pessoa = new Pessoa();
 
+	var_dump($_POST);
 	if(isset($_POST)){
 
 		$pessoa->pesCpf = addslashes(Mascaras::removeMascara($_POST['cpf']));
@@ -21,6 +22,7 @@
 			$_SESSION['cpf'] = $row['Cpf'];
 			$_SESSION['id'] = $row['Id'];
 			$_SESSION['senha'] = $row['Senha'];
+
 			header('location: pages/index.php');
 		}else{			
 			unset($_SESSION['nome']);
@@ -28,6 +30,7 @@
 			unset($_SESSION['cpf']);
 			unset($_SESSION['id']);
 			unset($_SESSION['senha']);
+
 			header('location: index.php');
 		}
 	}

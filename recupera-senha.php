@@ -27,7 +27,8 @@
 					                <span class='msg-email'></span>
 					            </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" id="botao-salvar">Enviar</button>
+                                    <a href="index.php"><button type="button" class="btn btn-danger" id="botao-salvar"><span class="glyphicon glyphicon-chevron-left"> Voltar</button></a> 
+                                    <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-ok"> Enviar</button>
                                 </div>
 					        </form>
 				        </div>
