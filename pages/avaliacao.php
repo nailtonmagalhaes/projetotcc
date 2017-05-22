@@ -1,5 +1,5 @@
 <?php
-
+    include_once 'valida-sessao.php';
     include_once 'tipo-avaliacao.php';
 
     class Avaliacao{

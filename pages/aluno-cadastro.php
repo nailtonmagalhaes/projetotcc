@@ -4,6 +4,8 @@
     include_once 'aluno.php';
     include_once 'utils.php';
 
+
+
     $aluno = new Aluno();
 	$end1 = new Endereco();
 	$end2 = new Endereco();
@@ -39,19 +41,19 @@
 echo '
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 text-center">
             <h1 class="page-header">'.($isNew ? "Alteração" : "Cadastro").'</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-offset-3 col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading">'
+                <div class="panel-heading text-center">'
 		  		.($isNew ? "Editar Aluno" : "Cadastrar Aluno").'
 				</div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
 					       <form role="form" id="formcadastrar" action="aluno-salvar.php" method="post">
 					       		<div class="panel panel-default">
 						            <div class="panel-heading">
@@ -300,8 +302,10 @@ echo '
                                         <span class="msg-alnComplemento_2"></span>
                                     </div>
                                 </div>
-                                <button type="submit" id="botao-salvar" class="btn btn-primary">Salvar</button>
-                                <button type="reset" class="btn btn-default">Limpar</button>
+                                <div class="form-group">
+	                                <button type="submit" id="botao-salvar" class="btn btn-primary">Salvar</button>
+	                                <button type="reset" class="btn btn-default">Limpar</button>
+	                            </div>
 					        </form>
 				        </div>
 				    </div>

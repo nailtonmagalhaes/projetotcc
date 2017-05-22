@@ -1,4 +1,5 @@
 <?php
+    include_once 'valida-sessao.php';
     class ETipoTelefone{
         const none = 0;
         const residencial = 1;

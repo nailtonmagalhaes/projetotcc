@@ -1,4 +1,4 @@
-<?php
+<?php	
 	include_once "menu.php";
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
@@ -34,7 +34,7 @@
 		 	?>
 		 	<div id="page-wrapper">
 			    <div class="row">
-			        <div class="col-lg-12">
+			        <div class="col-lg-12 text-center">
 			            <h1 class="page-header">Detalhes</h1>
 			        </div>
 			        <!-- /.col-lg-12 -->
@@ -43,7 +43,7 @@
 			    <div class="row">
 			        <div class="col-lg-12">
 			            <div class="panel panel-default">
-			                <div class="panel-heading">
+			                <div class="panel-heading text-center">
 			                    Detalhes do Aluno
 			                </div>
 			                <div class="panel-body">

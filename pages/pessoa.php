@@ -162,9 +162,8 @@
 		}
 
 		public function Logar(){
-			$sql="";
-			$sql = "SELECT Id, Nome, Cpf, Perfil FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".SHA1($this->pesSenha)."') AND (Situacao = 1) LIMIT 1";
-			
+			$sql = "SELECT Id, Nome, Cpf, Perfil, Senha FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".$this->pesSenha."') AND (Situacao = 1) LIMIT 1";
+			echo $sql;
 			//echo "-------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);
 		}

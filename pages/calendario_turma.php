@@ -1,4 +1,5 @@
 <?php
+    include_once 'valida-sessao.php';
     include_once '../conf/acesso-dados.php';
     
     $sql = "

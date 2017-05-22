@@ -1,5 +1,5 @@
 <?php
-
+	include_once 'valida-sessao.php';
 	class Autor{
 
 		public $autId;

@@ -1,4 +1,5 @@
 <?php
+	include_once 'valida-sessao.php';
 	class Estado{
 
 		public $estId;

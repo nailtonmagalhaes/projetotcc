@@ -8,7 +8,7 @@
     
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12 text-center">
                     <h1 class="page-header">Alunos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading text-center">
                             Tabela de Alunos
                         </div>
                         <!-- /.panel-heading -->

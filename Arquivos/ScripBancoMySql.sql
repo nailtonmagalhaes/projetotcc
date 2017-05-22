@@ -61,127 +61,127 @@ CREATE TABLE tbCurso (
 );
 
 CREATE TABLE tbAutor (
-  Id INT NOT NULL AUTO_INCREMENT,
-  Nome VARCHAR(100) NULL,
+  Id        INT          NOT NULL AUTO_INCREMENT,
+  Nome      VARCHAR(100) NULL,
   Descricao VARCHAR(255) NULL,
-  Ativo TINYINT NULL,
+  Ativo     TINYINT      NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbTurma (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdCurso INT NOT NULL,
+  Id         INT      NOT NULL AUTO_INCREMENT,
+  IdCurso    INT      NOT NULL,
   DataInicio DATETIME NULL,
-  Ativo TINYINT NULL,
+  Ativo      TINYINT  NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbResponsavel (
-  Id INT NOT NULL AUTO_INCREMENT,
-  Nome VARCHAR(100) NULL,
-  Parentesco VARCHAR(60) NULL,
-  Cpf VARCHAR(11) NULL,
-  Ativo TINYINT NULL,
+  Id         INT          NOT NULL AUTO_INCREMENT,
+  Nome       VARCHAR(100) NULL,
+  Parentesco VARCHAR(60)  NULL,
+  Cpf        VARCHAR(11)  NULL,
+  Ativo      TINYINT      NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbTelefone (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdPessoa INT NOT NULL,
-  Tipo SMALLINT NULL,
-  Numero VARCHAR(11) NULL,
-  Ativo TINYINT NULL,
+  Id       INT         NOT NULL AUTO_INCREMENT,
+  IdPessoa INT         NOT NULL,
+  Tipo     SMALLINT    NULL,
+  Numero   VARCHAR(11) NULL,
+  Ativo    TINYINT     NULL,
   PRIMARY KEY(Id)
 );
 
 
 CREATE TABLE tbCidade (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdEstado INT NOT NULL,
-  Nome VARCHAR(150) NULL,
+  Id       INT          NOT NULL AUTO_INCREMENT,
+  IdEstado INT          NOT NULL,
+  Nome     VARCHAR(150) NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbAvaliacao (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdMatricula INT NOT NULL,
+  Id            INT      NOT NULL AUTO_INCREMENT,
+  IdMatricula   INT      NOT NULL,
   DataAvaliacao DATETIME NULL,
-  Tipo SMALLINT NULL,
-  Ativo TINYINT NULL,
+  Tipo          SMALLINT NULL,
+  Ativo         TINYINT  NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbEndereco (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdPessoa INT NOT NULL,
-  IdCidade INT NOT NULL,
-  Logradouro VARCHAR(150) NULL,
-  Bairro VARCHAR(150) NULL,
-  Numero VARCHAR(10) NULL,
+  Id          INT          NOT NULL AUTO_INCREMENT,
+  IdPessoa    INT          NOT NULL,
+  IdCidade    INT          NOT NULL,
+  Logradouro  VARCHAR(150) NULL,
+  Bairro      VARCHAR(150) NULL,
+  Numero      VARCHAR(10)  NULL,
   Complemento VARCHAR(150) NULL,
-  Cep VARCHAR(10) NULL,
-  Ativo TINYINT NULL,
+  Cep         VARCHAR(10)  NULL,
+  Ativo       TINYINT      NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbNota (
-  Id          INT NOT NULL AUTO_INCREMENT,
-  IdProfessor INT NOT NULL,
-  IdAvaliacao INT NOT NULL,
+  Id          INT           NOT NULL AUTO_INCREMENT,
+  IdProfessor INT           NOT NULL,
+  IdAvaliacao INT           NOT NULL,
   Nota        DECIMAL(10,2) NULL,
-  Ativo       TINYINT NULL,
+  Ativo       TINYINT       NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbMatricula (
-  Id              INT NOT NULL AUTO_INCREMENT,
-  IdAluno         INT NOT NULL,
-  IdTurma         INT NOT NULL,
-  NumeroMatricula INT NULL,
+  Id              INT     NOT NULL AUTO_INCREMENT,
+  IdAluno         INT     NOT NULL,
+  IdTurma         INT     NOT NULL,
+  NumeroMatricula INT     NULL,
   Ativo           TINYINT NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbFrequencia (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdMatricula INT NOT NULL,
-  IdDiaSemana INT NOT NULL,
+  Id             INT      NOT NULL AUTO_INCREMENT,
+  IdMatricula    INT      NOT NULL,
+  IdDiaSemana    INT      NOT NULL,
   DataFrequencia DATETIME NULL,
-  Presente TINYINT NULL,
-  Ativo TINYINT NULL,
+  Presente       TINYINT  NULL,
+  Ativo          TINYINT  NULL,
   PRIMARY KEY(Id)
 );
 
 CREATE TABLE tbProfessor_has_Turma (
-  IdProfessor INT NOT NULL,
-  IdTurma INT NOT NULL,
-  Tipo SMALLINT NULL,
+  IdProfessor INT      NOT NULL,
+  IdTurma     INT      NOT NULL,
+  Tipo        SMALLINT NULL,
   PRIMARY KEY(IdProfessor, IdTurma)
 );
 
 CREATE TABLE tbAluno_has_Responsavel (
   IdResponsavel INT NOT NULL,
-  IdAluno INT NOT NULL,
+  IdAluno       INT NOT NULL,
   PRIMARY KEY(IdResponsavel, IdAluno)
 );
 
 CREATE TABLE tbCurso_has_Material (
-  IdCurso INT NOT NULL,
+  IdCurso    INT NOT NULL,
   IdMaterial INT NOT NULL,
   PRIMARY KEY(IdCurso, IdMaterial)
 );
 
 CREATE TABLE tbMaterial_has_Autor (
   IdMaterial INT NOT NULL,
-  IdAutor INT NOT NULL,
+  IdAutor    INT NOT NULL,
   PRIMARY KEY(IdMaterial, IdAutor)
 );
 
 CREATE TABLE tbTurma_has_DiaSemana (
-  Id INT NOT NULL AUTO_INCREMENT,
-  IdTurma INT NOT NULL,
-  IdDiaSemana INT NOT NULL,
-  HoraInicio DATETIME NULL,
+  Id          INT      NOT NULL AUTO_INCREMENT,
+  IdTurma     INT      NOT NULL,
+  IdDiaSemana INT      NOT NULL,
+  HoraInicio  DATETIME NULL,
   HoraTermino DATETIME NULL,
   PRIMARY KEY(Id)
 );
@@ -263,6 +263,8 @@ INSERT INTO tbDiaSemana (Id, Dia) VALUES
 (5, 'QUINTA-FEIRA'), 
 (6, 'SEXTA-FEIRA'), 
 (7, 'SÁBADO');
+
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('SECRETARIA', '00000000003', NULL, NULL, NULL, 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
 
 INSERT INTO tbEstado(Id, Nome, Sigla) VALUES (8, 'EXTERIOR', 'EX');
 INSERT INTO tbEstado(Id, Nome, Sigla) VALUES (11, 'RONDÔNIA', 'RO');

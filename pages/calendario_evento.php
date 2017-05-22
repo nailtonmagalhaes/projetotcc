@@ -1,7 +1,5 @@
 <?php
-    //Conectando ao banco de dados
-//    include_once '../conf/database.php'; 
-//    include_once '../conf/config.php';
+    include_once 'valida-sessao.php';
     include_once '../conf/acesso-dados.php';
     
     

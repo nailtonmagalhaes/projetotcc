@@ -1,5 +1,5 @@
 <?php 
-    include_once 'includes.php';
+	include_once 'turma.php';
 	//header('Content-type: text/html; charset=utf-8');
 	//header('Content-type: text/html; charset=ISO-8859-1');
 

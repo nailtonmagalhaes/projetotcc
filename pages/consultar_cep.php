@@ -1,5 +1,5 @@
 <?php
- 
+ 	include_once 'valida-sessao.php';
     $cep = $_POST['cep'];
     
     //$cep = str_replace($cep, '-', '');

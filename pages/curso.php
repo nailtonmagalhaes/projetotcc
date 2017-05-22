@@ -1,4 +1,5 @@
 <?php
+	include_once 'valida-sessao.php';
     include_once 'curso-has-material.php';
 	class Curso{
 		public $crsId;

@@ -1,4 +1,9 @@
-
+<?php 
+    include_once 'valida-sessao.php'; 
+    include_once 'perfil.php';
+    $usuarioLogado = $_SESSION['nome'];
+    $perfil = $_SESSION['perfil'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +19,8 @@
     
 
     <meta http-equiv="content-Type" content="text/html; charset=iso-8859-1" />
+
+    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" type="text/css" href="../vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -42,8 +49,6 @@
 
     <link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">
 
-    <link rel="stylesheet" type="text/css" href="../css/estilo.css">
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,7 +64,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -72,7 +77,8 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                <!--MENSAGEM (OCULTA)-->
+                <li class="dropdown ocultar">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
@@ -80,7 +86,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong><?php echo $usuarioLogado;?></strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -92,7 +98,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong><?php echo $usuarioLogado;?></strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -104,7 +110,7 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
+                                    <strong><?php echo $usuarioLogado;?></strong>
                                     <span class="pull-right text-muted">
                                         <em>Yesterday</em>
                                     </span>
@@ -123,7 +129,8 @@
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
-                <li class="dropdown">
+                <!--BARRAS DE PROGRESSO (OCULTAS)-->
+                <li class="dropdown ocultar">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
@@ -201,8 +208,9 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>
+                <!--ALERTAS (OCULTAS)-->
                 <!-- /.dropdown -->
-                <li class="dropdown">
+                <li class="dropdown ocultar">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
@@ -261,26 +269,37 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
+                <!--USUÁRIO (OCULTAS)-->
                 <!-- /.dropdown -->
-                <li class="dropdown">
+                <li class="dropdown ocultar">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li>
+                            <a href="../index.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+                <li>
+                    Olá <?php echo $_SESSION['nome'];?>
+                </li>
+                <li>
+                    <a href="../index.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                </li>
                 <!-- /.dropdown -->
             </ul>
-            <!-- /.navbar-top-links -->
 
+            <!-- /.navbar-top-links -->
+            <!--MENU LATERAL-->
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -293,14 +312,17 @@
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> Aluno <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
+                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
                                     <a href="..\pages\aluno-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
-                                <li>
+                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
                                     <a href="..\pages\aluno-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
-                                <li>
+                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
                                     <a href="..\pages\aluno-listar-inativos.php"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                </li>
+                                 <li>
+                                    <a href="#"><i class="fa fa-print fa-fw"></i>Emitir Boletim</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -320,7 +342,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                        <li >
                             <a href="#"><i class="fa fa-book fa-fw"></i> Material <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -363,87 +385,7 @@
                         </li> 
                         <li>
                             <a href="phpinfo.php"><i class="fa fa-question fa-fw"></i> Versão PHP </a>
-                        </li>                           
-                 <!-- 
-
-                        <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                         </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level 
-                        </li> -->
-
-                         <!-- 
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level 
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level 
-                        </li>-->
-
-                        <!--
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level 
-                        </li>
-
-                        -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

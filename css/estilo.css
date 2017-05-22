@@ -15,3 +15,12 @@ div.form-group{
 td.center, th.center{
 	text-align: center;
 }
+
+li.ocultar, ul.ocultar, div.ocultar{
+	display: none !important;
+}
+
+div.centro {
+    margin-left: auto !important; 
+    margin-right: auto !important;
+}
