@@ -74,6 +74,10 @@
 			//echo "----------------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);
 		}
+
+		public function listarInativos(){
+			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 0 AND Perfil = ".$this->pesPerfil;
+		}
 		
 		public function carregarDados(){
 			$resultado = AcessoDados::listar("SELECT Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, COALESCE(Situacao, 1) AS Situacao FROM tbPessoa WHERE Id = ".$this->pesId);
