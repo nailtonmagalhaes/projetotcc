@@ -5868,3 +5868,6 @@ INSERT INTO tbCidade (IdEstado, Nome) VALUES (52, 'QUIRINÓPOLIS');
 INSERT INTO tbCidade (IdEstado, Nome) VALUES (52, 'SÃO SIMÃO');
 INSERT INTO tbCidade (IdEstado, Nome) VALUES (52, 'CATALÃO');
 INSERT INTO tbCidade (IdEstado, Nome) VALUES (53, 'BRASÍLIA');
+
+ALTER TABLE tbPessoa
+ADD CONSTRAINT CONS_UNIQ_CPF UNIQUE (cpf);
