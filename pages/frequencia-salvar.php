@@ -1,18 +1,16 @@
-<?php //include_once 'menu.php';     
+<?php
 include_once 'frequencia.php';
-//    $total = $_REQUEST['total'];
+include_once '../conf/acesso-dados.php';
     
 //    echo '<pre>';
     
-    
-    $erro = false;
     
     for($i = 0; $i <= $_REQUEST['total'];$i++){
         try{
             $insertFrequencia = new Frequencia();
 //            var_dump($_REQUEST["Presenca".$i]=='true'?1:0);
 //            var_dump($_REQUEST["idaluno".$i]);
-             $insertFrequencia->frqId =                     $_REQUEST["FreqId".$i];
+            $insertFrequencia->frqId =                     $_REQUEST["FreqId".$i];
             $insertFrequencia->frqHasDiaSemana =            $_REQUEST["IdDiaSemana".$i];
             $insertFrequencia->frqMatricula =               $_REQUEST["numeromatricula".$i];
             $insertFrequencia->frqData =                    date("Y-m-d");
@@ -21,17 +19,15 @@ include_once 'frequencia.php';
 
             $salvar = $insertFrequencia->salvarDados();
             
-            if(!$salvar){
-                $erro = true;
-            }
-
+//            var_dump(!$salvar);die;
+         
         } catch (Exception $e) {
-            $erro = true;
+            $salvar = false;
         }
 
     }
     
-
-    echo json_encode((bool)$erro);
+//    var_dump();die;
+    echo json_encode((bool)$salvar);
         
  ?>

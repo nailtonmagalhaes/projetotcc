@@ -39,10 +39,15 @@
                 
                if($this->frqId > 0){
                         $sucesso = AcessoDados::alterar("UPDATE tbFrequencia SET DataFrequencia = '".$this->frqData."', IdDiaSemana = ".$this->frqHasDiaSemana.", IdMatricula = ".$this->frqMatricula.", Presente = ".$this->frqPresente." WHERE Id = ".addslashes($this->frqId));
-                }else{
+                
+                       
+               }else{
                         $sucesso = AcessoDados::inserir("INSERT INTO tbFrequencia (DataFrequencia, IdDiaSemana, IdMatricula, Presente) VALUES ('".$this->frqData."', ".$this->frqHasDiaSemana.",".$this->frqMatricula.",".$this->frqPresente.")");
                 
-                        $sucesso = $this->frqId > 0;
+//                        $sucesso = $this->frqId > 0;
+                        if($sucesso>0){
+                            $sucesso = true;
+                        }
                 }
                 
                 AcessoDados::confirmaTransacao();

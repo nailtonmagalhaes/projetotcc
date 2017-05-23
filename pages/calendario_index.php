@@ -1,6 +1,5 @@
 <?php 
-	include_once "menu.php";
-    include_once 'includes.php';
+    include_once "menu.php";
  ?>
 
  <head>
@@ -136,8 +135,8 @@
                                                                 ,dataType: 'json'
                                                                 ,success: function(data){
 //                                                                    alert('asdasd')
-//                                                                    console.log(data)
-                                                                    if(!data){
+                                                                    console.log(data)
+                                                                    if(data===true){
                                                                         swal("Sucesso!","Frequencias foram salvas!",'success')
                                                                     } else {
                                                                         swal("Houve algum erro!",data,'error')
