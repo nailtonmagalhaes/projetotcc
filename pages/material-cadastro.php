@@ -16,19 +16,19 @@
 
 <div id="page-wrapper">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 text-center">
             <h1 class="page-header"><?php echo !empty($material->matId) ? "Alteração" : "Cadastro";?></h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-offset-2 col-md-8">
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading text-center">
                     <?php echo !empty($material->matId) ? "Alterar Material" : "Cadastrar Material";?>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
 					       <form role="form" id="formcadastrar" action="material-salvar.php" method="post">
 					            <div class="form-group">
 					                <input type="hidden" class="form-control" name="matId" id="matId" value="<?php echo $material->matId; ?>">
@@ -43,8 +43,10 @@
 					                <input type="text" class="form-control obrigatorio" name="matAno" id="matAno" placeholder="Informe o ano do material" value="<?php echo $material->matAno; ?>">
 					                <span class='msg-matAno'></span>
 					            </div>
-                                <button type="submit" class="btn btn-primary" id="botao-salvar">Salvar</button>
-                                <button type="reset" class="btn btn-default">Limpar</button>
+					            <div class="form-group">
+	                                <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
+	                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
+                                </div>
 					        </form>
 				        </div>
 				    </div>

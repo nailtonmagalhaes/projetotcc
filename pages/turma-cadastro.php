@@ -33,19 +33,19 @@
     echo '    
     <div id="page-wrapper">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 text-center">
                 <h1 class="page-header">'.($turma->turId > 0 ? "Alteração" : "Cadastro").'</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-md-offset-2 col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading text-center">
                         '.($turma->turId > 0 ? "Alterar Turma" : "Cadastrar Turma").'
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 <form role="form" id="formcadastrar" action="turma-salvar.php" method="post">
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" name="turId" id="turId" value="'.($turma->turId > 0 ? $turma->turId : null).'">
@@ -138,13 +138,15 @@
                                                 echo '</tbody>
                                             </table>
                                         </div>
-                                    </div>                                    
-                                    <button type="button" class="btn btn-primary" id="botao-salvar">
-                                        <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
-                                    </button>
-                                    <button type="reset" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-erase"> Limpar
-                                    </button>
+                                    </div> 
+                                    <div class="form-group">                                   
+                                        <button type="button" class="btn btn-primary" id="botao-salvar">
+                                            <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+                                        </button>
+                                        <button type="reset" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-erase"> Limpar
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

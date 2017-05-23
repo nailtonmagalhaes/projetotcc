@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-3 col-md-6">
+        <div class="col-md-offset-2 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     <?php echo !empty($curso->crsId) ? "Alterar Curso" : "Cadastrar Curso";?>
@@ -44,8 +44,8 @@
 					                <span class='msg-crsDuracao'></span>
 					            </div>
 					            <div class="form-group">
-	                                <button type="submit" class="btn btn-primary" id="botao-salvar">Salvar</button>
-	                                <button type="reset" class="btn btn-default">Limpar</button>
+	                                <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
+	                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
                               	</div>
 					        </form>
 				        </div>

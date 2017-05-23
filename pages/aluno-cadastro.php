@@ -46,7 +46,7 @@ echo '
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-3 col-md-6">
+        <div class="col-md-offset-2 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">'
 		  		.($isNew ? "Editar Aluno" : "Cadastrar Aluno").'
@@ -303,8 +303,8 @@ echo '
                                     </div>
                                 </div>
                                 <div class="form-group">
-	                                <button type="submit" id="botao-salvar" class="btn btn-primary">Salvar</button>
-	                                <button type="reset" class="btn btn-default">Limpar</button>
+	                                <button type="submit" id="botao-salvar" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
+	                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
 	                            </div>
 					        </form>
 				        </div>
