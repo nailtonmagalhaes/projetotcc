@@ -4,7 +4,18 @@
     include_once 'aluno.php';
     include_once 'utils.php';
 
-
+    $pessoa;
+    $perfil;
+    if(isset($_GET['tipo'])){
+    	if($_GET['tipo'] == SHA1(EPerfil::Aluno)){
+    		$perfil = EPerfil::Aluno;
+    	}elseif($_GET['tipo'] == SHA1(EPerfil::Professor)){
+    		$perfil = EPerfil::Professor;
+    	}else if($_GET['tipo'] == SHA1(EPerfil::Secretaria)){
+    		$perfil = EPerfil::Secretaria;
+    	}
+    }
+    
 
     $aluno = new Aluno();
 	$end1 = new Endereco();

@@ -312,13 +312,13 @@
                             <a href="#"><i class="fa fa-user fa-fw"></i> Aluno <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\aluno-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="..\pages\aluno-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\aluno-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="..\pages\aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\aluno-listar-inativos.php"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                    <a href="..\pages\aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
                                 </li>
                                  <li>
                                     <a href="#"><i class="fa fa-print fa-fw"></i>Emitir Boletim</a>
@@ -371,13 +371,13 @@
                             <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Professor <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="../pages/professor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/aluno-listar.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>                                
                                     <li>
-                                        <a href="../pages/professor-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                        <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                     </li>
                                     <li>
-                                        <a href="../pages/calendario_index.php"><i class="fa fa-calendar fa-fw"></i>Frequência de Alunos</a>
+                                        <a href="../pages/aluno.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>Frequência de Alunos</a>
                                     </li>
                             </ul>
                             <!-- /.nav-second-level -->
