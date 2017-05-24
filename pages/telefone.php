@@ -55,5 +55,25 @@
 		function listar(){
 			return AcessoDados::listar("SELECT Id, IdPessoa, Numero, Tipo, Ativo, CASE WHEN Ativo = 0 THEN 'Inativo' ELSE 'Ativo' FROM tbTelefone ORDER BY Tipo");
 		}
+
+		public function tipoDescricao(){
+			switch ($this->telTipo) {
+				case ETipoTelefone::residencial:
+					return "Residencial";
+					break;
+
+				case ETipoTelefone::celular:
+					return "Celular";
+					break;
+
+				case ETipoTelefone::comercial:
+					return "Comercial";
+					break;
+				
+				default:
+					return "Não informado";
+					break;
+			}
+		}
 	}
 ?>

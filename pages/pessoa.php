@@ -165,6 +165,12 @@
 			}
 		}
 
+		public function situacaoDescricao(){
+			if($this->pesAtivo == 0)
+				return "Inativo";
+			return "Ativo";
+		}
+
 		public function Logar(){
 			$sql = "SELECT Id, Nome, Cpf, Perfil, Senha FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".$this->pesSenha."') AND (Situacao = 1) LIMIT 1";
 			echo $sql;

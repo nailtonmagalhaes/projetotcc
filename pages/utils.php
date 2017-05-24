@@ -18,7 +18,7 @@
 class Mascaras{
 	public static function geraMascara($texto, $mascara){
 		if(empty($texto)) return "";
-
+		$texto = self::removeMascara($texto);
 		$maskared = '';
 		$k = 0;
 		for($i = 0; $i<=strlen($mascara)-1; $i++){
@@ -33,7 +33,7 @@ class Mascaras{
 		return $maskared;
 	}
 
-	function removeMascara($texto){
+	public static function removeMascara($texto){
 		$texto = trim($texto);
 		$texto = str_replace(".", "", $texto);
 		$texto = str_replace(",", "", $texto);
