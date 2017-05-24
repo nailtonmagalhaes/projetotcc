@@ -145,6 +145,7 @@ function keyupcpf(elm){
 function validaCampo(elm){
 	var nome = $(elm).attr('name');
  	var tipo = $(elm).attr('type');
+ 	if(tipo=="hidden") return true;
  	var nomespan = '.msg-' + nome;
  	var caixa_msg = document.querySelector(nomespan);
  	var mensagem = "";

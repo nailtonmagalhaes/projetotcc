@@ -33,6 +33,24 @@ class Mascaras{
 		return $maskared;
 	}
 
+	public static function geraMascaraTelefone($numero)
+	{
+		$numero = self::getNumeros($numero);
+
+		switch (strlen($numero)) {
+			case '8':
+				return self::geraMascara($numero, "####-####");
+			case '9':
+				return self::geraMascara($numero, "#####-####");
+			case '10':
+				return self::geraMascara($numero, "(##) ####-####");
+			case '11':
+				return self::geraMascara($numero, "(##) #####-####");			
+			default:
+				return $numero;
+		}
+	}
+
 	public static function removeMascara($texto){
 		$texto = trim($texto);
 		$texto = str_replace(".", "", $texto);
@@ -48,7 +66,13 @@ class Mascaras{
 	}
 
 	function getNumeros($texto){
-		$texto = preg_replace('/[0-9]/', '', $texto);
+		//$texto = preg_replace('/[0-9]/', '', $texto);
+		//return $texto;
+
+		//preg_match_all('/\d+/', $texto, $matches);
+    	//echo $matches[0];die;
+
+    	$texto = preg_replace('/\D/', '', $texto);
 		return $texto;
 	}
 }

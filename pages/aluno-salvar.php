@@ -43,16 +43,19 @@
 						}
 						/*CONTATOS*/
 						if(isset($_POST["tipotelefone1"]) && $_POST["tipotelefone1"] != null && $_POST["tipotelefone1"] != ''){
+							$tel1->telId = $_POST["idtel1"];
 							$tel1->telTipo = $_POST["tipotelefone1"];
 							$tel1->telNumero = Mascaras::removeMascara($_POST["numerotelefone1"]);
 							$aluno->pesTelefones[] = $tel1;
 						}
 						if(isset($_POST["tipotelefone2"]) && $_POST["tipotelefone2"] != null && $_POST["tipotelefone2"] != ''){
+							$tel2->telId = $_POST["idtel2"];
 							$tel2->telTipo = $_POST["tipotelefone2"];
 							$tel2->telNumero = Mascaras::removeMascara($_POST["numerotelefone2"]);
 							$aluno->pesTelefones[] = $tel2;
 						}
-						if(isset($_POST["tipotelefone3"]) && $_POST["tipotelefone3"] != null && $_POST["tipotelefone3"] != ''){							 
+						if(isset($_POST["tipotelefone3"]) && $_POST["tipotelefone3"] != null && $_POST["tipotelefone3"] != ''){		
+							$tel3->telId = $_POST["idtel3"];					 
 							$tel3->telTipo = $_POST["tipotelefone3"];
 							$tel3->telNumero = Mascaras::removeMascara($_POST["numerotelefone3"]);
 							$aluno->pesTelefones[] = $tel3;
@@ -113,7 +116,9 @@
 							header('location: ..\pages\aluno-cadastro.php?id='.$aluno->pesId);
 							die;
 						}
-
+						echo "<pre>";
+						var_dump($aluno);
+						
 				    	try{ 	
 				            $insert = $aluno->salvarDados();
 				            if($insert){

@@ -41,14 +41,19 @@
 		}
 
 		function salvarDados(){
-			if($this->telId > 0){
-				$sqlu = "UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo.", IdPessoa = ".$this->telPessoa->pesId." WHERE Id = ".$this->telId;
-				echo $sqlu;
-				return AcessoDados::alterar($sqlu);
-			}else{
-				$sqlI = "INSERT INTO tbTelefone (IdPessoa, Tipo, Numero, Ativo) VALUES (".$this->telPessoa->pesId.", ".$this->telTipo.", '".$this->telNumero."', 1);";
-				echo $sqlI."<br>";
-				return AcessoDados::inserir($sqlI);
+			try{
+				if($this->telId > 0){
+					$sqlUpdate = "UPDATE tbTelefone SET Numero = '".$this->telNumero."', Tipo = ".$this->telTipo.", Ativo = ".$this->telAtivo.", IdPessoa = ".$this->telPessoa->pesId." WHERE Id = ".$this->telId;
+					$sucessoupdate = AcessoDados::alterar($sqlUpdate);
+					return $sucessoupdate;
+				}else{
+					$sqlInsert = "INSERT INTO tbTelefone (IdPessoa, Tipo, Numero, Ativo) VALUES (".$this->telPessoa->pesId.", ".$this->telTipo.", '".$this->telNumero."', 1);";
+					$sucessoinsert = AcessoDados::inserir($sqlInsert);
+					$this->telId = $sucessoinsert;
+					return $sucessoinsert;
+				}
+			}catch(Exception $ex){
+				throw new Exception("Ocorreu um erro ao salvar os dados do Telefone.<br>".$ex->getMessage());				
 			}
 		}
 
