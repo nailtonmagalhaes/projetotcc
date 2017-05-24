@@ -2,111 +2,71 @@
 	include_once "menu.php";
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
+    $aluno = new Aluno();
 
-	if(count($_GET) > 0 && $_GET['id'] <> ""){
-		//$sql = "SELECT * FROM tbPessoa p inner join tbEndereco e  on p.id = e.idpessoa  WHERE p.Id = ".$_GET['id'];
-		$sql = "SELECT * From tbPessoa where id =".$_GET['id'];
-		 $resultado = AcessoDados::listar($sql);
-		 $id;
-		 $nome;
-		 $cpf;
-		 $rg;
-		 $sexo;
-		 $datanasc;
-		 $perfil;
-		 $situcao;
-		 $endereco;
-		 echo "resultado";
-
-		 if($resultado){
-		 	while($row = $resultado->fetch_assoc()){                                                                                                                      
-                $id = $row["Id"];
-                $nome = $row["Nome"];
-                $cpf = $row["Cpf"];
-                $rg = $row["Rg"];
-                $sexo = $row["Sexo"];
-                $datanasc = $row["DataNascimento"];
-                $perfil = $row["Perfil"];
-                $situacao = $row["Situacao"];
-                
-                
-		 	}
-		 	?>
-		 	<div id="page-wrapper">
-			    <div class="row">
-			        <div class="col-lg-12 text-center">
-			            <h1 class="page-header">Detalhes</h1>
-			        </div>
-			        <!-- /.col-lg-12 -->
-			    </div>
-			    <!-- /.row -->
-			    <div class="row">
-			        <div class="col-lg-12">
-			            <div class="panel panel-default">
-			                <div class="panel-heading text-center">
-			                    Detalhes do Aluno
-			                </div>
-			                <div class="panel-body">
-			                    <div class="row">
-			                        <div class="col-lg-6">
-								       <form action=<?php echo "\"aluno-excluir.php\" method=\"post\">"; ?>
-								       		<input type="hidden" name="id" value="<?php echo isset($id) ? $id : ''; ?>">
-								            <div class="form-group">
-								                <label>Código: <?php echo isset($id) ? $id : ''; ?></label>
-								            </div>
-								            <div class="form-group">
-								                <label> Nome: <?php echo isset($nome) ? $nome : ''; ?></label>
-								            </div>
-								            <div class="form-group">
-								                <label>CPF: <?php echo isset($cpf) ? $cpf : ''; ?></label>
-								            </div>
-								            <div class="form-group">
-								                <label>RG: <?php echo isset($rg) ? $rg : ''; ?></label>
-								            </div>
-								            <div class="form-group">
-								            	<label>Sexo: <?php if ($sexo == "1") {
-								            		echo "Masculino";}
-								            		else{
-								            		echo "Feminino";}
-								            	 ?></label>
-								            </div>
-								            <div class="form-group">
-								            	<label> Situação: <?php if ($situacao == "1") {
-								            		echo("Ativo");
-								            	}else{
-								            	     echo "Inativo";								            		
-								            	}
-								            	 ?>
-								            		
-								            	</label>
-								            </div>
-			                                <button class="btn btn-primary edit" type="button" title="Editar" <?php echo "onclick=\"javascript: location.href='aluno-cadastro.php?id=".$id."&nome=".$nome."&cpf=".$cpf."&Situacao=".$situacao."'";?>"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-			                                <button class="btn btn-danger delete" type="submit" name="remove_levels" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-								        </form>
-							        </div>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<?php 
-		}
+	if(isset($_GET["id"])){
+		$aluno->pesId = $_GET["id"];
+	}elseif (isset($_POST["id"])) {
+		$aluno->pesId = $_POST["id"];
 	}
+
+	$aluno->carregarDados();
 ?>
+		
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Detalhes</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Detalhes do Aluno
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        	<form action="aluno-excluir.php" method="post">
+                        		<input type="text" name="id" id="idaluno" <?php echo 'value="'.$aluno->pesId.'"';?>>
+                        	</form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
-	$('button[name="remove_levels"]').on('click', function (e) {
-        var $form = $(this).closest('form');
+	$('button[name="btn-excluir-aluno"]').on('click', function (e) {
         e.preventDefault();
-        $('#confirm').modal({
-            backdrop: 'static',
-            keyboard: false
-        })
-          .one('click', '#btn-confirmar-exclusao', function (e) {
-              $form.trigger('submit');
-          });
+        
+        var id = document.getElementById("idaluno").value;
+
+        swal({
+			  title: "Deseja realmente excluir o aluno?",
+			  text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonColor: "#DD6B55",
+			  confirmButtonText: "Excluir",
+			  cancelButtonText: "Cancelar",
+			  closeOnConfirm: false
+			},
+			function(){
+				$.post("aluno-excluir.php", {id:id}, function(data){
+                    if(data){
+                        swal("Aluno excluído com sucesso!","","success");
+                        window.setTimeout("location.href='../pages/aluno-listar.php'", 1000);
+                    }else{
+                        swal("Error",data,"warning");
+                    }
+                });
+			});
     });
 </script>
-
-<?php include_once "../pages/modal-confirmar-exclusao.php";
