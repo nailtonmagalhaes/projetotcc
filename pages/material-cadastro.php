@@ -45,7 +45,7 @@
 					            </div>
                                                     <div class="form-group">
                                                         <label>Arquivo</label>
-                                                        <input type="file" name="arquivo">
+                                                        <input type="file" name="arquivo" id="arquivo">
                                                     </div>
                                                     
 					            <div class="form-group">

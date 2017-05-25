@@ -48,7 +48,7 @@
                                             <td class="idmaterial"><center>'.$id.'</center></td>
                                             <td class="descricao">'.$descricao.'</td>
                                             <td><center>'.$ano.'</center></center></td>
-                                            <td><center>'.$link.'</center></td>
+                                            <td><center>'.$link.'<a href="../uploads/'.$link.'"> Abrir arquivo </a>'.'</center></td>
                                             <td><center>'.$situacao.'</center></td>
                                             <td><center>
                                                 <div hidden>

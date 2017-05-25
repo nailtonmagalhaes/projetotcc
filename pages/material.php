@@ -41,11 +41,32 @@
         }
 
         public function salvarDados(){
-			if($this->matId > 0){
-				 return AcessoDados::alterar("UPDATE tbMaterial SET Descricao = '".$this->matDescricao."', Ano = ".$this->matAno.", Link = '".$this->matLink."' WHERE Id = ".$this->matId);
-			}else{
-				return AcessoDados::inserir("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");
-			}
+            
+                        AcessoDados::abreTransacao();
+                        
+                        $sucesso = false;
+                        
+                        try{
+                            if($this->matId > 0){
+				 $sucesso = AcessoDados::alterar("UPDATE tbMaterial SET Descricao = '".$this->matDescricao."', Ano = ".$this->matAno.", Link = '".$this->matLink."' WHERE Id = ".$this->matId);
+                            }else{
+//                                    var_dump("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");die;
+                                    $sucesso = AcessoDados::inserir("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");
+                                    
+                                    if($sucesso>0){
+                                        $sucesso = true;
+                                    }
+                            }
+                            AcessoDados::confirmaTransacao();
+
+                            return $sucesso;
+
+                        } catch (Exception $exc) {
+            //                echo $exc->getTraceAsString();
+                            throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
+                        }
+                        
+                        
         }
 
         public function excluirLogicamente(){

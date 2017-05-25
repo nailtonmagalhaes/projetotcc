@@ -1,7 +1,8 @@
 <?php
 	
     include_once 'material.php';
-
+    include_once '../conf/acesso-dados.php';
+    
  ?>
 <!--Alert Top Cheio de Viadagem mais e Top--> 
 <script src="../sweetalert-master/dist/sweetalert.min.js"></script>
@@ -11,15 +12,15 @@
     <div class="row">
         <div class="col-lg-12">
 			<?php
-
+                                $link = '';
                                 /* INFORMAÇES DO UPLOAD */
-                        
+                                
                                 // Pasta onde o arquivo vai ser salvo
                                 $_UP['pasta'] = '../uploads/';
                                 // Tamanho máximo do arquivo (em Bytes)
                                 $_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
                                 // Array com as extensões permitidas
-                                $_UP['extensoes'] = array('jpg', 'png', 'gif');
+                                $_UP['extensoes'] = array('jpg', 'png', 'gif','pdf');
                                 // Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
                                 $_UP['renomeia'] = false;
                                 // Array com os tipos de erros de upload do PHP
@@ -28,9 +29,10 @@
                                 $_UP['erros'][2] = 'O arquivo ultrapassa o limite de tamanho especifiado no HTML';
                                 $_UP['erros'][3] = 'O upload do arquivo foi feito parcialmente';
                                 $_UP['erros'][4] = 'Não foi feito o upload do arquivo';
-                                echo '<pre>';
+//                                echo '<pre>';
+                                $link = $_FILES["arquivo"]["name"];
 //                                var_dump($_UP['pasta']);
-                                var_dump($_FILES["arquivo"]["name"]);die;
+//                                var_dump($_FILES["arquivo"]["name"]);die;
                                 // Verifica se houve algum erro com o upload. Se sim, exibe a mensagem do erro
                                 if ($_FILES['arquivo']['error'] != 0) {
                                   die("Não foi possível fazer o upload, erro:" . $_UP['erros'][$_FILES['arquivo']['error']]);
@@ -67,8 +69,8 @@
                                   // Não foi possível fazer o upload, provavelmente a pasta está incorreta
                                   echo "Não foi possível enviar o arquivo, tente novamente";
                                 }
-                                
-                                die;
+//                                var_dump($link);
+//                                die;
 				/* VERIFICO SE HOUVE UM POST */
 				if(count($_POST) > 0) {
 					$material = new Material();
@@ -88,8 +90,12 @@
 					if(empty($material->matDescricao) || empty($material->matAno)){
 						header('location: ..\pages\material-cadastro.php?id='.$material->matId.'&descricao='.$material->matDescricao);
 						die;
-					}		
-
+					}	
+//                                        var_dump();die;
+                                        if(isset($link)){
+                                            $material->matLink = $link;
+                                        }
+                                        
 					try{ 				 			
 
 						if($material->salvarDados()){
