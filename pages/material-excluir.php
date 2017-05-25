@@ -1,5 +1,6 @@
 <?php 
     include_once 'material.php';
+    include_once '../conf/acesso-dados.php';
 
 	/* VERIFICO SE HOUVE UM POST */
 	if(count($_POST) > 0 && $_POST["id"] > 0) {
@@ -17,7 +18,7 @@
 			echo json_encode($e->getMessage()); 
 		}		 
 	}else{
-		echo json_encode("Material não encontrada!");
+		echo json_encode("Material não encontrado!");
 	}
 ?>
 
