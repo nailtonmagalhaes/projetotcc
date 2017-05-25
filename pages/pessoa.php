@@ -124,6 +124,8 @@
 			try{
 				$sql = "";
 				$sucesso = (bool)false;
+				$telefonespreservar = "";
+				$enderecospreservar = "";
 				if($this->pesId > 0){
 					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId.";";
 					$sucesso = AcessoDados::alterar($sql);					
@@ -143,14 +145,42 @@
 					foreach($this->pesEnderecos as $e){
 						$e->endPessoa = $this;
 						$e->salvarDados();
-					}
 
+						if(empty($enderecospreservar))
+							$enderecospreservar .= $e->endId;
+						else
+							$enderecospreservar .= ", ".$e->endId;
+					}
 					foreach($this->pesTelefones as $t){
 						$t->telPessoa = $this;
 						$t->salvarDados();
+
+						if(empty($telefonespreservar))
+							$telefonespreservar .= $t->telId;
+						else
+							$telefonespreservar .= ", ".$t->telId;
 					}
-					
+
+					if(!empty($enderecospreservar)){
+						$sqldeletaend = "DELETE FROM tbEndereco WHERE IdPessoa = ".$this->pesId." AND Id NOT IN(".$enderecospreservar.")";
+						AcessoDados::alterar($sqldeletaend);
+					}
+
+					if(!empty($telefonespreservar)){
+						$sqldeletatel = "DELETE FROM tbTelefone WHERE IdPessoa = ".$this->pesId." AND Id NOT IN(".$telefonespreservar.")";
+						AcessoDados::alterar($sqldeletatel);
+					}
+
+					if(count($this->pesTelefones) <= 0){
+						AcessoDados::alterar("DELETE FROM tbTelefone WHERE IdPessoa = ".$this->pesId);
+					}
+
+					if(count($this->pesEnderecos) <= 0){
+						AcessoDados::alterar("DELETE FROM tbEndereco WHERE IdPessoa = ".$this->pesId);
+					}
+
 				}
+
 				return $sucesso;
 			}catch(Exception $ex){
 				throw new Exception("Erro ao salvar os dados da pessoa.<br>".$ex->getMessage());
@@ -165,11 +195,31 @@
 			}
 		}
 
+		public function situacaoDescricao(){
+			if($this->pesAtivo == 0)
+				return "Inativo";
+			return "Ativo";
+		}
+
 		public function Logar(){
 			$sql = "SELECT Id, Nome, Cpf, Perfil, Senha FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".$this->pesSenha."') AND (Situacao = 1) LIMIT 1";
 			echo $sql;
 			//echo "-------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);
+		}
+
+		public function excluirLogicamente(){
+			try{
+				AcessoDados::abreTransacao();
+				$sql = 'UPDATE tbPessoa SET Situacao = 0 WHERE Id = '.$this->pesId;
+				$retorno = AcessoDados::alterar($sql);
+				if($retorno){
+					AcessoDados::confirmaTransacao();
+				}
+				return $retorno;
+			}catch(Exception $ex){
+				header("location: detalhes-erro.php?erro=".$ex->getMessage());
+			}
 		}
 	}
 ?>

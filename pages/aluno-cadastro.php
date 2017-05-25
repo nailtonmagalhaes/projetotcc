@@ -4,7 +4,18 @@
     include_once 'aluno.php';
     include_once 'utils.php';
 
-
+    $pessoa;
+    $perfil;
+    if(isset($_GET['tipo'])){
+    	if($_GET['tipo'] == SHA1(EPerfil::Aluno)){
+    		$perfil = EPerfil::Aluno;
+    	}elseif($_GET['tipo'] == SHA1(EPerfil::Professor)){
+    		$perfil = EPerfil::Professor;
+    	}else if($_GET['tipo'] == SHA1(EPerfil::Secretaria)){
+    		$perfil = EPerfil::Secretaria;
+    	}
+    }
+    
 
     $aluno = new Aluno();
 	$end1 = new Endereco();
@@ -35,6 +46,7 @@
 	}
 	
 	$qtdEnd = count($aluno->getEnderecos());
+	$qtdTel = count($aluno->getTelefones());
 	
 	$isNew = $aluno->pesId > 0;
 
@@ -120,50 +132,37 @@ echo '
 													<th>Número</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td>
-														<select class="form-control slctipotel" name="tipotelefone1">
-															<option value="">Selecione um tipo de contato</option>
-															<option value="'.ETipoTelefone::residencial.'">Residencial</option>
-															<option value="'.ETipoTelefone::celular.'">Celular</option>
-															<option value="'.ETipoTelefone::comercial.'">Comercial</option>
-														</select>
-													</td>
-													<td class="tdnumero">
-														<input type="text" class="form-control" name="numerotelefone1" value="'.Mascaras::geraMascara("","(##)#####.####").'">
-														<span class="msg-numerotelefone1"></span>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<select class="form-control slctipotel" name="tipotelefone2">
-															<option value="">Selecione um tipo de contato</option>
-															<option value="'.ETipoTelefone::residencial.'">Residencial</option>
-															<option value="'.ETipoTelefone::celular.'">Celular</option>
-															<option value="'.ETipoTelefone::comercial.'">Comercial</option>
-														</select>
-													</td>
-													<td class="tdnumero">
-														<input type="text" class="form-control" name="numerotelefone2" value="'.Mascaras::geraMascara("","(##)#####.####").'">
-														<span class="msg-numerotelefone2"></span>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<select class="form-control slctipotel" name="tipotelefone3">
-															<option value="">Selecione um tipo de contato</option>
-															<option value="'.ETipoTelefone::residencial.'">Residencial</option>
-															<option value="'.ETipoTelefone::celular.'">Celular</option>
-															<option value="'.ETipoTelefone::comercial.'">Comercial</option>
-														</select>
-													</td>
-													<td class="tdnumero">
-														<input type="text" class="form-control" name="numerotelefone3" value="'.Mascaras::geraMascara("","(##)#####.####").'">
-														<span class="msg-numerotelefone3"></span>
-													</td>
-												</tr>
-											</tbody>
+											<tbody>';
+												for ($i = 0; $i < 3; $i++) {
+													$i2 = $i+1;
+													$numeroTel = "";
+													$tipoTel = ETipoTelefone::none;
+													$idTel = 0;
+													if($qtdTel >= $i2){
+														$numeroTel = Mascaras::geraMascaraTelefone($aluno->getTelefones()[$i]->telNumero);
+														$tipoTel = $aluno->getTelefones()[$i]->telTipo;
+														$idTel = $aluno->getTelefones()[$i]->telId;
+													}
+												?>													
+													<tr>
+														<td hidden>
+															<input type="hidden" class="form-control" name="idtel<?php echo $i2; ?>" id="idtel<?php echo $i2; ?>" value="<?php echo $idTel;?>">
+														</td>
+														<td>
+															<select class="form-control slctipotel" name="tipotelefone<?php echo $i2; ?>">
+																<option value="">Selecione um tipo de contato</option>
+																<option value="<?php echo ETipoTelefone::residencial.'"'.($tipoTel == ETipoTelefone::residencial ? 'selected' : null); ?>>Residencial</option>
+																<option value="<?php echo ETipoTelefone::celular.'"'.($tipoTel == ETipoTelefone::celular ? 'selected' : null); ?>>Celular</option>
+																<option value="<?php echo ETipoTelefone::comercial.'"'.($tipoTel == ETipoTelefone::comercial ? 'selected' : null); ?>>Comercial</option>
+															</select>
+														</td>
+														<td class="tdnumero">
+															<input type="text" class="form-control" name="numerotelefone<?php echo $i2;?>" value="<?php echo $numeroTel;?>">
+															<span class="msg-numerotelefone<?php echo $i2;?>"></span>
+														</td>
+													</tr>
+												<?php }
+											echo '</tbody>
 										</table>
 						            </div>
 								</div>
