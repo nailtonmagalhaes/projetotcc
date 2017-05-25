@@ -173,7 +173,7 @@
                                     ?>                                    
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $aluno->pesId;?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $aluno->pesId."&";?>tipo=<?php echo SHA1($aluno->pesPerfil); ?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
                                     <button class="btn btn-danger delete" type="submit" name="btn-excluir-aluno" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
                                 </div>
                         	</form>

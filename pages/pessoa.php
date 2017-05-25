@@ -58,6 +58,19 @@
 		public function getTelefones() {
 			return $this->pesTelefones;
 		}
+
+		public function perfilDescricao(){
+			switch ($this->pesPerfil) {
+				case EPerfil::Aluno:
+					return 'Aluno';
+				case EPerfil::Professor:
+					return 'Professor';
+				case EPerfil::Secretaria:
+					return 'Secretaria';				
+				default:
+					return '';
+			}
+		}
                 
 		public function limparCaracteres($str){			
 			$str = str_replace(".", "", $str);

@@ -2,22 +2,23 @@
 	include_once "menu.php";
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
+    include_once 'professor.php';
+    include_once 'secretaria.php';
     include_once 'utils.php';
 
-    $pessoa;
-    $perfil;
+    $pessoa = null;
     if(isset($_GET['tipo'])){
     	if($_GET['tipo'] == SHA1(EPerfil::Aluno)){
-    		$perfil = EPerfil::Aluno;
+    		$pessoa = new Aluno();
     	}elseif($_GET['tipo'] == SHA1(EPerfil::Professor)){
-    		$perfil = EPerfil::Professor;
+    		$pessoa = new Professor();
     	}else if($_GET['tipo'] == SHA1(EPerfil::Secretaria)){
-    		$perfil = EPerfil::Secretaria;
+    		$pessoa = new Secretaria();
     	}
     }
     
 
-    $aluno = new Aluno();
+
 	$end1 = new Endereco();
 	$end2 = new Endereco();
 	
@@ -26,29 +27,29 @@
 	$cidades2;
 
 	if(isset($_GET['id'])){
-		$aluno->pesId = $_GET['id'];
+		$pessoa->pesId = $_GET['id'];
 	}else if(isset($_POST['id'])){
-		$aluno->pesId = $_POST['id'];
+		$pessoa->pesId = $_POST['id'];
 	}
 
-	$aluno->carregarDados();
+	$pessoa->carregarDados();
 
 	
-	if(count($aluno->getEnderecos()) == 1){
-		$end1 = $aluno->getEnderecos()[0];
+	if(count($pessoa->getEnderecos()) == 1){
+		$end1 = $pessoa->getEnderecos()[0];
 		$cidades1 = Cidade::listarPorEstado($end1->endCidade->cidEstado->estId);
 	}
-	if(count($aluno->getEnderecos()) == 2){
-		$end1 = $aluno->getEnderecos()[0];
-		$end2 = $aluno->getEnderecos()[1];
+	if(count($pessoa->getEnderecos()) == 2){
+		$end1 = $pessoa->getEnderecos()[0];
+		$end2 = $pessoa->getEnderecos()[1];
 		$cidades1 = Cidade::listarPorEstado($end1->endCidade->cidEstado->estId);
 		$cidades2 = Cidade::listarPorEstado($end2->endCidade->cidEstado->estId);
 	}
 	
-	$qtdEnd = count($aluno->getEnderecos());
-	$qtdTel = count($aluno->getTelefones());
+	$qtdEnd = count($pessoa->getEnderecos());
+	$qtdTel = count($pessoa->getTelefones());
 	
-	$isNew = $aluno->pesId > 0;
+	$isNew = $pessoa->pesId > 0;
 
 echo '
 <div id="page-wrapper">
@@ -61,7 +62,7 @@ echo '
         <div class="col-md-offset-2 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">'
-		  		.($isNew ? "Editar Aluno" : "Cadastrar Aluno").'
+		  		.($isNew ? "Editar " : "Cadastrar ").$pessoa->perfilDescricao().'
 				</div>
                 <div class="panel-body">
                     <div class="row">
@@ -72,51 +73,51 @@ echo '
 	                           			<label>Dados Pessoais</label>
 	                        		</div>
 						            <div class="form-group">
-						                <input type="hidden" class="form-control" name="alnId" id="alnId" value="'.$aluno->pesId.'">
+						                <input type="hidden" class="form-control" name="alnId" id="alnId" value="'.$pessoa->pesId.'">
 						            </div>
 						            <div class="form-group">
 						                <label class="control-label" for="alnNome">Nome</label>
-						                <input type="text" class="form-control obrigatorio" name="alnNome" id="alnNome" placeholder="Nome" value="'.$aluno->pesNome.'">
+						                <input type="text" class="form-control obrigatorio" name="alnNome" id="alnNome" placeholder="Nome" value="'.$pessoa->pesNome.'">
 						                <span class="msg-alnNome"></span>
 						            </div>
 						            <div class="form-group">
 						                <label class="control-label" for="alnCpf">CPF</label>
-						                <input type="text" class="form-control obrigatorio cpf" name="alnCpf" id="alnCpf" placeholder="CPF" value="'.Mascaras::geraMascara($aluno->pesCpf, "###.###.###-##").'">
+						                <input type="text" class="form-control obrigatorio cpf" name="alnCpf" id="alnCpf" placeholder="CPF" value="'.Mascaras::geraMascara($pessoa->pesCpf, "###.###.###-##").'">
 						                <span class="msg-alnCpf"></span>
 						            </div>
 						            <div class="form-group">
 						                <label class="control-label" for="alnSenha">Senha de Acesso Ao Portal</label>
-						                <input type="password" class="form-control obrigatorio" name="alnSenha" id="alnSenha" placeholder="Senha" value="'.$aluno->pesSenha.'">
+						                <input type="password" class="form-control obrigatorio" name="alnSenha" id="alnSenha" placeholder="Senha" value="'.$pessoa->pesSenha.'">
 						                <span class="msg-alnSenha"></span>
 						            </div>
 						            <div class="form-group">
 						            	<label class="control-label" for="alnRg">RG</label>
-						            	<input type="text" class="form-control obrigatorio rg" name="alnRg" id="alnRg" placeholder="RG" value="'.Mascaras::geraMascara($aluno->pesRg, "##.###.###-#").'">
+						            	<input type="text" class="form-control obrigatorio rg" name="alnRg" id="alnRg" placeholder="RG" value="'.Mascaras::geraMascara($pessoa->pesRg, "##.###.###-#").'">
 						            	<span class="msg-alnRg"></span>
 						            </div>
 						            <div class="form-group">
                                         <label class="control-label" for="alnSexo">Sexo</label>
                                         <label class="radio-inline">
-	                                        <input type="radio" name="alnSexo" id="alnSexoMasculino" value="1"'.($aluno->pesSexo == ESexo::Masculino || $aluno->pesSexo == null || $aluno->pesSexo == ""  ? "checked" : null).'/>Masculino
+	                                        <input type="radio" name="alnSexo" id="alnSexoMasculino" value="1"'.($pessoa->pesSexo == ESexo::Masculino || $pessoa->pesSexo == null || $pessoa->pesSexo == ""  ? "checked" : null).'/>Masculino
 	                                    </label>
 	                                    <label class="radio-inline">
-	                                        <input type="radio" name="alnSexo" id="alnSexoFeminino" value="2"'.($aluno->pesSexo == 2 ? "checked" : null).'/>Feminino
+	                                        <input type="radio" name="alnSexo" id="alnSexoFeminino" value="2"'.($pessoa->pesSexo == 2 ? "checked" : null).'/>Feminino
                                          </label>
 	                                </div>
 									<div class="form-group">
                                         <label class="control-label" for="alnDataNascimento">Data Nascimento</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control obrigatorio datepicker data" name="alnDataNascimento" id="alnDataNascimento" value="'.$aluno->dataNascimentoFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" class="form-control obrigatorio datepicker data" name="alnDataNascimento" id="alnDataNascimento" value="'.$pessoa->dataNascimentoFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <span class="msg-alnDataNascimento"></span>
                                     </div>
-                                	<div class="form-group"'.($aluno->pesId > 0 ? null : "hidden").'>
+                                	<div class="form-group"'.($pessoa->pesId > 0 ? null : "hidden").'>
                                 		<label class="control-label" for="alnSituacao">Situação</label>
                                         <label class="radio-inline">
-	                                        <input type="radio" name="alnSituacao" id="alnSituacaoAtivo" value="1"'.($aluno->pesAtivo == 1 ? "checked" : null).'/>Ativo
+	                                        <input type="radio" name="alnSituacao" id="alnSituacaoAtivo" value="1"'.($pessoa->pesAtivo == 1 ? "checked" : null).'/>Ativo
 	                                    </label>
 	                                    <label class="radio-inline">
-	                                        <input type="radio" name="alnSituacao" id="alnSituacaoInativo" value="0"'.($aluno->pesAtivo == 0 ? "checked" : null).'/>Inativo
+	                                        <input type="radio" name="alnSituacao" id="alnSituacaoInativo" value="0"'.($pessoa->pesAtivo == 0 ? "checked" : null).'/>Inativo
                                          </label>
                                 	</div>
                                 </div>
@@ -139,9 +140,9 @@ echo '
 													$tipoTel = ETipoTelefone::none;
 													$idTel = 0;
 													if($qtdTel >= $i2){
-														$numeroTel = Mascaras::geraMascaraTelefone($aluno->getTelefones()[$i]->telNumero);
-														$tipoTel = $aluno->getTelefones()[$i]->telTipo;
-														$idTel = $aluno->getTelefones()[$i]->telId;
+														$numeroTel = Mascaras::geraMascaraTelefone($pessoa->getTelefones()[$i]->telNumero);
+														$tipoTel = $pessoa->getTelefones()[$i]->telTipo;
+														$idTel = $pessoa->getTelefones()[$i]->telId;
 													}
 												?>													
 													<tr>
@@ -185,7 +186,7 @@ echo '
 								                try{
 								                    if ($estados && $estados->num_rows > 0) {
 								                        while($row = $estados->fetch_assoc()){
-								                            echo '<option value="'.$row["Id"].'" estado="'.$row["Sigla"].'" '.($qtdEnd >= 1 && $row["Id"] == $aluno->pesEnderecos[0]->endCidade->cidEstado->estId ? "selected" : null).'>'.utf8_encode($row["Nome"]).'</option>';
+								                            echo '<option value="'.$row["Id"].'" estado="'.$row["Sigla"].'" '.($qtdEnd >= 1 && $row["Id"] == $pessoa->pesEnderecos[0]->endCidade->cidEstado->estId ? "selected" : null).'>'.utf8_encode($row["Nome"]).'</option>';
 								                        }
 								                    }
 								                } catch (Exception $e) {
