@@ -29,7 +29,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
-					       <form role="form" id="formcadastrar" action="material-salvar.php" method="post">
+					       <form role="form" id="formcadastrar" action="material-salvar.php" method="post" enctype="multipart/form-data">
 					            <div class="form-group">
 					                <input type="hidden" class="form-control" name="matId" id="matId" value="<?php echo $material->matId; ?>">
 					            </div>
@@ -43,6 +43,11 @@
 					                <input type="text" class="form-control obrigatorio" name="matAno" id="matAno" placeholder="Informe o ano do material" value="<?php echo $material->matAno; ?>">
 					                <span class='msg-matAno'></span>
 					            </div>
+                                                    <div class="form-group">
+                                                        <label>Arquivo</label>
+                                                        <input type="file" name="arquivo">
+                                                    </div>
+                                                    
 					            <div class="form-group">
 	                                <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
 	                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
