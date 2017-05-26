@@ -15,8 +15,7 @@
     	}else if($_GET['tipo'] == SHA1(EPerfil::Secretaria)){
     		$pessoa = new Secretaria();
     	}
-    }
-    
+    }    
 
 
 	$end1 = new Endereco();
@@ -72,6 +71,9 @@ echo '
 						            <div class="panel-heading">
 	                           			<label>Dados Pessoais</label>
 	                        		</div>
+						            <div class="form-group">
+						                <input type="hidden" class="form-control" name="pesPerfil" id="pesPerfil" value="'.$pessoa->pesPerfil.'">
+						            </div>
 						            <div class="form-group">
 						                <input type="hidden" class="form-control" name="alnId" id="alnId" value="'.$pessoa->pesId.'">
 						            </div>

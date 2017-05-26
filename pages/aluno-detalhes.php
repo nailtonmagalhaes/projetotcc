@@ -1,17 +1,28 @@
-<?php	
-	include_once "menu.php";
+<?php
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
+    include_once 'professor.php';
+    include_once 'secretaria.php';
     include_once 'utils.php';
-    $aluno = new Aluno();
+    
+    $pessoa = null;
 
-	if(isset($_GET["id"])){
-		$aluno->pesId = $_GET["id"];
-	}elseif (isset($_POST["id"])) {
-		$aluno->pesId = $_POST["id"];
-	}
-
-	$aluno->carregarDados();
+    if(isset($_GET['tipo'])){
+        if($_GET['tipo'] == SHA1(EPerfil::Aluno)){
+            $pessoa = new Aluno();
+        }elseif($_GET['tipo'] == SHA1(EPerfil::Professor)){
+            $pessoa = new Professor();
+        }else if($_GET['tipo'] == SHA1(EPerfil::Secretaria)){
+            $pessoa = new Secretaria();
+        }
+    }
+    if($pessoa && isset($_GET['id'])){
+        include_once "menu.php";
+        $pessoa->pesId = $_GET['id'];
+        $pessoa->carregarDados();
+    }else{
+        header('location: index.php');
+    }
 ?>
 
 <div id="page-wrapper">
@@ -33,8 +44,8 @@
                         <div class="col-lg-12">
                         	<form action="pessoa-excluir.php" method="post">
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="idaluno" value="<?php echo $aluno->pesId;?>">
-                            		<input type="hidden" name="id" id="nomealuno" value="<?php echo $aluno->pesNome;?>">
+                                    <input type="hidden" name="id" id="idaluno" value="<?php echo $pessoa->pesId;?>">
+                            		<input type="hidden" name="id" id="nomealuno" value="<?php echo $pessoa->pesNome;?>">
                                     
                                     <!-- DADOS PESSOAIS -->
                                     <fieldset>
@@ -55,22 +66,22 @@
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                <span><?php echo $aluno->pesNome;?></span>
+                                                                <span><?php echo $pessoa->pesNome;?></span>
                                                             </td>
                                                             <td>
-                                                                <span><?php echo Mascaras::geraMascara($aluno->pesCpf, '###.###.###-##');?></span>
+                                                                <span><?php echo Mascaras::geraMascara($pessoa->pesCpf, '###.###.###-##');?></span>
                                                             </td>
                                                             <td>
-                                                                <span><?php echo Mascaras::geraMascara($aluno->pesRg, '##.###.###-#');?></span>
+                                                                <span><?php echo Mascaras::geraMascara($pessoa->pesRg, '##.###.###-#');?></span>
                                                             </td>
                                                             <td>
-                                                                <span><?php echo $aluno->pesSexo == 0 ? "Feminino" : "Masculino";?></span>
+                                                                <span><?php echo $pessoa->pesSexo == 0 ? "Feminino" : "Masculino";?></span>
                                                             </td>
                                                             <td>
-                                                                <span><?php echo $aluno->dataNascimentoFormatada();?></span>
+                                                                <span><?php echo $pessoa->dataNascimentoFormatada();?></span>
                                                             </td>
                                                             <td>
-                                                                <span><?php echo $aluno->situacaoDescricao();?></span>
+                                                                <span><?php echo $pessoa->situacaoDescricao();?></span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -81,7 +92,7 @@
                                     
                                     <!--CONTATOS-->
                                     <?php
-                                        if(count($aluno->pesTelefones)>0){ ?>
+                                        if(count($pessoa->pesTelefones)>0){ ?>
                                                                                             
                                             <fieldset>
                                                 <legend>Contatos</legend>
@@ -94,7 +105,7 @@
                                                                     <th>Tipo</th>
                                                                 </tr>
                                                             </thead>
-                                                            <?php foreach ($aluno->pesTelefones as $telefone) {
+                                                            <?php foreach ($pessoa->pesTelefones as $telefone) {
                                                                 ?>
                                                                     <tbody>
                                                                         <tr>
@@ -118,7 +129,7 @@
 
                                     <!--ENDEREÇOS-->
                                     <?php
-                                        if(count($aluno->pesEnderecos) > 0){ ?>
+                                        if(count($pessoa->pesEnderecos) > 0){ ?>
                                             <fieldset>
                                                 <legend>Endereços</legend>
                                                 <div class="row">
@@ -136,7 +147,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <?php foreach ($aluno->pesEnderecos as $endereco) {
+                                                                <?php foreach ($pessoa->pesEnderecos as $endereco) {
                                                                 ?>
                                                                 <tr>
                                                                     <td>
@@ -173,7 +184,7 @@
                                     ?>                                    
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $aluno->pesId."&";?>tipo=<?php echo SHA1($aluno->pesPerfil); ?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $pessoa->pesId."&";?>tipo=<?php echo SHA1($pessoa->pesPerfil); ?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
                                     <button class="btn btn-danger delete" type="submit" name="btn-excluir-aluno" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
                                 </div>
                         	</form>

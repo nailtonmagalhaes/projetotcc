@@ -71,6 +71,30 @@
 					return '';
 			}
 		}
+
+		public function perfilDescricaoPlural(){
+			switch ($this->pesPerfil) {
+				case EPerfil::Aluno:
+					return 'Alunos';
+				case EPerfil::Professor:
+					return 'Professores';
+				case EPerfil::Secretaria:
+					return 'Secretarias';				
+				default:
+					return '';
+			}
+		}
+
+		public function sexoDescricao(){
+			switch ($this->pesSexo) {
+				case ESexo::Masculino:
+					return 'Masculino';
+				case ESexo::Feminino:
+					return 'Feminino';				
+				default:
+					return '';
+			}
+		}
                 
 		public function limparCaracteres($str){			
 			$str = str_replace(".", "", $str);
@@ -83,7 +107,7 @@
 		}
 
 		public function listar(){
-			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 1 AND Perfil = ".$this->pesPerfil;
+			$sql = "SELECT *, CASE Sexo WHEN 1 THEN 'Masculino' WHEN 2 THEN 'Feminino' ELSE '' END AS SexoDescricao, CASE COALESCE(Situacao, 1) WHEN 1 THEN 'Ativo' ELSE 'Inativo' END AS SituacaoDescricao FROM tbPessoa WHERE Situacao = 1 AND Perfil = ".$this->pesPerfil;
 			//echo "----------------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);
 		}
@@ -93,43 +117,47 @@
 		}
 		
 		public function carregarDados(){
-			$resultado = AcessoDados::listar("SELECT Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, COALESCE(Situacao, 1) AS Situacao FROM tbPessoa WHERE Id = ".$this->pesId);
-            if ($resultado && $resultado->num_rows > 0) {
-                $row = $resultado->fetch_assoc();                                                                                                                   
-                $this->pesNome = $row["Nome"];
-                $this->pesCpf = $row["Cpf"];
-				$this->pesRg = $row["Rg"];
-				$this->pesSenha = $row["Senha"];
-                $this->pesAtivo = $row["Situacao"];
-				$this->pesPerfil = $row["Perfil"];
-				$this->pesSexo = $row["Sexo"];
-				$this->pesDataNascimento = $row["DataNascimento"];
+			try{
+				$resultado = AcessoDados::listar("SELECT Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, COALESCE(Situacao, 1) AS Situacao FROM tbPessoa WHERE Id = ".$this->pesId);
+	            if ($resultado && $resultado->num_rows > 0) {
+	                $row = $resultado->fetch_assoc();                                                                                                                   
+	                $this->pesNome = $row["Nome"];
+	                $this->pesCpf = $row["Cpf"];
+					$this->pesRg = $row["Rg"];
+					$this->pesSenha = $row["Senha"];
+	                $this->pesAtivo = $row["Situacao"];
+					$this->pesPerfil = $row["Perfil"];
+					$this->pesSexo = $row["Sexo"];
+					$this->pesDataNascimento = $row["DataNascimento"];
 
-				$listaEnderecos = AcessoDados::listar("SELECT Id FROM tbEndereco WHERE IdPessoa = ".$this->pesId);
+					$listaEnderecos = AcessoDados::listar("SELECT Id FROM tbEndereco WHERE IdPessoa = ".$this->pesId);
 
-				if($listaEnderecos && $listaEnderecos->num_rows > 0){
-					while($row = $listaEnderecos->fetch_assoc()){  
-						$end = new Endereco();                                                                                                                    
-						$end->endId = $row["Id"];
-						$end->carregarDados();
-						$end->endPessoa = $this;
-						$this->addEndereco($end);
+					if($listaEnderecos && $listaEnderecos->num_rows > 0){
+						while($row = $listaEnderecos->fetch_assoc()){  
+							$end = new Endereco();                                                                                                                    
+							$end->endId = $row["Id"];
+							$end->carregarDados();
+							$end->endPessoa = $this;
+							$this->addEndereco($end);
+						}
 					}
-				}
 
-				$telefones = AcessoDados::listar("SELECT Id FROM tbTelefone WHERE IdPessoa = ".$this->pesId);
-				if($telefones && $telefones->num_rows > 0){
-					while($rt = $telefones->fetch_assoc()){
-						$t = new Telefone();
-						$t->telId = $rt["Id"];
-						$t->carregarDados();
-						$t->telPessoa = $this;
-						$this->addTelefone($t);
+					$telefones = AcessoDados::listar("SELECT Id FROM tbTelefone WHERE IdPessoa = ".$this->pesId);
+					if($telefones && $telefones->num_rows > 0){
+						while($rt = $telefones->fetch_assoc()){
+							$t = new Telefone();
+							$t->telId = $rt["Id"];
+							$t->carregarDados();
+							$t->telPessoa = $this;
+							$this->addTelefone($t);
+						}
 					}
-				}
-                return true;
-            }else{
-                return false;
+	                return true;
+	            }else{
+	                return false;
+	            }
+            }catch(Exception $ex){
+            	echo "Ocorreu um erro ao carregar os dados<br>";
             }
 		}
 
