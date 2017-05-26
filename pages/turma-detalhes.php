@@ -112,14 +112,29 @@
         var id = document.getElementById("idturma").value;
 
         swal({
-			  title: "Deseja realmente excluir a turma?",
+			  //title: "Deseja realmente excluir a turma?",
+			  //text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
+			  //type: "warning",
+			  //showCancelButton: true,
+			  //confirmButtonColor: "#DD6B55",
+			  //confirmButtonText: "Excluir",
+			  //cancelButtonText: "Cancelar",
+			  //closeOnConfirm: false
+
+
+
+
+			  title: 'Deseja realmente excluir a turma?',
 			  text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
-			  type: "warning",
+			  type: 'warning',
 			  showCancelButton: true,
-			  confirmButtonColor: "#DD6B55",
-			  confirmButtonText: "Excluir",
-			  cancelButtonText: "Cancelar",
-			  closeOnConfirm: false
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Sim, Excluir!',
+			  cancelButtonText: 'Não, Cancelar!',
+			  confirmButtonClass: 'btn btn-success',
+			  cancelButtonClass: 'btn btn-danger',
+			  buttonsStyling: false
 			},
 			function(){
 				$.post("turma-excluir.php", {id:id}, function(data){

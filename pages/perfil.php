@@ -5,6 +5,7 @@
 	    const Aluno = 1;
 	    const Professor = 2;
 	    const Secretaria = 3;
+	    const Administrador = 99;
 	}
 
 	class ESituacaoCadastro{

@@ -37,7 +37,7 @@
         <div class="col-md-offset-2 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <label>Detalhes do Aluno</label>
+                    <label>Detalhes do <?php echo $pessoa->perfilDescricao()?></label>
                 </div>
                 <div class="panel-body">
                     <div class="row">

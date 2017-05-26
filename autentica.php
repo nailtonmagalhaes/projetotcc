@@ -10,7 +10,7 @@
 	var_dump($_POST);
 	if(isset($_POST)){
 
-		$pessoa->pesCpf = addslashes(Mascaras::removeMascara($_POST['cpf']);
+		$pessoa->pesCpf = addslashes(Mascaras::removeMascara($_POST['cpf']));
 		$pessoa->pesSenha = addslashes(sha1($_POST['senha']));
 
 		$resultado = $pessoa->logar();
@@ -35,16 +35,16 @@
 		}
 	}
 
-			public function anti_injection($sql)
-		{
-			//debater com o pessoal se Conven Colocar
-		// remove palavras que contenham sintaxe sql
-		$sql = preg_replace(sql_regcase("/(from|select|insert|delete|where|drop table|show tables|#|\*|--|\\\\)/"),"",$sql);
-		$sql = trim($sql);//limpa espaços vazio
-		$sql = strip_tags($sql);//tira tags html e php
-		$sql = addslashes($sql);//Adiciona barras invertidas a uma string
-		return $sql;
-		}
+		//public function anti_injection($sql)
+		//{
+		//	//debater com o pessoal se Conven Colocar
+		//// remove palavras que contenham sintaxe sql
+		//$sql = preg_replace(sql_regcase("/(from|select|insert|delete|where|drop table|show tables|#|\*|--|\\\\)/"),"",$sql);
+		//$sql = trim($sql);//limpa espaços vazio
+		//$sql = strip_tags($sql);//tira tags html e php
+		//$sql = addslashes($sql);//Adiciona barras invertidas a uma string
+		//return $sql;
+		//}
 
 
 ?>

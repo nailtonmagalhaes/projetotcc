@@ -37,10 +37,17 @@
 						$idinserido = $curso->salvarDados();
 						AcessoDados::confirmaTransacao();
 						if($idinserido){
-							header("location: ..\pages\curso-listar.php");
 							?>
-	
-							<?php //header("location: ..\pages\curso-listar.php");
+							<script>
+			            		try {
+			            			
+				            		swal("Dados salvos com sucesso", "", "success");
+				            		window.setTimeout("location.href='../pages/curso-listar.php'",1000);
+			            		} catch (e) {
+			            			alert(e);
+			            		}
+			            	</script>
+							<?php header("location: ..\pages\curso-listar.php");
 						}else{
 							header('location: ..\pages\curso-cadastro.php?id='.$curso->crsId.'&descricao='.$curso->crsDescricao.'&duracao='.$curso->crsDuracao);
 						}

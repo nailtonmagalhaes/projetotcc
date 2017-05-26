@@ -60,8 +60,8 @@
                                     <tr>
                                         <td class="idpessoa"><?php echo $row['Id'];?></td>
                                         <td class="nome"><?php echo $row['Nome'];?></td>
-                                        <td><?php echo $row['Cpf'];?></td>
-                                        <td><?php echo $row['Rg'];?></td>
+                                        <td><?php echo Mascaras::geraMascara($row['Cpf'], '###.###.###-##');?></td>
+                                        <td><?php echo Mascaras::geraMascara($row['Rg'], '##.###.###-#');?></td>
                                         <td><?php echo $row['SexoDescricao'];?></td>
                                         <td><?php echo $row['SituacaoDescricao'];?></td>
                                         <td>

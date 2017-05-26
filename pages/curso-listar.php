@@ -92,6 +92,9 @@
         //var $form = $(this).closest('form');
         var id =  $(this).parent().siblings('.idcurso').text();
         var nomecurso =  $(this).parent().siblings('.nomecurso').text();
+
+       
+
         swal({
               title: "Deseja excluir o curso '"+ nomecurso +"'?",
               text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
@@ -101,22 +104,27 @@
               confirmButtonText: "Excluir",
               cancelButtonText: "Cancelar",
               closeOnConfirm: false
+
+              //title: "Deseja excluir o curso '"+ nomecurso +"'?",
+              //text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
+              //type: 'warning',
+              //showCancelButton: true,
+              //confirmButtonColor: '#3085d6',
+              //cancelButtonColor: '#d33',
+              //confirmButtonText: 'Sim, Excluir!',
+              //cancelButtonText: 'Não, Cancelar!',
+              //confirmButtonClass: 'btn btn-success',
+              //cancelButtonClass: 'btn btn-danger',
+              //buttonsStyling: false
             },
             function(){
                 $.post("curso-excluir.php", {id:id}, function(data){
                     if(data){
                         swal("Curso excluído com sucesso!","","success");
-                        window.setTimeout("location.href='../pages/curso-listar.php'",2000);
+                        window.setTimeout("location.href='../pages/curso-listar.php'",1000);
                     }else{
                         swal("Error","","warning");
                     }
-                    // if(data.error)
-                    // {
-                    //     swal(data, "", "warning");
-                    // }else{
-                    //     swal(data, "", "success");
-                    //     window.setTimeout("location.href='../pages/curso-listar.php'",2000);
-                    // }
                 });
             });
     });

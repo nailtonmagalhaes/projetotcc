@@ -5,9 +5,9 @@
     include_once 'secretaria.php';
     include_once 'utils.php';
  ?>
-<!--Alert Top Cheio de Viadagem mais e Top--> 
+
 <script src="../sweetalert-master/dist/sweetalert.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">
+<link rel="stylesheet" type="text/css" href="../sweetalert-master/dist/sweetalert.css">  
 
 <?php
 	/* VERIFICO SE HOUVE UM POST */
@@ -130,8 +130,13 @@
             if($insert){
         		?>
             	<script>
-            		swal("Dados salvos com sucesso", "", "success");
-            		window.setTimeout("location.href='../pages/aluno-listar.php'",1000);
+            		try {
+            			
+	            		swal("Dados salvos com sucesso", " ", "success");
+	            		window.setTimeout("location.href='../pages/aluno-listar.php'",1000);
+            		} catch (e) {
+            			alert(e);
+            		}
             	</script>
 				<?php
 			}else{
