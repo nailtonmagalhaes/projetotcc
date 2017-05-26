@@ -2,201 +2,109 @@
 
     include_once 'menu.php';
 ?>
+<!-- Resources -->
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 class="page-header">Em construção...</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
             <!-- /.row -->
-            <div class="row ocultar">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Basic Form Elements
+                           <h1 align="center">Relatorio Inicial</h1> 
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Text Input</label>
-                                            <input class="form-control">
-                                            <p class="help-block">Example block-level help text here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Text Input with Placeholder</label>
-                                            <input class="form-control" placeholder="Enter text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>File input</label>
-                                            <input type="file">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
-                                    </form>
-                                </div>
-                                <form action="..\conf\testeconexao.php">
-                                    <button type="submit" class="btn btn-default">Testar Conexão</button>
-                                </form>
-                                <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
+                                <!-- Styles -->
+                                    <style>
+                                    body { color: #fff; }
+                                    #chartdiv {
+                                        width   : 100%;
+                                        height  : 500px;
+                                    }                               
+                                    </style>                                    
+
+                                   <!-- Chart code -->
+                                    <script>
+                                    var dados = [];
+
+ $.getJSON('diasemana-consulta.php', function(dias){
+
+       $.each(dias, function(i, obj){
+            console.log(obj)
+            dados = {
+                "name":obj.disDia,
+                "points":obj.disId,
+                "color":"#7F8DA9",
+                "bullet":""
+            }
+        })
+       
+    });
+
+
+
+
+
+
+console.log(dados)
+                                    var chart = AmCharts.makeChart("chartdiv",
+                                    {
+                                        "type": "serial",
+                                        "theme": "dark",
+                                        "dataProvider": 
+                                        [
+                                    {
+                                        "name": "Damon",
+                                        "points": 65456,
+                                        "color": "#FEC514",
+                                        "bullet": "https://www.amcharts.com/lib/images/faces/C02.png"
+                                    },                                        
+
+
+
+                                        ],
+                                        "valueAxes": [{
+                                            "maximum": 80000,
+                                            "minimum": 0,
+                                            "axisAlpha": 0,
+                                            "dashLength": 4,
+                                            "position": "left"
+                                        }],
+                                        "startDuration": 1,
+                                        "graphs": [{
+                                            "balloonText": "<span style='font-size:13px;'>[[category]]: <b>[[value]]</b></span>",
+                                            "bulletOffset": 10,
+                                            "bulletSize": 52,
+                                            "colorField": "color",
+                                            "cornerRadiusTop": 8,
+                                            "customBulletField": "bullet",
+                                            "fillAlphas": 0.8,
+                                            "lineAlpha": 0,
+                                            "type": "column",
+                                            "valueField": "points"
+                                        }],
+                                        "marginTop": 0,
+                                        "marginRight": 0,
+                                        "marginLeft": 0,
+                                        "marginBottom": 0,
+                                        "autoMargins": false,
+                                        "categoryField": "name",
+                                        "categoryAxis": {
+                                            "axisAlpha": 0,
+                                            "gridAlpha": 0,
+                                            "inside": true,
+                                            "tickLength": 0
+                                        },
+                                        "export": {
+                                            "enabled": true
+                                         }
+                                    });
+                                    </script>
+
+                                    <!-- HTML -->
+                                    <div id="chartdiv"></div>
+
+                                    <!-- HTML -->
+                            
                             <!-- /.row (nested) -->
                         </div>
                         <!-- /.panel-body -->
@@ -204,7 +112,7 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
-            </div>
+         
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
@@ -216,5 +124,5 @@
  
 
 </body>
-
+    <script type="text/javascript" src="../js/relatorio/Relatorio.js"></script>
 </html>
