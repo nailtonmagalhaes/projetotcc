@@ -51,11 +51,11 @@
 				 $sucesso = AcessoDados::alterar("UPDATE tbMaterial SET Descricao = '".$this->matDescricao."', Ano = ".$this->matAno.", Link = '".$this->matLink."' WHERE Id = ".$this->matId);
                             }else{
 //                                    var_dump("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");die;
-                                    $sucesso = AcessoDados::inserir("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");
-                                    
-                                    if($sucesso>0){
-                                        $sucesso = true;
-                                    }
+                                $sucesso = AcessoDados::inserir("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");
+
+                                if($sucesso>0){
+                                    $sucesso = true;
+                                }
                             }
                             AcessoDados::confirmaTransacao();
 
@@ -70,7 +70,27 @@
         }
 
         public function excluirLogicamente(){
-			return AcessoDados::alterar("UPDATE tbMaterial SET Ativo = 0 WHERE Id = ".$this->matId);
+                        AcessoDados::abreTransacao();
+                        
+                        $sucesso = false;
+                        
+                        try{
+                            
+//                            var_dump("UPDATE tbMaterial SET Ativo = 0 WHERE Id = ".$this->matId);die;
+                            
+                            $sucesso = AcessoDados::alterar("UPDATE tbMaterial SET Ativo = 0 WHERE Id = ".$this->matId);
+                        
+                             AcessoDados::confirmaTransacao();
+                            
+                             return $sucesso;
+                             
+                        } catch (Exception $ex) {
+                            
+                            throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
+                       
+                        }
+                        
+                       
         }
 
         public function excluirFisicamente(){
