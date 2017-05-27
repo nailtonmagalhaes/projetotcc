@@ -24,42 +24,28 @@
 
                                    <!-- Chart code -->
                                     <script>
-                                    var dados = [];
-                                    var dados2 = ["marcio",7,5];
+                                    var dados = []
 
                                 $.getJSON('diasemana-consulta.php', function(dias){
-
-                                    $.each(dias, function(i, obj){
-                                            console.log(obj)
-                                            
-                                               dados = {                                                
+                                    $.each(dias, function(i, obj){                                            
+                                           dado = {                                                
                                                 "name":obj.disDia,
                                                 "points":obj.disId,
                                                 "color":"#7F8DA9",
                                                 "bullet":""
                                             }
+                                            dados.push(dado);
                                         })
                                     
                                     });
-
-                                         console.log(dados)
-                                         console.log(dados2)
 
                                     var chart = AmCharts.makeChart("chartdiv",
                                     {
                                         "type": "serial",
                                         "theme": "dark",
-                                        "dataProvider": 
-                                        [
-                                                {
-                                                    "name": "Damon",
-                                                    "points": 65456,
-                                                    "color": "#FEC514",
-                                                    "bullet": "https://www.amcharts.com/lib/images/faces/C02.png"
-                                                },
-                                        ],
+                                        "dataProvider": dados,
                                         "valueAxes": [{
-                                            "maximum": 80000,
+                                            "maximum": 20,
                                             "minimum": 0,
                                             "axisAlpha": 0,
                                             "dashLength": 4,
@@ -91,7 +77,8 @@
                                             "tickLength": 0
                                         },
                                         "export": {
-                                            "enabled": true
+                                            "enabled": true,
+                                            //"menu": ["PDF", "JPG", "CSV"]
                                          }
                                     });
                                     </script>

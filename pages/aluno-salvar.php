@@ -128,7 +128,7 @@
     	try{ 	
             $insert = $pessoa->salvarDados();
             if($insert){
-        		?>
+        		include_once 'menu.php';?>
             	<script>
             		try {
             			
