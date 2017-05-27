@@ -31,8 +31,8 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
 
         function carregarDados(){
-            $resultado = AcessoDados::listar("SELECT Id, IdCurso, DataInicio, Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada FROM tbTurma WHERE Id = ".$this->turId);
-
+            $resultado = AcessoDados::listar("SELECT Id, IdCurso, DataInicio, Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbcurso cur ON(cur.Id = tma.IdCurso) WHERE Id = ".$this->turId);
+           
 /***************CARREGA OS DADOS DA TURMA*/
             if ($resultado && $resultado->num_rows > 0) {
                 $row = $resultado->fetch_assoc();                                                                                                                   
@@ -88,10 +88,34 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
 		}
 
         function listar(){
-            return AcessoDados::listar("
-                SELECT t.Id, t.IdCurso, t.DataInicio, CASE WHEN t.Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END Situacao, date_format(t.DataInicio, '%d/%m/%Y') DataInicioFormatada, c.Descricao AS Curso, c.Duracao
-                FROM tbTurma t
-                INNER JOIN tbCurso c ON c.Id = t.IdCurso");
+            return AcessoDados::listar("  
+            SELECT 
+                t.Id
+                , t.IdCurso
+                , t.DataInicio
+                , (CASE WHEN t.Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END) as Situacao
+                , date_format(t.DataInicio, '%d/%m/%Y') as DataInicioFormatada
+                , c.Descricao AS Curso
+                , c.Duracao
+                , group_concat(DISTINCT ds.Dia) as Dias
+                , prof.Nome
+            FROM 
+                    tbTurma t
+                INNER JOIN tbCurso c ON (c.Id = t.IdCurso)
+                INNER JOIN tbturma_has_diasemana tds ON(tds.IdTurma = t.Id)
+                INNER JOIN tbdiasemana ds ON(ds.Id = tds.IdDiaSemana)
+                INNER JOIN tbprofessor_has_turma tp ON(tp.IdTurma = t.Id AND tp.Tipo = 1)
+                INNER JOIN tbpessoa prof ON(prof.Id = tp.IdProfessor)
+            GROUP BY
+                    t.Id
+                , t.IdCurso
+                , t.DataInicio
+                , t.Ativo
+                , t.DataInicio
+                , c.Descricao
+                , c.Duracao
+                , prof.Nome");
+            
         }
 
         function salvarDados(){

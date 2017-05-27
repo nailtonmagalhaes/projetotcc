@@ -1,4 +1,5 @@
 <?php
+    include_once 'valida-sessao.php';
     include_once 'turma.php';
     include_once 'aluno.php';
     
@@ -20,7 +21,20 @@
         }
 
         public function listar(){
-
+			return AcessoDados::listar("SELECT
+                                                        mat.Id as IdMatricula
+                                                        ,tma.Id as IdTurma
+                                                        ,cur.Descricao as Curso
+                                                        ,DATE_FORMAT( tma.DataInicio , '%d/%m/%Y' ) as DataInicio
+                                                        ,pes.Nome
+                                                       ,(CASE WHEN COALESCE(mat.Ativo, 1) = 1 THEN 'Ativo' ELSE 'Inativo' END) as Situacao
+                                                    FROM
+                                                        tbmatricula mat
+                                                        INNER JOIN tbpessoa pes ON(pes.Id = mat.IdAluno)
+                                                        INNER JOIN tbturma tma ON(tma.Id = mat.IdTurma)
+                                                        INNER JOIN tbcurso cur ON(cur.Id = tma.IdCurso)
+                                                    ORDER BY
+                                                            mat.Id ASC");
         }
 
         public function listarPorTurma($idTurma){
@@ -32,7 +46,31 @@
         }
 
         public function salvarDados(){
+               
+                AcessoDados::abreTransacao();
+                        
+                $sucesso = false;
 
+                try{
+                    if($this->matId > 0){
+                        $sucesso = AcessoDados::alterar("UPDATE tbMatricula SET IdAluno = '".$this->matAluno."', IdTurma = ".$this->matTurma.", NumeroMatricula = '".$this->matNumero."' WHERE Id = ".$this->matId);
+                    }else{
+//                                    var_dump("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");die;
+                        $sucesso = AcessoDados::inserir("INSERT INTO tbMatricula (IdAluno,IdTurma,NumeroMatricula,Ativo) VALUES ('".$this->matAluno."', ".$this->matTurma.", '".$this->matNumero."', ".$this->matAtivo.")");
+
+                        if($sucesso>0){
+                            $sucesso = true;
+                        }
+                    }
+                    AcessoDados::confirmaTransacao();
+
+                    return $sucesso;
+
+                } catch (Exception $exc) {
+    //                echo $exc->getTraceAsString();
+                    throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
+                }
+                
         }
 
         public function excluirLogicamente(){

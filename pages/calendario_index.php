@@ -36,6 +36,24 @@
                         <script src='../Arquivos/fullcalendar-3.4.0/locale/pt-br.js'></script>
 
                         <script>
+                            var dados;
+                            var contador
+                            
+                            function montarCalendario(){
+                                $.ajax({
+                                    url: "calendario_evento.php"
+                                    ,type: "POST"
+                                    ,dataType: 'json'
+                                    ,success: function(data){
+                                        if(data!=null){
+
+                                           contador = 0;
+                                           dados = data;
+                                       }
+                                   }
+                               })
+                            }
+                            
                             
                             var date = new Date();
                             
@@ -46,7 +64,7 @@
                                 ,success: function(data){
                                     if(data!=null){
                                        
-                                       var contador = 0;
+                                       contador = 0;
                                        
                                        $(document).ready(function() {	
                                             //CARREGA CALENDÁRIO E EVENTOS DO BANCO
@@ -67,7 +85,8 @@
             //                                        console.log(view);
 //                                                      console.log(data[contador]);
 //                                                      console.log('OIoi')
-                                                      console.log(data[contador])
+                                                      montarCalendario();
+//                                                      console.log(data[contador])
                                                      if(data[contador]){
                                                          element.attr("idTurma",data[contador].IdTurma);
                                                     element.attr("id",data[contador].id);
