@@ -2,6 +2,13 @@
     include_once 'valida-sessao.php';
     include_once '../conf/acesso-dados.php';
     
+    $where;
+    
+    if($_SESSION["perfil"]==3){
+        $where = "AND TRUE";
+    } else {
+        $where = " AND IdProfessor = {$_SESSION["perfil"]}";
+    }
     
     $sql = "SELECT 
                     tds.IdTurma
@@ -14,7 +21,10 @@
                     tbturma_has_diasemana tds
                     INNER JOIN tbturma tt  ON(tds.IdTurma = tt.id)
                     INNER JOIN tbCurso tc ON(tc.Id = tt.IdCurso)
+                    LEFT JOIN tbprofessor_has_turma tp ON(tds.IdTurma = tp.IdTurma {$where})
             ";
+//    echo '<pre>';    
+//    var_dump($sql);die;
     
     $consulta = AcessoDados::listar($sql); 
     

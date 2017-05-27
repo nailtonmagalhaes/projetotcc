@@ -68,9 +68,12 @@
 //                                                      console.log(data[contador]);
 //                                                      console.log('OIoi')
                                                       console.log(data[contador])
-                                                    element.attr("idTurma",data[contador].IdTurma);
+                                                     if(data[contador]){
+                                                         element.attr("idTurma",data[contador].IdTurma);
                                                     element.attr("id",data[contador].id);
                                                     element.click(function(){ turmaDialog($(this).attr('id'),$(this).attr('idturma')) })
+                                                    
+                                                     }
                                                     contador++;
                                                 }
                                             });	
