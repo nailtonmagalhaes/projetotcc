@@ -116,7 +116,7 @@
                 $.post("turma-excluir.php", {id:id}, function(data){
                     if(data){
                         swal("Turma excluída com sucesso!","","success");
-                        window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+//                        window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
                     }else{
                         swal("Error",data,"warning");
                     }

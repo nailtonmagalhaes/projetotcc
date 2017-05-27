@@ -1,9 +1,46 @@
 <?php
     ini_set("display_erros", true);
     include_once 'turma.php';
+    include_once 'curso.php';
     include_once '../conf/acesso-dados.php';
-    date_default_timezone_set('America/Sao_Paulo');
-
+//    date_default_timezone_set('America/Sao_Paulo');
+     
+    $dias = array();
+    $hora = array();
+    
+    $curso = new Curso();
+    $curso->crsId = $_REQUEST["Curso"];
+    $curso->carregarDados();
+    
+    
+    foreach ($_REQUEST['Datas'] as $data) {
+//        $d = new TurmaHasDiaSemana();
+//        $d->thdId = $data["IdHasDia"];
+//        $d->thdDiaSemana = new DiaSemana();
+        $time = new DateTime($data["HoraInicio"]);
+        $timeStop = new DateTime($data["HoraTermino"]);
+        $diff = $timeStop->diff($time);
+        $tempo = $diff->format('%h:%i');
+        
+//        $tempo = gmdate('H:i', strtotime(  ) - strtotime(  ) );
+        
+        $dias[] = $data["DiaSemana"];
+        $hora[]["hora"] = $tempo;
+//        $d->thdHoraInicio = date("Y-m-d H:i", strtotime($data["HoraInicio"]));
+//        $d->thdHoraTermino = date("Y-m-d H:i", strtotime($data["HoraTermino"]));;
+//        $turma->turHasDiaSemana[] = $d;
+    }
+    
+//    echo "<pre>";
+//    var_dump($dias);
+//    var_dump($_REQUEST["DataInicio"]);die;
+    $turma = new Turma();
+    $arr_dias = $turma->calculaDiasTurma($dias,$hora,$curso->crsDuracao,$_REQUEST["DataInicio"]);
+    
+//    var_dump($arr_dias);
+//    die;
+    
+    
     /*
     echo '<pre>';
     echo "REQUESET<br>############################################################################################<br>";
@@ -69,15 +106,30 @@
 
         if (isset($_REQUEST['Datas'])) {
             foreach ($_REQUEST['Datas'] as $data) {
-                $d = new TurmaHasDiaSemana();
-                $d->thdId = $data["IdHasDia"];
-                $d->thdDiaSemana = new DiaSemana();
-                $d->thdDiaSemana->disId = $data["DiaSemana"];
-                $d->thdHoraInicio = date("Y-m-d H:i", strtotime($data["HoraInicio"]));
-                $d->thdHoraTermino = date("Y-m-d H:i", strtotime($data["HoraTermino"]));;
-                $turma->turHasDiaSemana[] = $d;
+//                var_dump($data["DiaSemana"]);die;
+                
+                foreach ($arr_dias[0] as $key => $value) {
+//                    var_dump($arr_dias[0][$key]);
+//                    var_dump($arr_dias[1][$key]);
+//                      var_dump($arr_dias[1][$key]);
+//                      var_dump($data["DiaSemana"]);
+//                    var_dump(date("Y-m-d H:i", strtotime($arr_dias[0][$key]." ".$data["HoraInicio"])));
+//                    var_dump($data["HoraInicio"]);die;
+                    if($arr_dias[1][$key] == $data["DiaSemana"]){
+                        $d = new TurmaHasDiaSemana();
+                        $d->thdId = $data["IdHasDia"];
+                        $d->thdDiaSemana = new DiaSemana();
+                        $d->thdDiaSemana->disId = $arr_dias[1][$key];
+                        $d->thdHoraInicio = date("Y-m-d H:i", strtotime($arr_dias[0][$key]." ".$data["HoraInicio"]));
+                        $d->thdHoraTermino = date("Y-m-d H:i", strtotime($arr_dias[0][$key]." ".$data["HoraTermino"]));;
+                        $turma->turHasDiaSemana[] = $d;
+                    }
+                    
+                }
+                
             }
         }
+//        die;
 
         if(empty($turma->turDataInicio) || empty($turma->turCurso) || empty($turma->turCurso->crsId) || $turma->turCurso->crsId < 1 || empty($turma->turDataInicio) ||
             count($turma->turProfessorHasTurma) < 2 || empty($turma->turProfessorHasTurma[0]->phtProfessor) || empty($turma->turProfessorHasTurma[1]->phtProfessor->pesId) < 0 ||

@@ -382,7 +382,7 @@
                                         <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                     </li>
                                     <li>
-                                        <a href="../pages/aluno.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>Frequência de Alunos</a>
+                                        <a href="../pages/calendario_index.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>Frequência de Alunos</a>
                                     </li>
                             </ul>
                             <!-- /.nav-second-level -->
