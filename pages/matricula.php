@@ -74,7 +74,23 @@
         }
 
         public function excluirLogicamente(){
+                AcessoDados::abreTransacao();
 
+                $sucesso = false;
+
+                try{
+
+                    $sucesso = AcessoDados::alterar("UPDATE tbMatricula SET Ativo = 0 WHERE Id = ".$this->matId);
+
+                     AcessoDados::confirmaTransacao();
+
+                     return $sucesso;
+
+                } catch (Exception $ex) {
+
+                    throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
+
+                }
         }
 
         public function excluirFisicamente(){

@@ -24,6 +24,65 @@
         
     
 ?>
+<head>
+    <style>
+       .ui-autocomplete {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        float: left;
+        display: none;
+        min-width: 160px;   
+        padding: 4px 0;
+        margin: 0 0 10px 25px;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+    }
+    
+    ul.ui-autocomplete.ui-menu{width:400px}
+    ul.ui-autocomplete.ui-menu li:first-child a{
+        color:blue;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .ui-state-hover, .ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+    </style>
+    <script type="text/javascript" src="../js/js-validacao-generica.js"></script>
+</head>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -68,27 +127,15 @@
                                                    
                                                    <div class="form-group">
                                                         <label class="control-label" for="matTurma">Turma</label>
-                                                        <select class="form-control obrigatorio" name="matTurma" id="matTurma" style="color: gray;">
-                                                            <option value="">Selecione uma Turma</option>';
-                                                            <?php
-                                                            try{
-                                                                if ($turma && $turma->num_rows > 0) {
-                                                                    foreach($turma as $tur1){
-//                                                                        echo '<pre>';
-//                                                                        var_dump($alu1);
-                                                                        $idt1 = $tur1["Id"];
-                                                                        $nomet1 = "Curso: ".$tur1["Curso"]." - Início: ".$tur1["DataInicioFormatada"]." - Professor: ".$tur1["Nome"]." - Dias: ".$tur1["Dias"];
-                                                                        echo '<option class="select_texto" value="'.$idt1.'"'.($idt1 == $matricula->matTurma ? "selected" : null).'>'.$nomet1.'</option>';   
-                                                                    }   
-                                                                }
-                                                            } catch (Exception $e) {
-                                                                echo $e->getMessage();
-                                                            }
-                                                                
-                                                            ?>
-                                                        </select>
+                                                        <div class="form-group">
+                                                            <input class="form-control" type="text" name="matTurma" id="matTurma" value="" placeholder="Selecione uma turma">
+                                                            <input style="visibility: hidden;" name="idmatTurma" type="text" id="idmatTurma" value="">
+                                                        </div>
                                                         <span class="msg-matTurma"></span>
                                                     </div>
+                                                   
+                                      
+                                                   
                                                     
 					            <div class="form-group">
                                                             <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
@@ -102,17 +149,31 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript" src="../js/js-validacao-generica.js"></script>
-
 <script>
-    $('#matAno').datepicker({
-        autoclose: true,
-        format: "yyyy",
-        viewMode: "years", 
-        minViewMode: "years",
-        language: "pt-BR",
-        startDate: '-10',
-        endDate: new Date(),
-    });
+
+$('#matTurma').autocomplete({
+	source: function(request, response){
+//            console.log(busca.term)
+            $.ajax({
+                        url : 'turma_autocomplete.php', /* URL que será chamada */ 
+                        type : 'POST', /* Tipo da requisição */ 
+                        data: 'term='+request.term , /* dado que será enviado via POST */
+                        dataType: 'json', /* Tipo de transmissão */
+                        success: function(data){
+//                            for(var i=0;i<data.length;i++){
+//                                console.log(data[i])
+//                            }
+
+                               response(data);
+                        }
+            })
+        },
+        select: function(event,ui){
+//            console.log(ui.item.id);
+            $('#idmatTurma').val(ui.item.id);
+        }
+})
+
 </script>
+
+
