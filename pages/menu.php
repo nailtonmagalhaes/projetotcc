@@ -370,6 +370,18 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li >
+                            <a href="#"><i class="fa fa-male fa-fw"></i> Autor <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="..\pages\autor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                </li>
+                                <li>
+                                    <a href="..\pages\autor-cadastrar.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-book fa-fw"></i> Turma <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
