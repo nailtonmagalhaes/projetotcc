@@ -96,9 +96,9 @@
 			}
 		}
                 
-		public function limparCaracteres($str){			
+		public function limparCaracteres($str){
 			$str = str_replace(".", "", $str);
-			$str = str_replace("-", "", $str);			
+			$str = str_replace("-", "", $str);
 			return $str;
 		}
 		
@@ -108,19 +108,19 @@
 
 		public function listar(){
 			$sql = "SELECT *, CASE Sexo WHEN 1 THEN 'Masculino' WHEN 2 THEN 'Feminino' ELSE '' END AS SexoDescricao, CASE COALESCE(Situacao, 1) WHEN 1 THEN 'Ativo' ELSE 'Inativo' END AS SituacaoDescricao FROM tbPessoa WHERE Situacao = 1 AND Perfil = ".$this->pesPerfil;
-			//echo "----------------------------------------- SQL: ".$sql;
 			return AcessoDados::listar($sql);
 		}
 
 		public function listarInativos(){
 			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 0 AND Perfil = ".$this->pesPerfil;
+			return AcessoDados::listar($sql);
 		}
 		
 		public function carregarDados(){
 			try{
 				$resultado = AcessoDados::listar("SELECT Id, Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, COALESCE(Situacao, 1) AS Situacao FROM tbPessoa WHERE Id = ".$this->pesId);
 	            if ($resultado && $resultado->num_rows > 0) {
-	                $row = $resultado->fetch_assoc();                                                                                                                   
+	                $row = $resultado->fetch_assoc();
 	                $this->pesNome = $row["Nome"];
 	                $this->pesCpf = $row["Cpf"];
 					$this->pesRg = $row["Rg"];
@@ -133,8 +133,8 @@
 					$listaEnderecos = AcessoDados::listar("SELECT Id FROM tbEndereco WHERE IdPessoa = ".$this->pesId);
 
 					if($listaEnderecos && $listaEnderecos->num_rows > 0){
-						while($row = $listaEnderecos->fetch_assoc()){  
-							$end = new Endereco();                                                                                                                    
+						while($row = $listaEnderecos->fetch_assoc()){
+							$end = new Endereco();
 							$end->endId = $row["Id"];
 							$end->carregarDados();
 							$end->endPessoa = $this;
@@ -243,10 +243,12 @@
 		}
 
 		public function Logar(){
-			$sql = "SELECT Id, Nome, Cpf, Perfil, Senha FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".$this->pesSenha."') AND (Situacao = 1) LIMIT 1";
-			echo $sql;
-			//echo "-------------------------------- SQL: ".$sql;
-			return AcessoDados::listar($sql);
+			try{				
+				$sql = "SELECT Id, Nome, Cpf, Perfil, Senha FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".$this->pesSenha."') AND (Situacao = 1) LIMIT 1";
+				return AcessoDados::listar($sql);
+			}catch(Exception $ex){
+				throw new Exception("Erro ao logar.<br>".$ex->getMessage());
+			}
 		}
 
 		public function excluirLogicamente(){
@@ -259,7 +261,7 @@
 				}
 				return $retorno;
 			}catch(Exception $ex){
-				header("location: detalhes-erro.php?erro=".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao excluir os dados.<br>".$ex->getMessage());
 			}
 		}
 	}
