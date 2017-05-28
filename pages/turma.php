@@ -87,7 +87,18 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
 			return insere("DELETE FROM tbTurma WHERE Id = ".$this->turId);
 		}
 
-        function listar(){
+        function listar($query=null){
+            $where = "";
+                    
+            if(isset($query)){
+                $where = "WHERE
+                                c.Descricao LIKE '%{$query}%'
+                                OR prof.Nome LIKE '%{$query}%'
+                                
+
+                 ";
+            }
+            
             return AcessoDados::listar("  
             SELECT 
                 t.Id
@@ -97,7 +108,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 , date_format(t.DataInicio, '%d/%m/%Y') as DataInicioFormatada
                 , c.Descricao AS Curso
                 , c.Duracao
-                , group_concat(DISTINCT ds.Dia) as Dias
+                , group_concat(DISTINCT ds.Dia, ',') as Dias
                 , prof.Nome
             FROM 
                     tbTurma t
@@ -106,6 +117,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 INNER JOIN tbdiasemana ds ON(ds.Id = tds.IdDiaSemana)
                 INNER JOIN tbprofessor_has_turma tp ON(tp.IdTurma = t.Id AND tp.Tipo = 1)
                 INNER JOIN tbpessoa prof ON(prof.Id = tp.IdProfessor)
+            {$where}
             GROUP BY
                     t.Id
                 , t.IdCurso

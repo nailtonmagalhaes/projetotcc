@@ -162,6 +162,9 @@
 		}
 
 		public function salvarDados(){
+                    
+                        AcessoDados::abreTransacao();
+                        
 			try{
 				$sql = "";
 				$sucesso = (bool)false;
@@ -221,7 +224,8 @@
 					}
 
 				}
-
+                                AcessoDados::confirmaTransacao();
+                                
 				return $sucesso;
 			}catch(Exception $ex){
 				throw new Exception("Erro ao salvar os dados da pessoa.<br>".$ex->getMessage());

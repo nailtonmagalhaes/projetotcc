@@ -48,19 +48,19 @@
                                         <tr class="odd gradeX">
                                             <td class="idmatricula"><center>'.$id.'</center></td>
                                             <td class="curso">'.$curso.'</td>
-                                            <td><center>'.$nome.'</center></center></td>
+                                            <td class="nome"><center>'.$nome.'</center></center></td>
                                             <td><center>'.$datainicio.'</center></td>
                                             <td><center>'.$situacao.'</center></td>
                                             <td><center>
                                                 <div hidden>
-                                                    <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href=\'material-detalhes.php?id='.$id.'\'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
+                                                    <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href=\'matricula-detalhes.php?id='.$id.'\'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
                                                     &nbsp; 
                                                 </div>
                                                 
-                                                <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href=\'material-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                                <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href=\'matricula-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
                                                 &nbsp;
                                                 
-                                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-material" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
+                                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-matricula" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
                                             </center></td>
                                         </tr>';
                                         } 
@@ -94,14 +94,15 @@
 	    });
 	});
 
-    $('button[name="btn-excluir-material"]').on('click', function (e) {
+    $('button[name="btn-excluir-matricula"]').on('click', function (e) {
 
         e.preventDefault();
 
-        var id =  $(this).parent().parent().siblings('.idmaterial').text();
-        var nomematerial =  $(this).parent().parent().siblings('.descricao').text();
+        var id =  $(this).parent().parent().siblings('.idmatricula').text();
+        var nomematricula =  $(this).parent().parent().siblings('.nome').text();
+        var nomecurso =  $(this).parent().parent().siblings('.curso').text();
         swal({
-              title: "Deseja excluir o material '"+ nomematerial +"'?",
+              title: "Deseja excluir a matricula de "+nomematricula+" no curso "+nomecurso+"?",
               text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
               type: "warning",
               showCancelButton: true,
@@ -111,11 +112,11 @@
               closeOnConfirm: false
             },
             function(){
-                $.post("material-excluir.php", {id:id}, function(data){
-//                    console.log(data);
+                $.post("matricula-excluir.php", {id:id}, function(data){
+                    console.log(data);
                     if(data){
-                        swal("Material excluído com sucesso!","","success");
-                        window.setTimeout("location.href='../pages/material-listar.php'", 1000);
+                        swal("Matricula excluída com sucesso!","","success");
+//                        window.setTimeout("location.href='../pages/matricula-listar.php'", 1000);
                     }else{
                         swal("Error",data,"warning");
                     }

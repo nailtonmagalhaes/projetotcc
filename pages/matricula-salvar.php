@@ -2,7 +2,7 @@
 	
     include_once 'matricula.php';
     include_once '../conf/acesso-dados.php';
-    
+//    var_dump($_REQUEST);die;
  ?>
 <!--Alert Top Cheio de Viadagem mais e Top--> 
 <script src="../sweetalert-master/dist/sweetalert.min.js"></script>
@@ -25,8 +25,8 @@
 						$matricula->matAluno = $_POST["matAluno"];
 					}						
 
-					if(isset($_POST["matTurma"])){
-						$matricula->matTurma = $_POST["matTurma"];
+					if(isset($_POST["idmatTurma"])){
+						$matricula->matTurma = $_POST["idmatTurma"];
 					}						
                                         if(isset($_POST["matAluno"])&&isset($_POST["matTurma"])){
                                                 $matricula->matNumero = $matricula->matTurma.$matricula->matAluno;
