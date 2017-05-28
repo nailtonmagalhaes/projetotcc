@@ -50,8 +50,9 @@
 		}
 
 		public function carregarDados(){
-			 $resultado = AcessoDados::listar("SELECT Id, IdPessoa, IdCidade, Logradouro, Bairro, Numero, Complemento, Cep, Ativo FROM tbEndereco WHERE Id =".$this->endId);
-			 if($resultado && $resultado->num_rows > 0){
+			try {
+				$resultado = AcessoDados::listar("SELECT Id, IdPessoa, IdCidade, Logradouro, Bairro, Numero, Complemento, Cep, Ativo FROM tbEndereco WHERE Id =".$this->endId);
+			 	if($resultado && $resultado->num_rows > 0){
 					$row = $resultado->fetch_assoc();
 					$this->endLogradouro = $row["Logradouro"];
 					$this->endBairro = $row["Bairro"];
@@ -62,7 +63,10 @@
 					$this->endCidade = new Cidade();
 					$this->endCidade->cidId = $row["IdCidade"];
 					$this->endCidade->carregarDados();
-			 }
+			 	}
+			} catch (Exception $e) {
+				throw new Exception("Ocorreu um erro ao carregar os dados do endereco.<br>".$e->getMessage());				
+			}		 	
 		}
 
 		public function salvarDados(){

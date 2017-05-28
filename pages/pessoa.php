@@ -162,8 +162,6 @@
 		}
 
 		public function salvarDados(){
-                    
-                        AcessoDados::abreTransacao();
                         
 			try{
 				$sql = "";
@@ -195,6 +193,7 @@
 						else
 							$enderecospreservar .= ", ".$e->endId;
 					}
+					
 					foreach($this->pesTelefones as $t){
 						$t->telPessoa = $this;
 						$t->salvarDados();
@@ -224,7 +223,6 @@
 					}
 
 				}
-                                AcessoDados::confirmaTransacao();
                                 
 				return $sucesso;
 			}catch(Exception $ex){
