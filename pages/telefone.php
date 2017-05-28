@@ -65,19 +65,15 @@
 			switch ($this->telTipo) {
 				case ETipoTelefone::residencial:
 					return "Residencial";
-					break;
 
 				case ETipoTelefone::celular:
 					return "Celular";
-					break;
 
 				case ETipoTelefone::comercial:
 					return "Comercial";
-					break;
 				
 				default:
 					return "Não informado";
-					break;
 			}
 		}
 	}

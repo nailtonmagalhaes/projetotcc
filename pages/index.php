@@ -27,8 +27,8 @@
                                     var dados = []
 
                                 $.getJSON('diasemana-consulta.php', function(dias){
-                                    $.each(dias, function(i, obj){                                            
-                                           dado = {                                                
+                                    $.each(dias, function(i, obj){
+                                           dado = {
                                                 "name":obj.disDia,
                                                 "points":obj.disId,
                                                 "color":"#7F8DA9",
@@ -38,7 +38,7 @@
                                         })
                                     
                                     });
-
+                                    console.log(dados);
                                     var chart = AmCharts.makeChart("chartdiv",
                                     {
                                         "type": "serial",
@@ -78,7 +78,7 @@
                                         },
                                         "export": {
                                             "enabled": true,
-                                            //"menu": ["PDF", "JPG", "CSV"]
+                                            "menu": ["PDF", "JPG", "CSV"]
                                          }
                                     });
                                     </script>

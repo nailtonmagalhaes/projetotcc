@@ -1,17 +1,11 @@
 <?php
 
 	class Secretaria extends Pessoa{
-		public $propriedade;
 		
 		//Construtor
 		public function __construct(){
 			parent::__constuct;//Chamando o construtor da classe pai
 			$this->pesPerfil = EPerfil::Secretaria;
-			$this->propriedade = '';
-		}
-
-		public function getPropriedade(){
-			return $this->propriedade;
 		}
 
 		public function listar(){
@@ -19,5 +13,15 @@
 			return parent::listar();
 		}
 
+		public function salvarDados(){
+			try{
+				AcessoDados::abreTransacao();
+				$salvou = parent::salvarDados();
+				AcessoDados::confirmaTransacao();
+				return $salvou;
+			}catch(Exception $ex){
+				throw new Exception("Ocorreu um erro ao salvar a secretaria.<br>".$ex->getMessage());
+			}
+		}
 	}
 ?>

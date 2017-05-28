@@ -15,8 +15,14 @@
                 }
 
                 public function salvarDados(){
-                        $salvou = parent::salvarDados();
-                        return $salvou;
+                        try{
+                                AcessoDados::abreTransacao();
+                                $salvou = parent::salvarDados();
+                                AcessoDados::confirmaTransacao();
+                                return $salvou;                                
+                        }catch(Exception $ex){
+                                throw new Exception("Erro ao salvar os dados do professor.<br>", $ex->getMessage());                                
+                        }
                 }
         }
 ?>      

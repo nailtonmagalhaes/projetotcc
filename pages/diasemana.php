@@ -12,17 +12,25 @@
         }
 
         public function listar(){
-            return AcessoDados::listar("SELECT Id, Dia FROM tbDiaSemana ORDER BY Id");
+            try {
+                return AcessoDados::listar("SELECT Id, Dia FROM tbDiaSemana ORDER BY Id");
+            } catch (Exception $e) {
+                throw new Exception("Erro ao listar os dias da semana".$e->getMessage());                
+            }            
         }
 
         public function carregarDados(){
-            $resultado = AcessoDados::listar("SELECT Id, Dia FROM tbDiaSemana WHERE Id = ".$this->disId);
-            if ($resultado && $resultado->num_rows > 0) {
-                $row = $resultado->fetch_assoc();                                                                                                                   
-                $this->disDia = $row["Dia"];
-                return true;
-            }else{
-                return false;
+            try {
+                $resultado = AcessoDados::listar("SELECT Id, Dia FROM tbDiaSemana WHERE Id = ".$this->disId);
+                if ($resultado && $resultado->num_rows > 0) {
+                    $row = $resultado->fetch_assoc();                                                                                                                   
+                    $this->disDia = $row["Dia"];
+                    return true;
+                }else{
+                    return false;
+                }                
+            } catch (Exception $e) {
+                throw new Exception("Erro ao carregar os dados do dia.<br>".$e->getMessage());                
             }
         }
 
