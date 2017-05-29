@@ -4,7 +4,7 @@ function mostrarEnderecoSecundario(elm){
     var comp = document.getElementById("pnenderecosecundario");
     if(valor){
         comp.style.display = 'block';
-        $("#pnenderecosecundario input, select").each(function(idx, elm){
+        $("#pnenderecosecundario input, #pnenderecosecundario select").each(function(idx, elm){
             $(elm).addClass("obrigatorio");
         });
     }else{
@@ -19,7 +19,7 @@ function mostrarEnderecoSecundario(elm){
 $(document).ready(function(){
 
     // Função que será acionada quando o campo CEP do endereço 1 perder o foco
-    $('#alnCep_1').blur(function(){			
+    $('#alnCep_1').blur(function(){
         return carregaCep($(this), $('#alnLogradouro_1'), $("#alnCidade_1"), $("#alnEstado_1"),$('#alnBairro_1'), $('#alnNumeroCasa_1'));
     })
     
