@@ -30,7 +30,12 @@
         echo "</br>--------------------------------------------------------------COMBO ID: ".($p1["Id"]);  
     }
 */
-    echo '    
+    echo ' 
+    <head>
+        <script type="text/javascript" src="../js/js-validacao-generica.js"></script>
+        <script type="text/javascript" src="../js/turma/turma.js"></script>
+        <!--<script type="text/javascript" src="../js/utils.js"></script>-->
+    </head>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -81,11 +86,14 @@
                                             <option value="">Selecione um professor</option>';
                                             try{
                                                 if ($professores && $professores->num_rows > 0) {
-                                                    foreach($professores as $prof1){
+                                                    foreach($professores as $key => $prof1 ){
                                                         $idp1 = $prof1["Id"];
                                                         $nomep1 = $prof1["Nome"];
-                                                        echo '<option value="'.$idp1.'"'.($idp1 == $turma->turProfessorHasTurma->phtProfessor->pesId ? "selected" : null).'>'.$nomep1.'</option>';   
+                                                        echo '<pre>';
+//                                                        var_dump($turma->turProfessorHasTurma[$key]->phtTipo);
+                                                        echo '<option value="'.$idp1.'"'.($idp1 == $turma->turProfessorHasTurma[$key]->phtProfessor->pesId && $turma->turProfessorHasTurma[$key]->phtTipo == 1 ? "selected" : null).'>'.$nomep1.'</option>';   
                                                     }   
+//                                                    die;
                                                 }
                                             } catch (Exception $e) {
                                                 echo $e->getMessage();
@@ -99,10 +107,10 @@
                                             <option value="">Selecione um professor</option>';
                                             try{
                                                 if ($professores && $professores->num_rows > 0) {
-                                                    foreach($professores as $prof2){
+                                                    foreach($professores as $key => $prof2){
                                                         $idp2 = $prof2["Id"];
                                                         $nomep2 = $prof2["Nome"];
-                                                        echo '<option value="'.$idp2.'"'.($idp2 == $turma->turProfessorApoio->pesId ? "selected" : null).'>'.$nomep2.'</option>';   
+                                                        echo '<option value="'.$idp2.'"'.($idp2 == $turma->turProfessorHasTurma[$key]->phtProfessor->pesId && $turma->turProfessorHasTurma[$key]->phtTipo == 2 ? "selected" : null).'>'.$nomep2.'</option>';   
                                                     }   
                                                 }
                                             } catch (Exception $e) {
@@ -154,16 +162,43 @@
                 </div>
             </div>
         </div>
-    </div>';
+    </div>
+    
+    ';
+                     
+    $dados_dia;
+    $dados_inic;
+    $dados_term;
+    
+    echo '<pre>';
+    
+    foreach($turma->turHasDiaSemana as $dia){
+        $dados_dia[]['disId'] = $dia->thdDiaSemana->disId;
+        $dados_inic[]['HoraInicio'] = $dia->thdHoraInicio;
+        $dados_term[]['HoraTermino'] = $dia->thdHoraTermino;
+//        var_dump($dia->thdDiaSemana->disId,$dia->thdHoraInicio,$dia->thdHoraTermino);
+    }
+//    var_dump($dados_dia);die;
+//    die;
+    
 ?>
 
-<script type="text/javascript" src="../js/js-validacao-generica.js"></script>
-<script type="text/javascript" src="../js/turma/turma.js"></script>
-<!--<script type="text/javascript" src="../js/utils.js"></script>-->
 
 
-<script>    
 
+<script>  
+//    console.log()
+    $(document).ready(function(){
+        var arr1 = <?php echo json_encode($dados_dia); ?>;
+        var arr2 = <?php echo json_encode($dados_inic); ?>;
+        var arr3 = <?php echo json_encode($dados_term); ?>;
+        
+        preencheCampos(arr1,arr2,arr3);
+        
+        if(!arr1){
+            adicionarLinha('tbhorarios');
+        }
+    });
     
 </script>
 
