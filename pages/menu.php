@@ -377,7 +377,7 @@
                                     <a href="..\pages\autor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li>
-                                    <a href="..\pages\autor-cadastrar.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="..\pages\autor-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
