@@ -25,6 +25,7 @@
                                    <!-- Chart code -->
                                     <script>
                                     var dados = []
+                                    
 
                                 $.getJSON('diasemana-consulta.php', function(dias){
                                     $.each(dias, function(i, obj){

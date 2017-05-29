@@ -40,10 +40,17 @@
 					            </div>
 					            <div class="form-group">
 					                <label class="control-label" for="autDescricao">Descrição</label>
-					                <textarea class="form-control obrigatorio" rows="3" name="autDescricao" id="autDescricao" placeholder="Informe a Descricao do Autor" value="<?php echo $autor->autDescricao; ?>"></textarea>
+
+<!--//
+	//				                <textarea class="form-control obrigatorio" rows="3" name="autDescricao" id="autDescricao" placeholder="Informe a 
+	//								Descricao do Autor" value="<?php echo $autor->autDescricao; ?>"></textarea>
+	//				                <?php echo $autor->autDescricao; ?>
+<-->								<input type="text" class="form-control obrigatorio" name="autDescricao" id="autDescricao" placeholder="Informe a descrição do Autor" value="<?php echo $autor->autDescricao; ?>">
+
+
 					                <span class='msg-crsDescricao'></span>
 					            </div>
-					            <?php 
+					            <?php echo 
 					            '<div class="form-group"'.($autor->autId > 0 ? null : "hidden").'>
                                 		<label class="control-label" for="alnSituacao">Situação</label>
                                         <label class="radio-inline">
@@ -52,7 +59,7 @@
 	                                    <label class="radio-inline">
 	                                        <input type="radio" name="alnSituacao" id="alnSituacaoInativo" value="0"'.($autor->autAtivo == 0 ? "checked" : null).'/>Inativo
                                          </label>
-                                </div>'
+                                </div>';
                                 ?>
                                 
 					            <div class="form-group">
