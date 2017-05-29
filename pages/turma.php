@@ -112,11 +112,11 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 , prof.Nome
             FROM 
                     tbTurma t
-                INNER JOIN tbCurso c ON (c.Id = t.IdCurso)
-                INNER JOIN tbturma_has_diasemana tds ON(tds.IdTurma = t.Id)
-                INNER JOIN tbdiasemana ds ON(ds.Id = tds.IdDiaSemana)
-                INNER JOIN tbprofessor_has_turma tp ON(tp.IdTurma = t.Id AND tp.Tipo = 1)
-                INNER JOIN tbpessoa prof ON(prof.Id = tp.IdProfessor)
+                LEFT JOIN tbCurso c ON (c.Id = t.IdCurso)
+                LEFT JOIN tbturma_has_diasemana tds ON(tds.IdTurma = t.Id)
+                LEFT JOIN tbdiasemana ds ON(ds.Id = tds.IdDiaSemana)
+                LEFT JOIN tbprofessor_has_turma tp ON(tp.IdTurma = t.Id AND tp.Tipo = 1)
+                LEFT JOIN tbpessoa prof ON(prof.Id = tp.IdProfessor)
             {$where}
             GROUP BY
                     t.Id
@@ -142,6 +142,11 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 }
 
                 if($sucesso){
+//                    echo '<pre>';
+//                    var_dump($this->turId);die;
+                    
+                    $turma = new TurmaHasDiaSemana;
+                    $turma->removeDados($this->turId);
                     
                     foreach($this->turHasDiaSemana as $dia){
                         $dia->thdTurma = $this;
@@ -151,6 +156,8 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                     }
 //                    die;
                     
+                    $professor = new ProfessorHasTurma;
+                    $professor->removeDados($this->turId);
                     
                     
                     foreach($this->turProfessorHasTurma as $prof){
@@ -305,6 +312,57 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
 //            die;
             
             
+        }
+        
+        public function getDados(){
+            $resultado = AcessoDados::listar("SELECT tma.Id, IdCurso, DataInicio, tma.Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbcurso cur ON(cur.Id = tma.IdCurso) WHERE tma.Id = ".$this->turId);
+            
+            
+/***************CARREGA OS DADOS DA TURMA*/
+            if ($resultado && $resultado->num_rows > 0) {
+                $row = $resultado->fetch_assoc();                                                                                                                   
+                $this->turId = $row["Id"];
+                $this->turDataInicio = $row["DataInicio"];
+                $this->turCurso = new Curso();
+                $this->turCurso->crsId = $row["IdCurso"];
+                $this->turCurso->carregarDados();
+
+/***************CARREGA OS DIAS DA SEMANA DA TURMA*/
+//                $dias = AcessoDados::listar("SELECT Id, IdDiaSemana, HoraInicio, HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
+                  $dias = AcessoDados::listar("SELECT DISTINCT 1 as Id, IdDiaSemana,TIME_FORMAT(HoraInicio, '%h:%i') as HoraInicio,TIME_FORMAT(HoraTermino, '%h:%i') as HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
+
+                if($dias && $dias->num_rows > 0){
+                    while($rowdias = $dias->fetch_assoc()){
+                        $dia = new TurmaHasDiaSemana();
+                        $dia->thdId = $rowdias["Id"];
+                        $dia->thdHoraInicio = $rowdias["HoraInicio"];
+                        $dia->thdHoraTermino = $rowdias["HoraTermino"];
+                        $dia->thdDiaSemana = new DiaSemana();
+                        $dia->thdDiaSemana->disId = $rowdias["IdDiaSemana"];
+                        $dia->thdDiaSemana->carregarDados();
+                        $dia->thdTurma = $this;
+                        $this->turHasDiaSemana[] = $dia;      
+                    }
+                }
+
+/***************CARREGA OS PROFESSORES DA TURMA*/
+                $professores = AcessoDados::listar("SELECT pht.IdProfessor, pht.Tipo FROM tbProfessor_has_Turma pht WHERE pht.IdTurma = ".$this->turId." ORDER BY pht.Tipo DESC");
+                if($professores && $professores->num_rows > 0){
+                    while($rowprof = $professores->fetch_assoc()){
+                        $tprofessor = new ProfessorHasTurma();
+                        $tprofessor->phtTipo = $rowprof["Tipo"];
+                        $tprofessor->phtProfessor = new Professor();
+                        $tprofessor->phtProfessor->pesId = $rowprof["IdProfessor"];
+                        $tprofessor->phtProfessor->carregarDados();
+                        $this->turProfessorHasTurma[] = $tprofessor;
+                        $tprofessor->phtTurma = $this;
+                    }
+                }
+
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 ?>

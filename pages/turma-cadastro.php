@@ -11,7 +11,7 @@
 
 	if(isset($_GET['id'])){
         $turma->turId = $_GET['id'];
-		$turma->carregarDados();
+		$turma->getDados();
 	}
 
 /*
@@ -85,13 +85,15 @@
                                         <select class="form-control obrigatorio" name="turProfessorPrincipal" id="turProfessorPrincipal" style="color: gray;">
                                             <option value="">Selecione um professor</option>';
                                             try{
+//                                                var_dump($turma->turProfessorHasTurma[0]->phtProfessor->pesId);
                                                 if ($professores && $professores->num_rows > 0) {
                                                     foreach($professores as $key => $prof1 ){
                                                         $idp1 = $prof1["Id"];
                                                         $nomep1 = $prof1["Nome"];
-                                                        echo '<pre>';
-//                                                        var_dump($turma->turProfessorHasTurma[$key]->phtTipo);
-                                                        echo '<option value="'.$idp1.'"'.($idp1 == $turma->turProfessorHasTurma[$key]->phtProfessor->pesId && $turma->turProfessorHasTurma[$key]->phtTipo == 1 ? "selected" : null).'>'.$nomep1.'</option>';   
+//                                                        echo '<pre>';
+//                                                        var_dump($idp1 == $turma->turProfessorHasTurma[0]->phtProfessor->pesId);
+//                                                        $turma->turProfessorHasTurma[0]->phtProfessor->pesId
+                                                        echo '<option value="'.$idp1.'"'.'>'.$nomep1.'</option>';   
                                                     }   
 //                                                    die;
                                                 }
@@ -110,7 +112,7 @@
                                                     foreach($professores as $key => $prof2){
                                                         $idp2 = $prof2["Id"];
                                                         $nomep2 = $prof2["Nome"];
-                                                        echo '<option value="'.$idp2.'"'.($idp2 == $turma->turProfessorHasTurma[$key]->phtProfessor->pesId && $turma->turProfessorHasTurma[$key]->phtTipo == 2 ? "selected" : null).'>'.$nomep2.'</option>';   
+                                                        echo '<option value="'.$idp2.'"'.'>'.$nomep2.'</option>';   
                                                     }   
                                                 }
                                             } catch (Exception $e) {
@@ -192,6 +194,9 @@
         var arr1 = <?php echo json_encode($dados_dia); ?>;
         var arr2 = <?php echo json_encode($dados_inic); ?>;
         var arr3 = <?php echo json_encode($dados_term); ?>;
+        
+        $('#turProfessorPrincipal').val(<?php echo $turma->turProfessorHasTurma[1]->phtProfessor->pesId ?>)
+        $('#turProfessorApoio').val(<?php echo $turma->turProfessorHasTurma[0]->phtProfessor->pesId ?>)
         
         preencheCampos(arr1,arr2,arr3);
         

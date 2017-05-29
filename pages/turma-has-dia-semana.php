@@ -20,11 +20,20 @@
         }
 
         public function salvarDados(){
-            if($this->thdId > 0){
-                return AcessoDados::alterar("UPDATE tbTurma_has_DiaSemana SET IdDiaSemana = ".$this->thdDiaSemana->disId.", IdTurma = ".$this->thdTurma->turId.", HoraInicio = '".$this->thdHoraInicio."', HoraTermino = '".$this->thdHoraTermino."' WHERE Id = ".$this->thdId.";");
-            }else{
+//            if($this->thdId > 0){
+//                return AcessoDados::alterar("UPDATE tbTurma_has_DiaSemana SET IdDiaSemana = ".$this->thdDiaSemana->disId.", IdTurma = ".$this->thdTurma->turId.", HoraInicio = '".$this->thdHoraInicio."', HoraTermino = '".$this->thdHoraTermino."' WHERE Id = ".$this->thdTurma->turId.";");
+//            }else{
+//                 $alterar = AcessoDados::alterar("DELETE FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->thdTurma->turId.";");
+                
+//                 var_dump("DELETE FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->thdTurma->turId.";");die;
+                 
                 return AcessoDados::inserir("INSERT INTO tbTurma_has_DiaSemana (IdTurma, IdDiaSemana, HoraInicio, HoraTermino) VALUES (".$this->thdTurma->turId.", ".$this->thdDiaSemana->disId.", '".$this->thdHoraInicio."', '".$this->thdHoraTermino."');");
-            }
+//            }
+        }
+        
+        public function removeDados($IdTurma){
+                    $alterar = AcessoDados::alterar("DELETE FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$IdTurma.";");
+
         }
 
         public function listar(){

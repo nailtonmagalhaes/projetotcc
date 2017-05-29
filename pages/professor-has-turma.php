@@ -27,17 +27,22 @@
 
         public function salvarDados(){
             
-            $professorcommesmaturma = AcessoDados::listar("SELECT * FROM tbProfessor_has_Turma WHERE IdTurma = ".$this->phtTurma->turId);
+//            $professorcommesmaturma = AcessoDados::listar("SELECT * FROM tbProfessor_has_Turma WHERE IdTurma = ".$this->phtTurma->turId);
 
-            if($professorcommesmaturma != null && $professorcommesmaturma->num_rows > 0){
-                echo "entrou no update";
-                $sql = "UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtProfessor->pesId.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId.";";
-                return AcessoDados::alterar($sql);
-            }else{
-                echo "entrou no insert";
+//            if($professorcommesmaturma != null && $professorcommesmaturma->num_rows > 0){
+//                echo "entrou no update";
+//                $sql = "UPDATE tbProfessor_has_Turma SET IdProfessor = ".$this->phtProfessor->pesId.", Tipo = ".$this->phtTipo." WHERE IdTurma = ".$this->phtTurma->turId.";";
+//                return AcessoDados::alterar($sql);
+//            }else{
+//                echo "entrou no insert";
                 $sql = "INSERT INTO tbProfessor_has_Turma(IdProfessor, IdTurma, Tipo) VALUES (".$this->phtProfessor->pesId.", ".$this->phtTurma->turId.", ".$this->phtTipo.");";
                 return AcessoDados::inserir($sql);
-            }
+//            }
+        }
+        
+        public function removeDados($IdTurma){
+                    $alterar = AcessoDados::alterar("DELETE FROM tbProfessor_has_turma WHERE IdTurma = ".$IdTurma.";");
+//                    var_dump($alterar);die;
         }
 
         public function excluirLogicamente(){

@@ -87,70 +87,72 @@ function configuraCampoHora(classecampo){
     });
 }
 
-$("#botao-salvar").on('click', function(){
-    var validar = true;
-    if(validar){
-        var contErros = 0;
+function setSalvar(){
+    $("#botao-salvar").on('click', function(){
+        var validar = true;
+        if(validar){
+            var contErros = 0;
 
-        $("input, select").each(function(idx, elm){
-            if(!validaCampo(elm)){
-                contErros++;
+            $("input, select").each(function(idx, elm){
+                if(!validaCampo(elm)){
+                    contErros++;
+                }
+            });
+
+            if(contErros > 0){ return false;}    
+        }
+
+        var objeto = {
+            Id: $("#turId").val(),
+            Curso: $("#turCurso").val(),
+            DataInicio: $("#turDataInicio").val(),
+            ProfessorPrincipal: $("#turProfessorPrincipal").val(),
+            ProfessorApoio: $("#turProfessorApoio").val(),
+            Datas:[]
+        }
+
+        $('.horario').each(function(idx, elm){
+            var numero = $(elm).attr('id').split("_")[1]
+
+            var objData = {
+                DiaSemana: $('#diasemana_' + numero).val(),
+                HoraInicio: $('#horainicio_' + numero).val(),
+                HoraTermino: $('#horatermino_' + numero).val(),
+                IdHasDia: $(elm).attr('idhasdia'),
+            };
+
+            objeto.Datas.push(objData);
+        })
+
+
+        $.ajax({
+            type: "POST",
+            url: "turma-salvar.php",
+            data: objeto,
+            cache: false,
+            success: function(result){
+                swal("Turma salva com sucesso!","","success");
+//                window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+            },
+            error: function(result){
+                    swal("Ocorreu um erro ao salvar a turma.");
+            } 
+        });
+
+        $.post()
+
+        /*
+        $.post("turma-salvar.php", {data: objeto}, function(data){
+            if(data){
+                swal("Turma salva com sucesso!","","success");
+                window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+            }else{
+                swal("Error",data,"warning");
             }
         });
-        
-        if(contErros > 0){ return false;}    
-    }
-
-    var objeto = {
-        Id: $("#turId").val(),
-        Curso: $("#turCurso").val(),
-        DataInicio: $("#turDataInicio").val(),
-        ProfessorPrincipal: $("#turProfessorPrincipal").val(),
-        ProfessorApoio: $("#turProfessorApoio").val(),
-        Datas:[]
-    }
-
-    $('.horario').each(function(idx, elm){
-        var numero = $(elm).attr('id').split("_")[1]
-
-        var objData = {
-            DiaSemana: $('#diasemana_' + numero).val(),
-            HoraInicio: $('#horainicio_' + numero).val(),
-            HoraTermino: $('#horatermino_' + numero).val(),
-            IdHasDia: $(elm).attr('idhasdia'),
-        };
-
-        objeto.Datas.push(objData);
-    })
-
-    
-    $.ajax({
-        type: "POST",
-        url: "turma-salvar.php",
-        data: objeto,
-        cache: false,
-        success: function(result){
-            swal("Turma salva com sucesso!","","success");
-            window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
-        },
-        error: function(result){
-        	swal("Ocorreu um erro ao salvar a turma.");
-        } 
+        */
     });
-
-    $.post()
-    
-    /*
-    $.post("turma-salvar.php", {data: objeto}, function(data){
-        if(data){
-            swal("Turma salva com sucesso!","","success");
-            window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
-        }else{
-            swal("Error",data,"warning");
-        }
-    });
-    */
-});
+}
 
 function preencheCampos(dias,horainicio,horatermino){
 //    console.log()
@@ -251,6 +253,6 @@ $(document).ready(function(){
         calendarWeeks: true,
     });
     
-    
+    setSalvar()
     
 });

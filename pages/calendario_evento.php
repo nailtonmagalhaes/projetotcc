@@ -22,6 +22,8 @@
                     INNER JOIN tbturma tt  ON(tds.IdTurma = tt.id)
                     INNER JOIN tbCurso tc ON(tc.Id = tt.IdCurso)
                     LEFT JOIN tbprofessor_has_turma tp ON(tds.IdTurma = tp.IdTurma {$where})
+            WHERE
+                TRUE
             ";
 //    echo '<pre>';    
 //    var_dump($sql);die;
