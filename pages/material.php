@@ -27,13 +27,14 @@
         }
 
         public function carregarDados(){
-			$resultado = AcessoDados::listar("SELECT Id, Descricao, Ano, Link, COALESCE(Ativo, 1) Ativo FROM tbMaterial WHERE ".$this->matId);
+			$resultado = AcessoDados::listar("SELECT Id, Descricao, Ano, Link, COALESCE(Ativo, 1) Ativo FROM tbMaterial WHERE Id = ".$this->matId);
 			if ($resultado && $resultado->num_rows > 0) {
-                $row = $resultado->fetch_assoc();
-                $this->matDescricao = $row["Descricao"];
-                $this->matAno = $row["Ano"];
-                $this->matLink = $row["Link"];
-                $this->matAtivo = $row["Ativo"];
+                                $row = $resultado->fetch_assoc();
+                                $this->matDescricao = $row["Descricao"];
+                                $this->matAno = $row["Ano"];
+                                $this->matLink = $row["Link"];
+                                $this->matAtivo = $row["Ativo"];
+                                
 				return true;
 			}else{
 				return false;

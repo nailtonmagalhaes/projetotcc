@@ -5,13 +5,16 @@
 
     $material = new Material();
 
-	if(isset($_GET['id'])){
+	if(isset($_REQUEST["id"])){
 		$material->matId = $_GET['id'];
-	}else if(isset($_POST['id'])){
+	}
+        else if(isset($_POST['id'])){
 		$material->matId = $_POST['id'];
 	}
+//        var_dump($_REQUEST["id"]);die;
 
 	$material->carregarDados();
+//        var_dump($material);die;
 ?>
 
 <div id="page-wrapper">
@@ -44,8 +47,18 @@
 					                <span class='msg-matAno'></span>
 					            </div>
                                                     <div class="form-group">
-                                                        <label>Arquivo</label>
-                                                        <input type="file" name="arquivo" id="arquivo">
+                                                        <label>Arquivo Atual</label>
+                                                        <?php if($material->matId)
+                                                        {
+                                                             echo "<iframe style=\"cursor: hand;\" src=\"../uploads/{$material->matLink}\" width=\"550\" height=\"780\" style=\"border: none;\"></iframe>";
+                                                        }
+                                                        
+//                                                        var_dump($material);
+                                                        ?>
+                                                        
+                                                        
+                                                        <label>Alterar Arquivo</label>
+                                                        <input type="file" name="arquivo" id="arquivo" value="<?php echo $material->matLink; ?>">
                                                     </div>
                                                     
 					            <div class="form-group">
