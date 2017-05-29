@@ -113,7 +113,7 @@ echo '
                                         </div>
                                         <span class="msg-alnDataNascimento"></span>
                                     </div>
-                                	<div class="form-group"'.($pessoa->pesId > 0 ? null : "hidden").'>
+                                    <div class="form-group"'.($pessoa->pesId > 0 ? null : "hidden").'>
                                 		<label class="control-label" for="alnSituacao">Situação</label>
                                         <label class="radio-inline">
 	                                        <input type="radio" name="alnSituacao" id="alnSituacaoAtivo" value="1"'.($pessoa->pesAtivo == 1 ? "checked" : null).'/>Ativo
@@ -122,13 +122,65 @@ echo '
 	                                        <input type="radio" name="alnSituacao" id="alnSituacaoInativo" value="0"'.($pessoa->pesAtivo == 0 ? "checked" : null).'/>Inativo
                                          </label>
                                 	</div>
-                                </div>
+                                </div>';
+                                if(EPerfil::Aluno == $pessoa->pesPerfil){ ?>
+                                	<div class="panel panel-default">
+										<div class="panel-heading">
+		                           			<label>Responsável</label>
+		                        		</div>
+										<div class="form-group">
+											<table class="table" id="tbresposavel" name="tbresposavel">
+												<thead>
+													<tr>
+														<th>Nome</th>
+														<th>CPF</th>
+														<th>Parentesco</th>
+													</tr>
+												</thead>
+												<tbody>
+												<?php 
+													for($r = 0; $r < 2; $r ++){ 
+															$idresp = 0;
+															$nomeresp = '';
+															$cpfresp = '';
+															$parentescoresp = '';
+															if(count($pessoa->getResponsaveis()) >= ($r + 1)){
+																$idresp = $pessoa->getResponsaveis()[$r]->respId;
+																$nomeresp = $pessoa->getResponsaveis()[$r]->respNome;
+																$cpfresp = Mascaras::geraMascara($pessoa->getResponsaveis()[$r]->respCpf, "###.###.###-##");
+																$parentescoresp = $pessoa->getResponsaveis()[$r]->respParentesco;
+															}
+														?>
+														<tr>
+															<td hidden >
+																<input class="form-control" name="idresp<?php echo $r + 1; ?>" id="idresp<?php echo $r + 1; ?>" value="<?php echo $idresp;?>">
+															</td>
+															<td>
+																<input type="text" class="form-control" name="nomeresp<?php echo $r + 1;?>" value="<?php echo $nomeresp;?>">
+																<span class="msg-nomeresp<?php echo $r + 1;?>"></span>
+															</td>
+															<td>
+																<input type="text" class="form-control cpf" name="cpfresp<?php echo $r + 1;?>" value="<?php echo $cpfresp;?>">
+																<span class="msg-cpfresp<?php echo $r + 1;?>"></span>																
+															</td>
+															<td>
+																<input type="text" class="form-control" name="parentescoresp<?php echo $r + 1;?>" value="<?php echo $parentescoresp;?>">
+																<span class="msg-parentescoresp<?php echo $r + 1;?>"></span>																
+															</td>
+														</tr>
+													<?php }?>													
+												</tbody>
+											</table>
+							            </div>
+									</div>
+                                <?php }
+                            	echo '
 								<div class="panel panel-default">
 									<div class="panel-heading">
 	                           			<label>Contato</label>
 	                        		</div>
 									<div class="form-group">
-										<table class="table" id="tbhorarios" name="tbhorarios">
+										<table class="table" id="tbcontato" name="tbcontato">
 											<thead>
 												<tr>
 													<th>Tipo</th>

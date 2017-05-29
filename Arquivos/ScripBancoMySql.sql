@@ -256,7 +256,6 @@ CREATE INDEX IDX_tbTurma_has_DiaSemana_IdFrequencia    ON tbTurma_has_DiaSemana(
 */
 
 INSERT INTO tbDiaSemana (Id, Dia) VALUES 
-(1, 'DOMINGO'), 
 (2, 'SEGUNDA-FEIRA'), 
 (3, 'TERÇA-FEIRA'), 
 (4, 'QUARTA-FEIRA'), 

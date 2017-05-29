@@ -27,11 +27,31 @@
         }
 
         public function carregarDados(){
-
+			try {
+				$resultado = AcessoDados::listar("SELECT Id, Nome, Parentesco, Cpf, COALESCE(Ativo, 1) Ativo FROM tbResponsavel WHERE Id = ".$this->respId);
+				if($resultado && $resultado->num_rows > 0){
+					$row = $resultado->fetch_assoc();
+					$this->respNome = $row['Nome'];
+					$this->respCpf = $row['Cpf'];
+					$this->respParentesco = $row['Parentesco'];
+					$this->respAtivo = $row['Ativo'];
+				}
+			} catch (Exception $e) {
+				throw new Exception("Error Processing Request".$e->getMessage());				
+			}
         }
 
         public function salvarDados(){
-
+        	try {
+        		if($this->respId>0){
+        			AcessoDados::alterar("UPDATE tbResponsavel SET Nome = '".$this->respNome."', Parentesco = '".$this->respParentesco."', Cpf = '".$this->respCpf."', Ativo = '".$this->respAtivo."' WHERE Id = ".$this->respId);
+        		}else{
+        			$this->respId = AcessoDados::inserir("INSERT INTO tbResponsavel(Nome, Parentesco, Cpf, Ativo) VALUES ('".$this->respNome."', '".$this->respParentesco."', '".$this->respCpf."', 1)");
+        		}
+				return true;
+        	} catch (Exception $e) {
+        		throw new Exception("Ocorreu um erro ao salvar os dados do responsável.<br>".$e->getMessage());        		
+        	}
         }
     
         public function excluirLogicamente(){

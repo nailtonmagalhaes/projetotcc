@@ -31,7 +31,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
 
         function carregarDados(){
-            $resultado = AcessoDados::listar("SELECT Id, IdCurso, DataInicio, Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbcurso cur ON(cur.Id = tma.IdCurso) WHERE Id = ".$this->turId);
+            $resultado = AcessoDados::listar("SELECT Id, IdCurso, DataInicio, Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada FROM tbTurma WHERE Id = ".$this->turId);
            
 /***************CARREGA OS DADOS DA TURMA*/
             if ($resultado && $resultado->num_rows > 0) {

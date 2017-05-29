@@ -89,6 +89,48 @@
                                             </div>
                                         </div>
                                     </fieldset>
+
+                                    <?php
+                                        if($pessoa->pesPerfil == EPerfil::Aluno && count($pessoa->alnResponsaveis) > 0){ ?>
+                                            <fieldset>
+                                                <legend>Responsáveis</legend>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Código</th>
+                                                                    <th>Nome</th>
+                                                                    <th>CPF</th>
+                                                                    <th>Parentesco</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <?php foreach ($pessoa->alnResponsaveis as $resp) {
+                                                                ?>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <span><?php echo $resp->ahrResponsavel->respId;?></span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span><?php echo $resp->ahrResponsavel->respNome;?></span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span><?php echo Mascaras::geraMascara($resp->ahrResponsavel->respCpf, "###.###.###-##");?></span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span><?php echo $resp->ahrResponsavel->respParentesco;?></span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                <?php
+                                                            } ?>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        <?php }
+                                    ?>
                                     
                                     <!--CONTATOS-->
                                     <?php
@@ -154,16 +196,16 @@
                                                                         <span><?php echo Mascaras::geraMascara($endereco->endCep, '##.###-###');?></span>
                                                                     </td>
                                                                     <td>
-                                                                        <span><?php echo utf8_encode($endereco->endLogradouro);?></span>
+                                                                        <span><?php echo ($endereco->endLogradouro);?></span>
                                                                     </td>
                                                                     <td>
                                                                         <span><?php echo $endereco->endNumero;?></span>
                                                                     </td>
                                                                     <td>
-                                                                        <span><?php echo utf8_encode($endereco->endComplemento);?></span>
+                                                                        <span><?php echo ($endereco->endComplemento);?></span>
                                                                     </td>
                                                                     <td>
-                                                                        <span><?php echo utf8_encode($endereco->endBairro);?></span>
+                                                                        <span><?php echo ($endereco->endBairro);?></span>
                                                                     </td>
                                                                     <td>
                                                                         <span><?php echo utf8_encode($endereco->endCidade->cidNome);?></span>
