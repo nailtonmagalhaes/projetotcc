@@ -149,7 +149,7 @@
 			//echo "<pre>";
 			//var_dump($pessoa);
 			
-	    	try{ 	
+	    	try{
 	            $insert = $pessoa->salvarDados();
 	            if($insert){
 	        		include_once 'menu.php';?>

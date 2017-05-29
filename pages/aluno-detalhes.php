@@ -99,7 +99,6 @@
                                                         <table class="table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Código</th>
                                                                     <th>Nome</th>
                                                                     <th>CPF</th>
                                                                     <th>Parentesco</th>
@@ -109,9 +108,6 @@
                                                                 ?>
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td>
-                                                                                <span><?php echo $resp->ahrResponsavel->respId;?></span>
-                                                                            </td>
                                                                             <td>
                                                                                 <span><?php echo $resp->ahrResponsavel->respNome;?></span>
                                                                             </td>

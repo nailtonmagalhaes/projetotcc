@@ -36,11 +36,27 @@
 			try{
 				AcessoDados::abreTransacao();
 				$salvou = parent::salvarDados();
+				$respPreservar = '';
 				foreach($this->alnResponsaveis as $res){
 					$res->ahrAluno = $this;
 					$res->ahrResponsavel->salvarDados();
 					$res->salvarDados();
+					if($respPreservar == '')
+						$respPreservar = $res->ahrResponsavel->respId;
+					else
+						$respPreservar .= ', '.$res->ahrResponsavel->respId;
 				}
+				if(!empty($respPreservar)){
+					AcessoDados::alterar("DELETE FROM tbAluno_has_Responsavel WHERE IdAluno = ".$this->pesId." AND IdResponsavel NOT IN(".$respPreservar.")");
+				}
+
+				if(count($this->alnResponsaveis) <= 0)
+					AcessoDados::alterar("DELETE FROM tbAluno_has_Responsavel WHERE IdAluno = ".$this->pesId);
+
+				AcessoDados::alterar("DELETE r FROM tbResponsavel r
+										LEFT JOIN tbAluno_has_Responsavel has ON has.IdResponsavel = r.Id
+										WHERE has.IdResponsavel IS NULL");
+
 				AcessoDados::confirmaTransacao();
 				return $salvou;
 			}catch(Exception $ex){
@@ -51,7 +67,8 @@
 		public function carregarDados(){
 			try {
 				parent::carregarDados();
-				$resultado = AcessoDados::listar("SELECT IdResponsavel FROM tbAluno_has_Responsavel WHERE IdAluno = ".$this->pesId);
+				$resultado = AcessoDados::listar("SELECT IdResponsavel FROM tbAluno_has_Responsavel WHERE IdAluno = ".$this->pesId);				
+				
 				if($resultado && $resultado->num_rows > 0){
 					while($row = $resultado->fetch_assoc()){
 						$resp = new AlunoHasResponsavel();

@@ -27,10 +27,10 @@
                 $idinserido = self::$conn->insert_id;
                 return $idinserido;
             }catch(mysqli_sql_exception $ex){
-                self::abortaTrasacao();
+                self::abortaTransacao();
 				throw new Exception("Ocorreu um erro ao inserir o registro. Transação abortada.<br>".$ex->getMessage());//."<br>".$sql."<br>");
 			}catch(Exception $ex){
-				self::abortaTrasacao();
+				self::abortaTransacao();
 				throw new Exception("Ocorreu um erro ao inserir o registro. Transação abortada.<br>".$ex->getMessage());
 			}
 		}
@@ -43,7 +43,7 @@
 					throw new Exception("Falha ao alterar o registro.<br>");
 				}
 			}catch(Exception $ex){
-				self::abortaTrasacao();
+				self::abortaTransacao();
 				throw new Exception("Ocorreu um erro ao alterar o registro. Transação abortada.<br>".$ex->getMessage());
 			}
 		}
@@ -57,7 +57,7 @@
 			}
 		}
 
-		private function abortaTrasacao(){
+		public static function abortaTransacao(){
 			try{
 				self::$conn->rollback();
 				self::$conn->close();

@@ -6,11 +6,12 @@
 
 
 var form = document.getElementById("formcadastrar");
-
-if (form.addEventListener) {                   
-    form.addEventListener("submit", validaAoSalvar);
-} else if (form.attachEvent) {                  
-    form.attachEvent("onsubmit", validaAoSalvar);
+if(form != null){
+	if (form.addEventListener) {                   
+	    form.addEventListener("submit", validaAoSalvar);
+	} else if (form.attachEvent) {                  
+	    form.attachEvent("onsubmit", validaAoSalvar);
+	}
 }
 
 

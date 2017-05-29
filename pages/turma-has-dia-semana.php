@@ -77,7 +77,7 @@
         public function horaInicioFormatada(){
             if($this->thdHoraInicio != null){
                 $date = new DateTime($this->thdHoraInicio);
-                return $date->format("H:i");
+                return $date->format("d/m/Y H:i");
             }else{
                 return null;
             }
@@ -86,7 +86,7 @@
         public function horaTerminoFormatada(){
             if($this->thdHoraTermino != null){
                 $date = new DateTime($this->thdHoraTermino);
-                return $date->format('H:i');
+                return $date->format('d/m/Y H:i');
             }else{
                 return null;
             }

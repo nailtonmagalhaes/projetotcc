@@ -145,14 +145,14 @@ echo '
 															$cpfresp = '';
 															$parentescoresp = '';
 															if(count($pessoa->getResponsaveis()) >= ($r + 1)){
-																$idresp = $pessoa->getResponsaveis()[$r]->respId;
-																$nomeresp = $pessoa->getResponsaveis()[$r]->respNome;
-																$cpfresp = Mascaras::geraMascara($pessoa->getResponsaveis()[$r]->respCpf, "###.###.###-##");
-																$parentescoresp = $pessoa->getResponsaveis()[$r]->respParentesco;
+																$idresp = $pessoa->getResponsaveis()[$r]->ahrResponsavel->respId;
+																$nomeresp = $pessoa->getResponsaveis()[$r]->ahrResponsavel->respNome;
+																$cpfresp = Mascaras::geraMascara($pessoa->getResponsaveis()[$r]->ahrResponsavel->respCpf, "###.###.###-##");
+																$parentescoresp = $pessoa->getResponsaveis()[$r]->ahrResponsavel->respParentesco;
 															}
 														?>
 														<tr>
-															<td hidden >
+															<td hidden>
 																<input class="form-control" name="idresp<?php echo $r + 1; ?>" id="idresp<?php echo $r + 1; ?>" value="<?php echo $idresp;?>">
 															</td>
 															<td>
