@@ -340,6 +340,7 @@ function removeMascara(texto){
 }
 
 function removerEspacosDuplicados(texto){
+	if(texto == null) return '';
 	var retorno = texto;
 	retorno = retorno.replace(/\s{2,}/g, ' ');
 	return retorno;
@@ -352,6 +353,7 @@ function removerEspacosDuplicados(texto){
 }
 
 function removerUnderlineDuplicados(texto){
+	if(texto == null) return '';
 	var retorno = texto;
 	retorno = retorno.replace(/\_{2,}/g, '_');
 	return retorno;
