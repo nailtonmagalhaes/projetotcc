@@ -32,74 +32,73 @@
 <script>
 var chartData = [{
    "year": "2000",
-       "cars": 1691,
-       "motorcycles": 737
+       "cars": 16,
+       "motorcycles": 37
 
 }, {
    "year": "2001",
-       "cars": 1098,
-       "motorcycles": 680,
-       "bicycles": 910
+       "cars": 10,
+       "motorcycles": 11,
+       "bicycles": 11
 }, {
    "year": "2002",
-       "cars": 975,
-       "motorcycles": 664,
-       "bicycles": 670
+       "cars": 9,
+       "motorcycles": 10,
+       "bicycles": 10
 }, {
    "year": "2003",
-       "cars": 1246,
-       "motorcycles": 648,
-       "bicycles": 930
+       "cars": 12,
+       "motorcycles": 13,
+       "bicycles": 12
 }, {
    "year": "2004",
-       "cars": 1218,
-       "motorcycles": 637,
-       "bicycles": 1010
+       "cars": 12,
+       "motorcycles": 13,
+       "bicycles": 13
 }, {
    "year": "2005",
-       "cars": 1913,
-       "motorcycles": 133,
-       "bicycles": 1770
+       "cars": 19,
+       "motorcycles": 21,
+       "bicycles": 20
 }, {
    "year": "2006",
-       "cars": 1299,
-       "motorcycles": 621,
-       "bicycles": 820
+       "cars": 12,
+       "motorcycles": 15,
+       "bicycles": 13
 }, {
    "year": "2007",
-       "cars": 1110,
-       "motorcycles": 10,
-       "bicycles": 1050
+       "cars": 11,
+       "motorcycles": 11,
+       "bicycles": 12
 }, {
    "year": "2008",
-       "cars": 765,
-       "motorcycles": 232,
-       "bicycles": 650
+       "cars": 7,
+       "motorcycles": 10,
+       "bicycles": 8
 }, {
    "year": "2009",
-       "cars": 1145,
-       "motorcycles": 219,
-       "bicycles": 780
+       "cars": 11,
+       "motorcycles": 12,
+       "bicycles": 12
 }, {
    "year": "2010",
-       "cars": 1163,
-       "motorcycles": 201,
-       "bicycles": 700
+       "cars": 11,
+       "motorcycles": 12,
+       "bicycles": 12
 }, {
    "year": "2011",
-       "cars": 1780,
-       "motorcycles": 85,
-       "bicycles": 1470
+       "cars": 17,
+       "motorcycles": 20,
+       "bicycles": 18
 }, {
    "year": "2012",
-       "cars": 1580,
-       "motorcycles": 285
+       "cars": 10,
+       "motorcycles": 15
 }];
 
 var chart =  AmCharts.makeChart("chartdiv", {
     "type": "serial",
-"theme": "light",
-
+    "theme": "light",
     "fontFamily": "Lato",
     "autoMargins": true,
     "addClassNames": true,
