@@ -2,21 +2,21 @@
 	include_once 'valida-sessao.php';
 	class Material{
 
-		public $matId;
-		public $matDescricao;
-		public $matLink;
-		public $matAno;
-		public $matAtivo;
-		public $matCursos;	/*array CursoHasMaterial*/
+        public $matId;
+        public $matDescricao;
+        public $matLink;
+        public $matAno;
+        public $matAtivo;
+        public $matCursos;	/*array CursoHasMaterial*/
 
-		public function __construct(){
-			$this->matId = 0;
-			$this->matDescricao = "";
-			$this->matLink = "";
-			$this->matAno = "";
-			$this->matAtivo = 1;
-			$this->matCursos = array();
-		}
+        public function __construct(){
+                $this->matId = 0;
+                $this->matDescricao = "";
+                $this->matLink = "";
+                $this->matAno = "";
+                $this->matAtivo = 1;
+                $this->matCursos = array();
+        }
 
         public function listar(){
 			return AcessoDados::listar("SELECT Id, Descricao, Ano, Link, COALESCE(Ativo, 1) Ativo, CASE WHEN COALESCE(Ativo, 1) = 1 THEN 'Ativo' ELSE 'Inativo' END Situacao FROM tbMaterial ORDER BY Descricao");
@@ -49,7 +49,11 @@
                         
                         try{
                             if($this->matId > 0){
-				 $sucesso = AcessoDados::alterar("UPDATE tbMaterial SET Descricao = '".$this->matDescricao."', Ano = ".$this->matAno.", Link = '".$this->matLink."' WHERE Id = ".$this->matId);
+                                if($this->matLink != ""){
+                                    $sucesso = AcessoDados::alterar("UPDATE tbMaterial SET Descricao = '".$this->matDescricao."', Ano = ".$this->matAno.", Link = '".$this->matLink."' WHERE Id = ".$this->matId);
+                                } else {
+                                    $sucesso = AcessoDados::alterar("UPDATE tbMaterial SET Descricao = '".$this->matDescricao."', Ano = ".$this->matAno." WHERE Id = ".$this->matId);
+                                }
                             }else{
 //                                    var_dump("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");die;
                                 $sucesso = AcessoDados::inserir("INSERT INTO tbMaterial (Descricao, Ano, Link, Ativo) VALUES ('".$this->matDescricao."', ".$this->matAno.", '".$this->matLink."', ".$this->matAtivo.")");

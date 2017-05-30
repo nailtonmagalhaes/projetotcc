@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-lg-12">
 			<?php
-                                $link = '';
-                                /* INFORMAÇES DO UPLOAD */
-                                
+                            $link = '';
+                            
+                            if(isset($_FILES["arquivo"]["name"])&&$_FILES["arquivo"]["name"]!=""){
                                 // Pasta onde o arquivo vai ser salvo
                                 $_UP['pasta'] = '../uploads/';
                                 // Tamanho máximo do arquivo (em Bytes)
@@ -69,6 +69,11 @@
                                   // Não foi possível fazer o upload, provavelmente a pasta está incorreta
                                   echo "Não foi possível enviar o arquivo, tente novamente";
                                 }
+                            }
+//                                $link = '';
+                                /* INFORMAÇES DO UPLOAD */
+                                
+                                
 //                                var_dump($link);
 //                                die;
 				/* VERIFICO SE HOUVE UM POST */
@@ -91,8 +96,8 @@
 						header('location: ..\pages\material-cadastro.php?id='.$material->matId.'&descricao='.$material->matDescricao);
 						die;
 					}	
-//                                        var_dump();die;
-                                        if(isset($link)){
+//                                        var_dump($link);die;
+                                        if(isset($_FILES["arquivo"]["name"])){
                                             $material->matLink = $link;
                                         }
                                         

@@ -104,6 +104,7 @@
             $turma->turProfessorHasTurma[] = $profApoio;
         }
 
+//        var_dump($_REQUEST['Datas']);die;
         if (isset($_REQUEST['Datas'])) {
             foreach ($_REQUEST['Datas'] as $data) {
 //                var_dump($data["DiaSemana"]);die;
