@@ -311,19 +311,19 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="..\pages\index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="../pages/index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> Aluno <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\aluno-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/aluno-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                    <a href="../pages/aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
                                 </li>
                                 
                                  <li>
@@ -336,10 +336,10 @@
                             <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Matrícula <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="..\pages\matricula-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="../pages/matricula-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                             </ul>
                         </li>
@@ -347,10 +347,10 @@
                             <a href="#"><i class="fa fa-book fa-fw"></i> Curso <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="..\pages\curso-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/curso-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li>
-                                    <a href="..\pages\curso-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="../pages/curso-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
@@ -362,10 +362,10 @@
                             <a href="#"><i class="fa fa-book fa-fw"></i> Material <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="..\pages\material-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/material-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li>
-                                    <a href="..\pages\material-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="../pages/material-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -374,10 +374,10 @@
                             <a href="#"><i class="fa fa-male fa-fw"></i> Autor <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="..\pages\autor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/autor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li>
-                                    <a href="..\pages\autor-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="../pages/autor-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -386,10 +386,10 @@
                             <a href="#"><i class="fa fa-book fa-fw"></i> Turma <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="..\pages\turma-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/turma-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li>
-                                    <a href="..\pages\turma-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    <a href="../pages/turma-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
