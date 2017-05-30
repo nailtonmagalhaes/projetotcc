@@ -1,5 +1,5 @@
  <?php 
-    
+	
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
     include_once 'professor.php';
@@ -20,7 +20,7 @@
 
     if($pessoa){
         include_once "menu.php";
-        $lista = $pessoa->listarInativos();
+        $lista = $pessoa->listar();
     }else{
         header('location: index.php');
     }

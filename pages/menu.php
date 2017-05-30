@@ -317,7 +317,7 @@
                             <a href="#"><i class="fa fa-user fa-fw"></i> Aluno <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="../pages/aluno-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    <a href="../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
                                 </li>
                                 <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
                                     <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>

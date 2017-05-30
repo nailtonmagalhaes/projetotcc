@@ -95,6 +95,14 @@
 					return '';
 			}
 		}
+
+		public function cpfMascara(){
+			return Mascaras::geraMascara($this->pesCpf, '###.###.###-##');
+		}
+
+		public function rgMascara(){
+			return Mascaras::geraMascara($this->pesRg, '##.###.###-#');
+		}
                 
 		public function limparCaracteres($str){
 			$str = str_replace(".", "", $str);
@@ -107,13 +115,25 @@
 		}
 
 		public function listar(){
-			$sql = "SELECT *, CASE Sexo WHEN 1 THEN 'Masculino' WHEN 2 THEN 'Feminino' ELSE '' END AS SexoDescricao, CASE COALESCE(Situacao, 1) WHEN 1 THEN 'Ativo' ELSE 'Inativo' END AS SituacaoDescricao FROM tbPessoa WHERE Situacao = 1 AND Perfil = ".$this->pesPerfil;
-			return AcessoDados::listar($sql);
+			try {
+				$sql = "SELECT *, CASE Sexo WHEN 1 THEN 'Masculino' WHEN 2 THEN 'Feminino' ELSE '' END AS SexoDescricao, 
+						CASE COALESCE(Situacao, 1) WHEN 1 THEN 'Ativo' ELSE 'Inativo' END AS SituacaoDescricao 
+						FROM tbPessoa WHERE COALESCE(Situacao, 1) = 1 AND Perfil = ".$this->pesPerfil;
+				return AcessoDados::listar($sql);
+			} catch (Exception $e) {
+				throw new Exception("Erro ao listar os dados.<br>".$e->getMessage());				
+			}			
 		}
 
 		public function listarInativos(){
-			$sql = "SELECT * FROM tbPessoa WHERE Situacao = 0 AND Perfil = ".$this->pesPerfil;
-			return AcessoDados::listar($sql);
+			try {
+				$sql = "SELECT *, CASE Sexo WHEN 1 THEN 'Masculino' WHEN 2 THEN 'Feminino' ELSE '' END AS SexoDescricao, 
+						CASE COALESCE(Situacao, 1) WHEN 1 THEN 'Ativo' ELSE 'Inativo' END AS SituacaoDescricao 
+						FROM tbPessoa WHERE Situacao = 0 AND Perfil = ".$this->pesPerfil;
+				return AcessoDados::listar($sql);
+			} catch (Exception $e) {
+				throw new Exception("Erro ao listar os dados.<br>".$e_.getMessage());				
+			}			
 		}
 		
 		public function carregarDados(){
@@ -263,7 +283,7 @@
 				}
 				return $retorno;
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao excluir os dados.<br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao inativar o registro.<br>".$ex->getMessage());
 			}
 		}
 	}

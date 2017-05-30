@@ -75,7 +75,7 @@
                                                                 <span><?php echo Mascaras::geraMascara($pessoa->pesRg, '##.###.###-#');?></span>
                                                             </td>
                                                             <td>
-                                                                <span><?php echo $pessoa->pesSexo == 0 ? "Feminino" : "Masculino";?></span>
+                                                                <span><?php echo $pessoa->sexoDescricao();?></span>
                                                             </td>
                                                             <td>
                                                                 <span><?php echo $pessoa->dataNascimentoFormatada();?></span>

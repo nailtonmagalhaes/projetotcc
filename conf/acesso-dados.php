@@ -48,6 +48,19 @@
 			}
 		}
 
+		public static function execute($sql){
+			try{
+				if(self::$conn->query($sql) == true){
+					return true;
+				}else{
+					throw new Exception("Falha ao executar a operação.<br>");
+				}
+			}catch(Exception $ex){
+				self::abortaTransacao();
+				throw new Exception("Ocorreu um erro ao executar a operação. Transação abortada.<br>".$ex->getMessage());
+			}
+		}
+
 		public static function confirmaTransacao(){
 			try{
 				self::$conn->commit();

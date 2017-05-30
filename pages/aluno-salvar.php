@@ -157,7 +157,7 @@
 	            		try {
 	            			
 		            		swal("Dados salvos com sucesso", " ", "success");
-		            		window.setTimeout("location.href='../pages/aluno-listar.php'",1000);
+		            		window.setTimeout("location.href='../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1($pessoa->pesPerfil)."'\"";?>,1000);
 	            		} catch (e) {
 	            			alert(e);
 	            		}
