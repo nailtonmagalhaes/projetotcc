@@ -1,7 +1,8 @@
 <?php
 	include_once 'valida-sessao.php';
+	Include_once 'material.php';
 	Include_once '../conf/acesso-dados.php';
-//	include_once 'autor-has-material.php';
+	include_once 'material-has-autor.php';
 	class Autor{
 
 		public $autId;
@@ -16,6 +17,13 @@
 			$this->autDescricao = "";
 			$this->autAtivo = 1;
 			$this->autMateriais = array();
+		}
+
+		public function addMateriais(Materiais $mt){
+			$this->autMateriais[] = $mt;
+		}
+		public function getMateriais() {
+			return $this->autMateriais;
 		}
 
         public function listar(){
@@ -46,8 +54,13 @@
 
         public function salvarDados(){
 			try {
+				$materialpreservar = "";
+				$sucesso = (bool)false;
 				if($this->autId > 0){
-					return AcessoDados::alterar("UPDATE tbAutor SET Nome = '".$this->autNome."', Descricao = '".$this->autDescricao."', Ativo = ".$this->autAtivo." WHERE Id = ".addslashes($this->autId));
+					AcessoDados::abreTransacao();				
+					$sucesso = AcessoDados::alterar("UPDATE tbAutor SET Nome = '".$this->autNome."', Descricao = '".$this->autDescricao."', Ativo = ".$this->autAtivo." WHERE Id = ".addslashes($this->autId));
+					AcessoDados::confirmaTransacao();
+					return $sucesso;
 				}else{
 					return AcessoDados::inserir("INSERT INTO tbAutor (Nome, Descricao, Ativo) VALUES ('".$this->autNome."','".$this->autDescricao."', 1)");
 				}

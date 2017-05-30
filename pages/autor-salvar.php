@@ -25,6 +25,7 @@
 					if(isset($_POST["autAtivo"])){
 						$autor->autAtivo = $_POST["autAtivo"];
 					}
+					$mate = new Material();
 					
 					if(empty($autor->autDescricao) || empty($autor->autNome)){
 						header('location: ..\pages\autor-cadastro.php?id='.$autor->autId.'&descricao='.$autor->autDescricao.'&nome='.$autor->autNome);

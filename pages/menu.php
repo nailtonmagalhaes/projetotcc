@@ -424,7 +424,23 @@
                                     </li>
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-print fa-fw"></i> Relatórios <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../pages/relatorio-teste.php"><i class="fa fa-print fa-fw"></i>1</a>
+                                </li>                                
+                                    <li>
+                                        <a href="#"><i class="fa fa-print fa-fw"></i>2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-print fa-fw"></i>3</a>
+                                    </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li> 
+
                         <li>
                             <a href="phpinfo.php"><i class="fa fa-question fa-fw"></i> Versão PHP </a>
                         </li>
