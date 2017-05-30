@@ -1,4 +1,8 @@
-
+<?php
+    if($pessoa == null){
+        header('location: ../pages/index.php');
+    }
+?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -45,7 +49,13 @@
                                                 <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href='aluno-cadastro.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
                                                 &nbsp; 
 
-                                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-pessoa" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
+                                                <?php 
+                                                    if($row['Situacao'] == 0){ ?>
+                                                        <button class="btn btn-success delete" type="submit" name="btn-ativar-pessoa" title="Ativar"><i class="glyphicon glyphicon-check" title="Ativar"></i></button>
+                                                    <?php }else{ ?>
+                                                        <button class="btn btn-danger delete" type="submit" name="btn-excluir-pessoa" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
+                                                    <?php }
+                                                ?>
                                             </td>
                                         </tr>
                                     <?php }
@@ -95,6 +105,35 @@
                 $.post("pessoa-excluir.php", {id:id}, function(data){
                     if(data){
                         swal("Registro excluído com sucesso!","","success");
+                        window.setTimeout("location.href='../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1($pessoa->pesPerfil);?>'", 2000);
+                    }else{
+                        swal("Error",data,"warning");
+                    }
+                });
+            }
+        );
+    });
+
+     $('button[name="btn-ativar-pessoa"]').on('click', function (e) {
+
+        e.preventDefault();
+
+        var id =  $(this).parent().siblings('.idpessoa').text();
+        var nome =  $(this).parent().siblings('.nome').text();
+        swal({
+              title: "Deseja ativar o registro '"+ nome +"' com código '"+id+"'?",
+              text: "Clique em Ativar para confirmar ou em Cancelar para cancelar!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "green",
+              confirmButtonText: "Ativar",
+              cancelButtonText: "Cancelar",
+              closeOnConfirm: false
+            },
+            function(){
+                $.post("pessoa-ativar.php", {id:id}, function(data){
+                    if(data){
+                        swal("Registro ativado com sucesso!","","success");
                         window.setTimeout("location.href='../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1($pessoa->pesPerfil);?>'", 2000);
                     }else{
                         swal("Error",data,"warning");

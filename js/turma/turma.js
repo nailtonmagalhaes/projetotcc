@@ -130,16 +130,21 @@ function setSalvar(){
             url: "turma-salvar.php",
             data: objeto,
             cache: false,
-            success: function(result){
-                swal("Turma salva com sucesso!","","success");
-                window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+            success: function(data){
+                if(data != null && data.success){
+                    swal("Turma salva com sucesso!","","success");
+                    window.setTimeout("location.href='../pages/turma-listar.php'", 1000);
+                }else{
+                    swal(data.message,"","error");
+                }
             },
             error: function(result){
                     swal("Ocorreu um erro ao salvar a turma.");
-            } 
+            },
+            fail: function(result){
+                console.log(result);
+            },
         });
-
-        $.post()
 
         /*
         $.post("turma-salvar.php", {data: objeto}, function(data){

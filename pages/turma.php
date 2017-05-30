@@ -142,8 +142,6 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 }
 
                 if($sucesso){
-//                    echo '<pre>';
-//                    var_dump($this->turId);die;
                     
                     $turma = new TurmaHasDiaSemana;
                     $turma->removeDados($this->turId);
@@ -151,10 +149,8 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                     foreach($this->turHasDiaSemana as $dia){
                         $dia->thdTurma = $this;
                         $sucesso = $dia->salvarDados();
-//                        var_dump($sucesso);
                         
                     }
-//                    die;
                     
                     $professor = new ProfessorHasTurma;
                     $professor->removeDados($this->turId);
@@ -164,11 +160,10 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                         $prof->phtTurma = $this;
                         $sucesso = $prof->salvarDados();
                         
-                    }
-//                    die;
-                    
+                    }                    
                 }
                 AcessoDados::confirmaTransacao();
+              
                 return $sucesso;
             }catch(Exception $ex){
                 throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
@@ -186,131 +181,132 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
         
         public function calculaDiasTurma($dias,$hora,$duracaoCurso,$dataInicio){
-            
-            $dataInicio = explode("/", $dataInicio);
-            $dataInicio = $dataInicio[2]."-".$dataInicio[1]."-".$dataInicio[0];
-//            AcessoDados::abreTransacao();
-//        var_dump($dataInicio);die;
-            $sqlDatas = "SELECT
-                        dte
-                    ,DAYOFWEEK(dte)
-                FROM
-                        (
+            try{
+              $dataInicio = explode("/", $dataInicio);
+              $dataInicio = $dataInicio[2]."-".$dataInicio[1]."-".$dataInicio[0];
 
-                      SELECT 
-                          '".$dataInicio."' + INTERVAL a + b DAY dte
-                      FROM
-                          (SELECT 0 a 
-                          UNION SELECT 1 a 
-                           UNION SELECT 2 
-                           UNION SELECT 3
-                           UNION SELECT 4 
-                           UNION SELECT 5 
-                           UNION SELECT 6 
-                           UNION SELECT 7
-                           UNION SELECT 8 
-                           UNION SELECT 9 ) d,
-                          (SELECT 0 b 
-                           UNION SELECT 10 
-                           UNION SELECT 20 
-                           UNION SELECT 30 
-                           UNION SELECT 40
-                           UNION SELECT 50
-                           UNION SELECT 60
-                           UNION SELECT 70
-                           UNION SELECT 80
-                           UNION SELECT 90
-                           UNION SELECT 100
-                           UNION SELECT 110
-                           UNION SELECT 120
-                           UNION SELECT 130
-                           UNION SELECT 140
-                           UNION SELECT 150
-                           UNION SELECT 160
-                           UNION SELECT 170
-                           UNION SELECT 180
-                           UNION SELECT 190
-                           UNION SELECT 200
-                           UNION SELECT 210
-                           UNION SELECT 220
-                           UNION SELECT 230
-                           UNION SELECT 240
-                           UNION SELECT 250
-                           UNION SELECT 260
-                           UNION SELECT 270
-                           UNION SELECT 280
-                           UNION SELECT 290
-                           UNION SELECT 300
-                           UNION SELECT 310
-                           UNION SELECT 320
-                           UNION SELECT 330
-                           UNION SELECT 340
-                           UNION SELECT 350
-                           UNION SELECT 360
-                           ) m
-                      WHERE 
-                          '".$dataInicio."' + INTERVAL a + b DAY  <  '2017-07-01'
-                      ORDER BY 
-                          a + b
+              $sqlDatas = "SELECT
+                          dte
+                      ,DAYOFWEEK(dte)
+                  FROM
+                          (
 
-                    ) as t";
-//            echo '<pre>';
-            
-            
-            $dadosDatas = AcessoDados::listar($sqlDatas);
-            
-            $dadosDatas = $dadosDatas->fetch_all();
-            
-//            var_dump($dias);die;
-            
-//            echo '<pre>';
-            
-            $datas_uteis;
-            $dia_semana;
-            
-            foreach ($dadosDatas as $key => $value) {
-//                var_dump($key,$value);
-                if(in_array($value[1], $dias)){
-                    $datas_uteis[] = $value[0];
-                    $dia_semana[] = $value[1];
-                }
+                        SELECT 
+                            '".$dataInicio."' + INTERVAL a + b DAY dte
+                        FROM
+                            (SELECT 0 a 
+                            UNION SELECT 1 a 
+                             UNION SELECT 2 
+                             UNION SELECT 3
+                             UNION SELECT 4 
+                             UNION SELECT 5 
+                             UNION SELECT 6 
+                             UNION SELECT 7
+                             UNION SELECT 8 
+                             UNION SELECT 9 ) d,
+                            (SELECT 0 b 
+                             UNION SELECT 10 
+                             UNION SELECT 20 
+                             UNION SELECT 30 
+                             UNION SELECT 40
+                             UNION SELECT 50
+                             UNION SELECT 60
+                             UNION SELECT 70
+                             UNION SELECT 80
+                             UNION SELECT 90
+                             UNION SELECT 100
+                             UNION SELECT 110
+                             UNION SELECT 120
+                             UNION SELECT 130
+                             UNION SELECT 140
+                             UNION SELECT 150
+                             UNION SELECT 160
+                             UNION SELECT 170
+                             UNION SELECT 180
+                             UNION SELECT 190
+                             UNION SELECT 200
+                             UNION SELECT 210
+                             UNION SELECT 220
+                             UNION SELECT 230
+                             UNION SELECT 240
+                             UNION SELECT 250
+                             UNION SELECT 260
+                             UNION SELECT 270
+                             UNION SELECT 280
+                             UNION SELECT 290
+                             UNION SELECT 300
+                             UNION SELECT 310
+                             UNION SELECT 320
+                             UNION SELECT 330
+                             UNION SELECT 340
+                             UNION SELECT 350
+                             UNION SELECT 360
+                             ) m
+                        WHERE 
+                            '".$dataInicio."' + INTERVAL a + b DAY  <  '2017-07-01'
+                        ORDER BY 
+                            a + b
+
+                      ) as t";
+  //            echo '<pre>';
+              
+              
+              $dadosDatas = AcessoDados::listar($sqlDatas);
+              
+              $dadosDatas = $dadosDatas->fetch_all();
+              
+  //            var_dump($dias);die;
+              
+  //            echo '<pre>';
+              
+              $datas_uteis;
+              $dia_semana;
+              
+              foreach ($dadosDatas as $key => $value) {
+  //                var_dump($key,$value);
+                  if(in_array($value[1], $dias)){
+                      $datas_uteis[] = $value[0];
+                      $dia_semana[] = $value[1];
+                  }
+              }
+  //            var_dump($dia_semana);die;
+              $tempo = 0.00;
+  //            var_dump($hora);die;
+              foreach ($hora as $key => $value) {
+                  $horas = explode( ":", $value["hora"] );
+                  
+                  
+  //                var_dump($tempo);
+                  $tempo = $tempo+($horas[0]+round(($horas[1]/60),2));
+  //                var_dump($tempo);
+              }
+              
+              
+              
+              $dias_uteis = round($duracaoCurso/$tempo);
+  //            var_dump($tempo);
+  //            die;
+              
+              for ($index = count($datas_uteis); $index >= $dias_uteis; $index--) {
+  //                var_dump($index,$datas_uteis[$index]);
+                  unset($datas_uteis[$index]);
+                  unset($dia_semana[$index]);
+              }
+              
+  //            var_dump($dias_uteis);
+  //            var_dump($datas_uteis);
+  //            var_dump(count($datas_uteis));
+  //        echo '<pre>';
+              $retorno[] = $datas_uteis;
+              $retorno[] = $dia_semana;
+              
+  //            var_dump($retorno);die;
+              return $retorno;
+  //            var_dump($dias, $duracaoCurso);
+  //            die;
+            }catch(Exception $e){
+              throw $e;
             }
-//            var_dump($dia_semana);die;
-            $tempo = 0.00;
-//            var_dump($hora);die;
-            foreach ($hora as $key => $value) {
-                $horas = explode( ":", $value["hora"] );
-                
-                
-//                var_dump($tempo);
-                $tempo = $tempo+($horas[0]+round(($horas[1]/60),2));
-//                var_dump($tempo);
-            }
-            
-            
-            
-            $dias_uteis = round($duracaoCurso/$tempo);
-//            var_dump($tempo);
-//            die;
-            
-            for ($index = count($datas_uteis); $index >= $dias_uteis; $index--) {
-//                var_dump($index,$datas_uteis[$index]);
-                unset($datas_uteis[$index]);
-                unset($dia_semana[$index]);
-            }
-            
-//            var_dump($dias_uteis);
-//            var_dump($datas_uteis);
-//            var_dump(count($datas_uteis));
-//        echo '<pre>';
-            $retorno[] = $datas_uteis;
-            $retorno[] = $dia_semana;
-            
-//            var_dump($retorno);die;
-            return $retorno;
-//            var_dump($dias, $duracaoCurso);
-//            die;
-            
             
         }
         

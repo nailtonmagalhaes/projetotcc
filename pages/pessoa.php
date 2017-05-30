@@ -286,5 +286,20 @@
 				throw new Exception("Ocorreu um erro ao inativar o registro.<br>".$ex->getMessage());
 			}
 		}
+
+		public function ativar(){
+			try{
+				AcessoDados::abreTransacao();
+				$sql = 'UPDATE tbPessoa SET Situacao = 1 WHERE Id = '.$this->pesId;
+				$retorno = AcessoDados::alterar($sql);
+				if($retorno){
+					AcessoDados::confirmaTransacao();
+				}
+				return $retorno;
+			}catch(Exception $ex){
+				throw new Exception("Ocorreu um erro ao ativar o registro.<br>".$ex->getMessage());
+			}
+		}
+
 	}
 ?>

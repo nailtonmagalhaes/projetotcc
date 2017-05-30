@@ -1,5 +1,5 @@
  <?php 
-	
+	include_once 'permissao-secretaria.php';
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
     include_once 'professor.php';
@@ -18,11 +18,11 @@
         }
     }
 
-    if($pessoa){
+    if($pessoa == null){
+        header('location: index.php'); die;
+    }else{
         include_once "menu.php";
         $lista = $pessoa->listar();
-    }else{
-        header('location: index.php');
     }
     include_once 'aluno-listar.php';
  ?>

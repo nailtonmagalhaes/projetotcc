@@ -171,40 +171,30 @@
     $dados_dia;
     $dados_inic;
     $dados_term;
-    
-    echo '<pre>';
-    
+
     foreach($turma->turHasDiaSemana as $dia){
         $dados_dia[]['disId'] = $dia->thdDiaSemana->disId;
         $dados_inic[]['HoraInicio'] = $dia->thdHoraInicio;
         $dados_term[]['HoraTermino'] = $dia->thdHoraTermino;
-//        var_dump($dia->thdDiaSemana->disId,$dia->thdHoraInicio,$dia->thdHoraTermino);
     }
-//    var_dump($dados_dia);die;
-//    die;
-    
+    if($turma->turId > 0){ ?>
+        <script>  
+            $(document).ready(function(){
+                var arr1 = <?php echo json_encode($dados_dia); ?>;
+                var arr2 = <?php echo json_encode($dados_inic); ?>;
+                var arr3 = <?php echo json_encode($dados_term); ?>;
+                
+                $('#turProfessorPrincipal').val(<?php echo $turma->turProfessorHasTurma[1]->phtProfessor->pesId ?>)
+                $('#turProfessorApoio').val(<?php echo $turma->turProfessorHasTurma[0]->phtProfessor->pesId ?>)
+                
+                preencheCampos(arr1,arr2,arr3);
+                
+                if(!arr1){
+                    adicionarLinha('tbhorarios');
+                }
+            });    
+        </script>
+    <?php }
 ?>
-
-
-
-
-<script>  
-//    console.log()
-    $(document).ready(function(){
-        var arr1 = <?php echo json_encode($dados_dia); ?>;
-        var arr2 = <?php echo json_encode($dados_inic); ?>;
-        var arr3 = <?php echo json_encode($dados_term); ?>;
-        
-        $('#turProfessorPrincipal').val(<?php echo $turma->turProfessorHasTurma[1]->phtProfessor->pesId ?>)
-        $('#turProfessorApoio').val(<?php echo $turma->turProfessorHasTurma[0]->phtProfessor->pesId ?>)
-        
-        preencheCampos(arr1,arr2,arr3);
-        
-        if(!arr1){
-            adicionarLinha('tbhorarios');
-        }
-    });
-    
-</script>
 
 

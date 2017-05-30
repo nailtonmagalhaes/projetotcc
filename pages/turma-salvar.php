@@ -4,6 +4,7 @@
     include_once 'curso.php';
     include_once '../conf/acesso-dados.php';
 //    date_default_timezone_set('America/Sao_Paulo');
+    header('Content-Type: application/json');
      
     $dias = array();
     $hora = array();
@@ -129,22 +130,26 @@
                 
             }
         }
-//        die;
 
         if(empty($turma->turDataInicio) || empty($turma->turCurso) || empty($turma->turCurso->crsId) || $turma->turCurso->crsId < 1 || empty($turma->turDataInicio) ||
             count($turma->turProfessorHasTurma) < 2 || empty($turma->turProfessorHasTurma[0]->phtProfessor) || empty($turma->turProfessorHasTurma[1]->phtProfessor->pesId) < 0 ||
             count($turma->turHasDiaSemana) < 1 || empty($turma->turHasDiaSemana[0]->thdDiaSemana) || empty($turma->turHasDiaSemana[0]->thdDiaSemana->disId) || $turma->turHasDiaSemana[0]->thdDiaSemana->disId < 1){
             echo json_encode("Dados invalidos.");
         }else{
+            
             try{
-                if($turma->salvarDados()){
-                    echo json_encode(true);
-                }else{
-                    echo json_encode(false);
-                }
+                $result=$turma->salvarDados();
+                echo json_encode(array('success'=>true, 'message'=>'Dados Salvos com Sucesso!'));
+                //if($result){
+                //    echo json_encode(array('success'=>true, 'message'=>'Dados Salvos com Sucesso!'));
+                //}else{
+                //   echo json_encode(array('success'=>false, 'message'=>'Não foi possível salvar os dados.'));
+                //}
             }catch(Exception $e){
-                echo json_encode($e->getMessage());
+                echo json_encode(array('success'=>false, 'message'=>$e->getMessage()));
             }
+            
+            //echo json_encode($resultado);
         }
     }
 ?>

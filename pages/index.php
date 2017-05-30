@@ -15,7 +15,7 @@
                             <div class="row">
                                 <!-- Styles -->
                                     <style>
-                                    body { color: #fff; }
+                                    /*body { color: #fff; }*/
                                     #chartdiv {
                                         width   : 100%;
                                         height  : 500px;

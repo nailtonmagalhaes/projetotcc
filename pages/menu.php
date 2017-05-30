@@ -313,36 +313,50 @@
                         <li>
                             <a href="../pages/index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Aluno <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                        <!--MENU ALUNO-->
+                        <?php
+                            if(EPerfil::Secretaria == $perfil || EPerfil::Aluno == $perfil){ ?>
+                                <li>
+                                    <a href="#"><i class="fa fa-user fa-fw"></i> Aluno <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <?php
+                                            if(EPerfil::Secretaria == $perfil){ ?>
+                                                <li>
+                                                    <a href="../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                                </li>
+                                                <li>
+                                                    <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                                </li>
+                                                <li>
+                                                    <a href="../pages/aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                                </li>
+                                            <?php }
+                                        ?>                               
+                                         <li>
+                                            <a href="#"><i class="fa fa-print fa-fw"></i>Emitir Boletim</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
                                 </li>
-                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                            <?php }
+                        ?>
+                        <!--MENU MATRICULA-->
+                        <?php
+                            if(EPerfil::Secretaria == $perfil || EPerfil::Aluno == $perfil){ ?>
+                                <li>
+                                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Matrícula <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="../pages/matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                        </li>
+                                        <li>
+                                            <a href="../pages/matricula-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="../pages/aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
-                                </li>
-                                
-                                 <li>
-                                    <a href="#"><i class="fa fa-print fa-fw"></i>Emitir Boletim</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Matrícula <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="../pages/matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                </li>
-                                <li <?php echo EPerfil::Secretaria != $perfil ? 'style="display:none;"' : '';?>>
-                                    <a href="../pages/matricula-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                </li>
-                            </ul>
-                        </li>
+                            <?php } 
+                        ?>
+                        
                         <li>
                             <a href="#"><i class="fa fa-book fa-fw"></i> Curso <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

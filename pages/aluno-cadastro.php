@@ -1,5 +1,5 @@
 <?php 
-	include_once "menu.php";
+	include_once 'permissao-secretaria.php';	
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
     include_once 'professor.php';
@@ -15,7 +15,13 @@
     	}else if($_GET['tipo'] == SHA1(EPerfil::Secretaria)){
     		$pessoa = new Secretaria();
     	}
-    }    
+    }
+
+    if($pessoa == null){
+        header('location: index.php'); die;
+    }else{
+    	include_once "menu.php";
+    }
 
 
 	$end1 = new Endereco();
