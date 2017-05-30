@@ -22,6 +22,9 @@
 					if(isset($_POST["autDescricao"])){
 						$autor->autDescricao = $_POST["autDescricao"];
 					}
+					if(isset($_POST["autAtivo"])){
+						$autor->autAtivo = $_POST["autAtivo"];
+					}
 					
 					if(empty($autor->autDescricao) || empty($autor->autNome)){
 						header('location: ..\pages\autor-cadastro.php?id='.$autor->autId.'&descricao='.$autor->autDescricao.'&nome='.$autor->autNome);

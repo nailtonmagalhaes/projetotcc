@@ -52,12 +52,12 @@
 					            </div>
 					            <?php echo 
 					            '<div class="form-group"'.($autor->autId > 0 ? null : "hidden").'>
-                                		<label class="control-label" for="alnSituacao">Situação</label>
+                                		<label class="control-label" for="autSituacao">Situação</label>
                                         <label class="radio-inline">
-	                                        <input type="radio" name="alnSituacao" id="alnSituacaoAtivo" value="1"'.($autor->autAtivo == 1 ? "checked" : null).'/>Ativo
+	                                        <input type="radio" name="autSituacao" id="autSituacaoAtivo" value="1"'.($autor->autAtivo == 1 ? "checked" : null).'/>Ativo
 	                                    </label>
 	                                    <label class="radio-inline">
-	                                        <input type="radio" name="alnSituacao" id="alnSituacaoInativo" value="0"'.($autor->autAtivo == 0 ? "checked" : null).'/>Inativo
+	                                        <input type="radio" name="autSituacao" id="autSituacaoInativo" value="0"'.($autor->autAtivo == 0 ? "checked" : null).'/>Inativo
                                          </label>
                                 </div>';
                                 ?>

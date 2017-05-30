@@ -37,7 +37,7 @@
                                             $id = $row["Id"];
                                             $nome=$row["Nome"];
                                             $descricao = $row["Descricao"];                                            
-                                            $situacao = $row["Ativo"];
+                                            $situacao = $row["Situacao"];
                         				echo
                                         '<tr class="odd gradeX">
                                             <td class="idautor">'.$id.'</td>

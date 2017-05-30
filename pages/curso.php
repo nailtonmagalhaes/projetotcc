@@ -36,7 +36,11 @@
 
 		function excluirLogicamente(){
 			try {
-				return AcessoDados::inserir("UPDATE tbCurso SET Ativo = 0 WHERE Id = ".$this->crsId);
+				AcessoDados::abreTransacao();
+				$result = AcessoDados::inserir("UPDATE tbCurso SET Ativo = 0 WHERE Id = ".$this->crsId);
+				AcessoDados::confirmaTransacao();
+				return $result;
+				
 			} catch (Exception $e) {
 				throw new Exception("Erro ao inativar o curso.<br>".$e->getMessage());
 			}			

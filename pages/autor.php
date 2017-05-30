@@ -1,5 +1,6 @@
 <?php
 	include_once 'valida-sessao.php';
+	Include_once '../conf/acesso-dados.php';
 //	include_once 'autor-has-material.php';
 	class Autor{
 
@@ -19,7 +20,7 @@
 
         public function listar(){
 			try {
-				return AcessoDados::listar("SELECT Id,Nome,Descricao,Ativo FROM tbAutor ORDER BY Nome");
+				return AcessoDados::listar("SELECT Id,Nome,Descricao,COALESCE(Ativo,1) AS Ativo, CASE WHEN COALESCE(Ativo,1)=1 THEN 'ATIVO' ELSE 'INATIVO' END AS Situacao  FROM tbAutor ORDER BY Nome");
 			} catch (Exception $e) {
 				throw new Exception("Erro ao listar os AUTOR.<br>".$e->getMessage());				
 			}
@@ -46,7 +47,7 @@
         public function salvarDados(){
 			try {
 				if($this->autId > 0){
-					return AcessoDados::alterar("UPDATE tbAutor SET Nome = '".$this->autNome."', Descricao = ".$this->autDescricao.", Ativo = ".$this->autAtivo." WHERE Id = ".addslashes($this->autId));
+					return AcessoDados::alterar("UPDATE tbAutor SET Nome = '".$this->autNome."', Descricao = '".$this->autDescricao."', Ativo = ".$this->autAtivo." WHERE Id = ".addslashes($this->autId));
 				}else{
 					return AcessoDados::inserir("INSERT INTO tbAutor (Nome, Descricao, Ativo) VALUES ('".$this->autNome."','".$this->autDescricao."', 1)");
 				}
@@ -57,7 +58,10 @@
     
         public function excluirLogicamente(){
 			try {
-				return AcessoDados::inserir("UPDATE tbAutor SET Ativo = 0 WHERE Id = ".$this->autId);
+				AcessoDados::abreTransacao();
+				 $sucesso =  AcessoDados::alterar("UPDATE tbAutor SET Ativo = 0 WHERE Id = ".$this->autId);				
+				AcessoDados::confirmaTransacao();
+				return $sucesso;
 			} catch (Exception $e) {
 				throw new Exception("Erro ao inativar o autor.<br>".$e->getMessage());
 			}

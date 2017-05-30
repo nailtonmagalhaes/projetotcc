@@ -90,7 +90,7 @@
         e.preventDefault();
 
         //var $form = $(this).closest('form');
-        var id =  $(this).parent().siblings('.idcurso').text();
+        var id =  $(this).parent().siblings('.idcurso').text();        
         var nomecurso =  $(this).parent().siblings('.nomecurso').text();
 
        
@@ -103,22 +103,12 @@
               confirmButtonColor: "#DD6B55",
               confirmButtonText: "Excluir",
               cancelButtonText: "Cancelar",
-              closeOnConfirm: false
-
-              //title: "Deseja excluir o curso '"+ nomecurso +"'?",
-              //text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
-              //type: 'warning',
-              //showCancelButton: true,
-              //confirmButtonColor: '#3085d6',
-              //cancelButtonColor: '#d33',
-              //confirmButtonText: 'Sim, Excluir!',
-              //cancelButtonText: 'Não, Cancelar!',
-              //confirmButtonClass: 'btn btn-success',
-              //cancelButtonClass: 'btn btn-danger',
-              //buttonsStyling: false
+              closeOnConfirm: false              
             },
             function(){
                 $.post("curso-excluir.php", {id:id}, function(data){
+                    echo "_____________________OPA";
+                    die;
                     if(data){
                         swal("Curso excluído com sucesso!","","success");
                         window.setTimeout("location.href='../pages/curso-listar.php'",1000);
