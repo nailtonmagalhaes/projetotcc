@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <script src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
 
-    <meta http-equiv="content-Type" content="text/html; charset=iso-8859-1" />
 
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
 
@@ -273,7 +272,7 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
-                <!--USUÃRIO (OCULTAS)-->
+                <!--USUÁRIO (OCULTAS)-->
                 <!-- /.dropdown -->
                 <li class="dropdown ocultar">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -294,7 +293,7 @@
                     <!-- /.dropdown-user -->
                 </li>
                 <li>
-                    OlÃ¡ <?php echo $_SESSION['nome'];?>
+                    Olá <?php echo $_SESSION['nome'];?>
                 </li>
                 <li>
                     <a href="../index.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -344,7 +343,7 @@
                         <?php
                             if(EPerfil::Secretaria == $perfil || EPerfil::Aluno == $perfil){ ?>
                                 <li>
-                                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> MatrÃ­cula <span class="fa arrow"></span></a>
+                                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Matrícula <span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
                                             <a href="../pages/matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
@@ -410,23 +409,30 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Professor <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                        <?php
+                        if(EPerfil::Secretaria == $perfil){ ?>
                                 <li>
-                                    <a href="../pages/aluno-listar.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                </li>                                
-                                    <li>
-                                        <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                    </li>
-                                    <li>
-                                        <a href="../pages/calendario_index.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>FrequÃªncia de Alunos</a>
-                                    </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Professor <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                        </li>                                
+                                        <li>
+                                            <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                        </li>
+                                        <li>
+                                            <a href="../pages/aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                        </li>
+                                        <li>
+                                            <a href="../pages/calendario_index.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>Frequência de Alunos</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php }
+                        ?>
+                        
                         <li>
-                            <a href="#"><i class="fa fa-print fa-fw"></i> RelatÃ³rios <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-print fa-fw"></i> Relatórios <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="../pages/relatorio-teste.php"><i class="fa fa-print fa-fw"></i>1</a>
@@ -442,7 +448,7 @@
                         </li> 
 
                         <li>
-                            <a href="phpinfo.php"><i class="fa fa-question fa-fw"></i> VersÃ£o PHP </a>
+                            <a href="phpinfo.php"><i class="fa fa-question fa-fw"></i> Versão PHP </a>
                         </li>
                     </ul>
                 </div>
