@@ -130,7 +130,6 @@ function setSalvar(){
             url: "turma-salvar.php",
             data: objeto,
             cache: false,
-<<<<<<< HEAD
             success: function(data){
                 if(data != null && data.success){
                     swal("Turma salva com sucesso!","","success");
@@ -138,10 +137,6 @@ function setSalvar(){
                 }else{
                     swal(data.message,"","error");
                 }
-=======
-            success: function(result){
-                swal("Turma salva com sucesso!","","success");
->>>>>>> 46810b3d6ec19e95b5e0759fe3c9b3d4ac83340f
             },
             error: function(result){
                     swal("Ocorreu um erro ao salvar a turma.");

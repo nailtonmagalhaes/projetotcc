@@ -62,7 +62,7 @@
                                                     </div>
                                                     
 					            <div class="form-group">
-	                                <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk"></span> Salvar</button>
+	                                <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk" ></span> Salvar</button>
 	                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
                                 </div>
 					        </form>
@@ -86,4 +86,52 @@
         startDate: '-10',
         endDate: new Date(),
     });
+    var evento_click;
+    
+    $('#botao-salvar').click(function(e){
+        evento_click = e;
+        comprova_extensao($('#formcadastrar'),$('#arquivo').val())
+        if(($('#arquivo').val()).lenght==0){
+            e.preventDefault();
+        }
+    })
+    
+    
+    function comprova_extensao(formulario, arquivo) { 
+        extensoes_permitidas = new Array(".pdf"); 
+        meuerro = ""; 
+        if (!arquivo) { 
+           //Se não tenho arquivo, é porque não se selecionou um arquivo no formulário. 
+             meuerro = "Não foi selecionado nenhum arquivo"; 
+        }else{ 
+           //recupero a extensão deste nome de arquivo 
+           extensao = (arquivo.substring(arquivo.lastIndexOf("."))).toLowerCase(); 
+           //alert (extensao); 
+           //comprovo se a extensão está entre as permitidas 
+           permitida = false; 
+           for (var i = 0; i < extensoes_permitidas.length; i++) { 
+              if (extensoes_permitidas[i] == extensao) { 
+              permitida = true; 
+              break; 
+              } 
+           } 
+           if (!permitida) { 
+              meuerro = "Verifique a extensão do arquivo. \nSó se podem subir arquivos com a extenção: " + extensoes_permitidas.join(); 
+              evento_click.preventDefault();
+             }else{ 
+                     //submeto! 
+//              alert ("Tudo correto. Vou submeter o formulário."); 
+              formulario.submit(); 
+              return 1; 
+             } 
+        } 
+        //se estou aqui é porque não se pode submeter 
+        swal(
+            'Oops...',
+            meuerro,
+            'error'
+          )
+//        alert (meuerro); 
+        return 0; 
+     } 
 </script>
