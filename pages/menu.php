@@ -297,6 +297,22 @@
                     Olá <?php echo $_SESSION['nome'];?>
                 </li>
                 <li>
+                    | Perfil: <?php 
+                                switch ($_SESSION['perfil'])
+                                {
+                                    case EPerfil::Secretaria:
+                                        echo "Secretaria";
+                                        break;
+                                    case EPerfil::Aluno:
+                                        echo "Aluno";
+                                        break;
+                                    case EPerfil::Professor:
+                                        echo "Professor";
+                                        break;
+                                }                            
+                            ?>
+                </li>
+                <li>
                     <a href="../index.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                 </li>
                 <!-- /.dropdown -->

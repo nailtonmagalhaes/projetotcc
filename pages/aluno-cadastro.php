@@ -115,7 +115,7 @@ echo '
 									<div class="form-group">
                                         <label class="control-label" for="alnDataNascimento">Data Nascimento</label>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control obrigatorio datepicker data" name="alnDataNascimento" id="alnDataNascimento" value="'.$pessoa->dataNascimentoFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            <input type="text" class="form-control obrigatorio datepicker data-nascimento" name="alnDataNascimento" id="alnDataNascimento" value="'.$pessoa->dataNascimentoFormatada().'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                         </div>
                                         <span class="msg-alnDataNascimento"></span>
                                     </div>

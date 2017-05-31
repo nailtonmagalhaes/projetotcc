@@ -171,7 +171,9 @@ function validaCampo(elm){
  		mensagem = "O Celular informado não é válido";
  	}else if($(elm).hasClass("data")&&!validaData($(elm).val())){
 		mensagem = "A data informada é inválida";			
-	}
+ 	} else if ($(elm).hasClass("data-nascimento") && !validaDataNascimento($(elm).val())) {
+ 	    mensagem = "A idade mínima deve ser maior ou igual a 2 anos";
+ 	}
 
  	if(mensagem != ""){
 		if($(elm).hasClass("data")){
@@ -195,6 +197,17 @@ function validaCampo(elm){
 		}
  	}
  	return mensagem == "";
+}
+
+function validaDataNascimento(strData) {
+    var partesData = strData.split("/");
+    var data = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+    dataAtual = new Date();
+    dataAtual = dataAtual.setFullYear(dataAtual.getFullYear() - 2);
+    if (data > dataAtual)
+        return false;
+
+    return true;
 }
 
 function validaData(data) {
