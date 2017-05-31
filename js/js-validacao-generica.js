@@ -173,6 +173,8 @@ function validaCampo(elm){
 		mensagem = "A data informada é inválida";			
  	} else if ($(elm).hasClass("data-nascimento") && !validaDataNascimento($(elm).val())) {
  	    mensagem = "A idade mínima deve ser maior ou igual a 2 anos";
+ 	} else if ($(elm).hasClass("ano-menor-que-atual") && !validaAnoMaiorQueAtual($(elm).val())) {
+ 	    mensagem = "O ano deve ser menor ou igual a "+ new Date().getFullYear();
  	}
 
  	if(mensagem != ""){
@@ -197,6 +199,16 @@ function validaCampo(elm){
 		}
  	}
  	return mensagem == "";
+}
+
+function validaAnoMaiorQueAtual(ano) {
+    if(getNumbers(ano).length!=4)
+        return false;
+
+    if (getNumbers(ano) > new Date().getFullYear())
+        return false;
+
+    return true;
 }
 
 function validaDataNascimento(strData) {

@@ -38,7 +38,11 @@
 				$pessoa->pesRg = Mascaras::removeMascara($_POST["alnRg"]);
 			}
 			if(isset($_POST["alnSenha"])){
-				$pessoa->pesSenha = sha1(addslashes($_POST["alnSenha"]));
+                if($pessoa->pesSenha != $pessoa->pesSenhaAtual){
+                    $pessoa->pesSenha = sha1(addslashes($_POST["alnSenha"]));
+                }else{
+                    $pessoa->pesSenha = addslashes($_POST["alnSenha"]);
+                }
 			}
 			if(isset($_POST["alnSexo"])){
 				$pessoa->pesSexo = $_POST["alnSexo"];

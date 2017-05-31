@@ -35,6 +35,7 @@
 			$this->pesRg = "";
 			$this->pesSexo = ESexo::Masculino;
 			$this->pesSenha = "";
+			$this->pesSenhaAtual = "";
 			$this->pesDataNascimento = "";
 			$this->pesPerfil = EPerfil::None;
 			$this->pesAtivo = 1;
@@ -145,6 +146,7 @@
 	                $this->pesCpf = $row["Cpf"];
 					$this->pesRg = $row["Rg"];
 					$this->pesSenha = $row["Senha"];
+					$this->pesSenhaAtual = $row["Senha"];
 	                $this->pesAtivo = $row["Situacao"];
 					$this->pesPerfil = $row["Perfil"];
 					$this->pesSexo = $row["Sexo"];
@@ -188,6 +190,7 @@
 				$sucesso = (bool)false;
 				$telefonespreservar = "";
 				$enderecospreservar = "";
+                
 				if($this->pesId > 0){
 					$sql = "UPDATE tbPessoa SET Nome = '".$this->pesNome."', Cpf = '".$this->pesCpf."', Rg = '".$this->pesRg."', Sexo = ".$this->pesSexo.", DataNascimento = '".$this->pesDataNascimento."', Perfil = ".$this->pesPerfil.", Senha = '".$this->pesSenha."', Situacao = ".$this->pesAtivo." WHERE Id = ".$this->pesId.";";
 					$sucesso = AcessoDados::alterar($sql);					

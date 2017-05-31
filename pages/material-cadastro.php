@@ -38,32 +38,32 @@ include_once "menu.php";
 					                <input type="hidden" class="form-control" name="matId" id="matId" value="<?php echo $material->matId; ?>">
 					            </div>
 					            <div class="form-group">
-					                <label for="matDescricao">Descrição</label>
+					                <label class="control-label" for="matDescricao">Descrição</label>
 					                <input type="text" class="form-control obrigatorio" name="matDescricao" id="matDescricao" placeholder="Informe a descrição do material" value="<?php echo $material->matDescricao; ?>">
 					                <span class='msg-matDescricao'></span>
 					            </div>
 					            <div class="form-group">
-					                <label for="matAno">Ano</label>
-					                <input type="text" class="form-control obrigatorio" name="matAno" id="matAno" placeholder="Informe o ano do material" value="<?php echo $material->matAno; ?>">
+					                <label class="control-label" for="matAno">Ano</label>
+					                <input type="text" class="form-control obrigatorio ano-menor-que-atual" name="matAno" id="matAno" placeholder="Informe o ano do material" value="<?php echo $material->matAno; ?>">
 					                <span class='msg-matAno'></span>
 					            </div>
-                                                    <div class="form-group">
-                                                        <label>Arquivo Atual</label>
-                                                        <?php if($material->matId)
-                                                        {
-                                                             echo "<iframe style=\"cursor: hand;\" src=\"../uploads/{$material->matLink}\" width=\"550\" height=\"780\" style=\"border: none;\"></iframe>";
-                                                        }
+                                <div class="form-group">
+                                    <label>Arquivo Atual</label>
+                                    <?php if($material->matId)
+                                    {
+                                            echo "<iframe style=\"cursor: hand;\" src=\"../uploads/{$material->matLink}\" width=\"550\" height=\"780\" style=\"border: none;\"></iframe>";
+                                    }
                                                         
 //                                                        var_dump($material);
-                                                        ?>
+                                    ?>
                                                         
                                                         
-                                                        <label>Alterar Arquivo</label>
-                                                        <input type="file" name="arquivo" id="arquivo" value="<?php echo $material->matLink; ?>">
-                                                    </div>
+                                    <label>Alterar Arquivo</label>
+                                    <input type="file" name="arquivo" id="arquivo" value="<?php echo $material->matLink; ?>">
+                                </div>
                                                     
 					            <div class="form-group">
-	                                <button type="submit" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk" ></span> Salvar</button>
+	                                <button type="button" class="btn btn-primary" id="botao-salvar"><span class="glyphicon glyphicon-floppy-disk" ></span> Salvar</button>
 	                                <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-erase"></span> Limpar</button>
                                 </div>
 					        </form>
@@ -89,10 +89,22 @@ include_once "menu.php";
     });
     var evento_click;
     
-    $('#botao-salvar').click(function(e){
+    $('#botao-salvar').click(function (e) {
+       
+        var contErros = 0;
+
+        $("input, select").each(function (idx, elm) {
+            if (!validaCampo(elm)) {
+                contErros++;
+            }
+        });
+
+        if (contErros > 0) { return false; }
+    
         evento_click = e;
-        comprova_extensao($('#formcadastrar'),$('#arquivo').val())
-        if(($('#arquivo').val()).lenght==0){
+        var arquivo = $('#arquivo').val();
+        comprova_extensao($('#formcadastrar'), arquivo)
+        if (arquivo.length == 0) {
             e.preventDefault();
         }
     })
@@ -101,7 +113,7 @@ include_once "menu.php";
     function comprova_extensao(formulario, arquivo) { 
         extensoes_permitidas = new Array(".pdf"); 
         meuerro = ""; 
-        if (!arquivo) { 
+        if (!arquivo || arquivo == "" || arquivo.length <= 0) { 
            //Se não tenho arquivo, é porque não se selecionou um arquivo no formulário. 
              meuerro = "Não foi selecionado nenhum arquivo"; 
         }else{ 
@@ -121,14 +133,13 @@ include_once "menu.php";
               evento_click.preventDefault();
              }else{ 
                      //submeto! 
-//              alert ("Tudo correto. Vou submeter o formulário."); 
               formulario.submit(); 
               return 1; 
              } 
         } 
         //se estou aqui é porque não se pode submeter 
         swal(
-            'Oops...',
+            'Ops...',
             meuerro,
             'error'
           )
