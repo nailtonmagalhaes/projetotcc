@@ -1,4 +1,5 @@
 <?php
+    include_once 'permissao-secretaria.php';
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
     include_once 'professor.php';

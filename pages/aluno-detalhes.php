@@ -232,7 +232,7 @@
 											<i class="glyphicon glyphicon-trash" title="Excluir"></i>
 										</button>
 										<?php } 
-                                        ?>
+                                    ?>
                                 </div>
                         	</form>
                         </div>
@@ -267,35 +267,35 @@
                         swal("Registro excluído com sucesso!","","success");
                         window.setTimeout("location.href='../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1($pessoa->pesPerfil)."'\"";?>, 1000);
                     }else{
-                        swal("Error",data.message,"warning");
+                        swal(data.message, "","warning");
                     }
                 });
 			});
 	});
 
-	$('button[name="btn-excluir-aluno"]').on('click', function (e) {
+    $('button[name="btn-ativar-pessoa"]').on('click', function (e) {
 		e.preventDefault();
 
 		var id = document.getElementById("idaluno").value;
-		var nome = document.getElementById("nomealuno").value;
+		var nome = <?php echo '"'.$pessoa->perfilDescricao().'"';?>;
 
 		swal({
-			title: "Deseja realmente excluir o aluno " + nome + "?",
-			text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
+			title: "Deseja realmente reativar o " + nome + "?",
+			text: "Clique em Ativar para confirmar ou em Cancelar para cancelar!",
 			type: "warning",
 			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Excluir",
+			confirmButtonColor: "green",
+			confirmButtonText: "Ativar",
 			cancelButtonText: "Cancelar",
 			closeOnConfirm: false
 		},
 			function () {
-				$.post("pessoa-excluir.php", { id: id }, function (data) {
-					if (data) {
-						swal("Aluno excluído com sucesso!", "", "success");
-						window.setTimeout("location.href='../pages/aluno-listar.php'", 1000);
+				$.post("pessoa-ativar.php", { id: id }, function (data) {
+					if (data && data.success) {
+						swal(data.message, "", "success");
+						window.setTimeout("location.href='../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1($pessoa->pesPerfil)."'\"";?>, 1000);
 					} else {
-						swal("Error", data, "warning");
+						swal(data.message, "", "warning");
 					}
 				});
 			});

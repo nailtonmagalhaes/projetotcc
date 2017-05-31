@@ -4,11 +4,12 @@
     $perfil = $_SESSION['perfil'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+
 
 <head>
 
-    <meta charset="utf-8">
+    <!--<meta charset="utf-8">-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -75,7 +76,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="..\pages\index.php">TCC</a>
+                <a class="navbar-brand" href="../pages/index.php">TCC</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -272,7 +273,7 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
-                <!--USUÁRIO (OCULTAS)-->
+                <!--USUÃRIO (OCULTAS)-->
                 <!-- /.dropdown -->
                 <li class="dropdown ocultar">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -293,7 +294,7 @@
                     <!-- /.dropdown-user -->
                 </li>
                 <li>
-                    Olá <?php echo $_SESSION['nome'];?>
+                    OlÃ¡ <?php echo $_SESSION['nome'];?>
                 </li>
                 <li>
                     <a href="../index.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -341,114 +342,116 @@
                         ?>
                         <!--MENU MATRICULA-->
                         <?php
-                            if(EPerfil::Secretaria == $perfil || EPerfil::Aluno == $perfil){ ?>
+                            if(EPerfil::Secretaria == $perfil || EPerfil::Aluno == $perfil){ 
+                                if(EPerfil::Secretaria == $perfil){?>
+                                    <li>
+                                        <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> MatrÃ­cula <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li>
+                                                <a href="../pages/matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                            </li>
+                                            <li>
+                                                <a href="../pages/matricula-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                <?php }?>
                                 <li>
-                                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Matrícula <span class="fa arrow"></span></a>
+                                    <a href="#"><i class="fa fa-book fa-fw"></i> Curso <span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
-                                            <a href="../pages/matricula-listar.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                            <a href="../pages/curso-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                        </li>
+                                        <?php if(EPerfil::Secretaria == $perfil){?>
+                                        <li>
+                                            <a href="../pages/curso-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
                                         </li>
                                         <li>
-                                            <a href="../pages/matricula-cadastro.php?tipo=<?php echo SHA1(EPerfil::Aluno); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                            <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                        </li><?php }?>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            <?php } 
+                            if(EPerfil::Secretaria == $perfil || EPerfil::Professor == $perfil){?>
+                            <li >
+                                <a href="#"><i class="fa fa-book fa-fw"></i> Material <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="../pages/material-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    </li>
+                                    <li>
+                                        <a href="../pages/material-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li><!--
+                            <?php }
+                            if(EPerfil::Secretaria == $perfil){?>
+                        
+                                <li >
+                                    <a href="#"><i class="fa fa-male fa-fw"></i> Autor <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="../pages/autor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                        </li>
+                                        <li>
+                                            <a href="../pages/autor-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                               <!-- / </li> -->
+                                <li>
+                                    <a href="#"><i class="fa fa-book fa-fw"></i> Turma <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="../pages/turma-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                        </li>
+                                        <li>
+                                            <a href="../pages/turma-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
                                         </li>
                                     </ul>
                                 </li>
                             <?php } 
                         ?>
-                        
+
                         <li>
-                            <a href="#"><i class="fa fa-book fa-fw"></i> Curso <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Professor <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
+                                    </li>                                
+                                    <li>
+                                        <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+                                    </li>
+                                    <li>
+                                        <a href="../pages/aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                    </li>
                                 <li>
-                                    <a href="../pages/curso-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/curso-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li >
-                            <a href="#"><i class="fa fa-book fa-fw"></i> Material <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="../pages/material-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/material-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li><!--
-                        <li >
-                            <a href="#"><i class="fa fa-male fa-fw"></i> Autor <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="../pages/autor-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/autor-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                       <!-- / </li> -->
-                        <li>
-                            <a href="#"><i class="fa fa-book fa-fw"></i> Turma <span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="../pages/turma-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                </li>
-                                <li>
-                                    <a href="../pages/turma-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+                                    <a href="../pages/calendario_index.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>FrequÃªncia de Alunos</a>
                                 </li>
                             </ul>
                         </li>
-                        <?php
-                        if(EPerfil::Secretaria == $perfil){ ?>
-                                <li>
-                                    <a href="#"><i class="fa fa-graduation-cap fa-fw"></i> Professor <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-second-level">
-                                        <li>
-                                            <a href="../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-search fa-fw"></i>Listar</a>
-                                        </li>                                
-                                        <li>
-                                            <a href="../pages/aluno-cadastro.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
-                                        </li>
-                                        <li>
-                                            <a href="../pages/aluno-listar-inativos.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-ban fa-fw"></i>Inativos</a>
-                                        </li>
-                                        <li>
-                                            <a href="../pages/calendario_index.php?tipo=<?php echo SHA1(EPerfil::Professor); ?>"><i class="fa fa-calendar fa-fw"></i>Frequência de Alunos</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            <?php }
-                        ?>
-                        
                         <li>
-                            <a href="#"><i class="fa fa-print fa-fw"></i> Relatórios <span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-print fa-fw"></i> RelatÃ³rios <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="../pages/relatorio-teste.php"><i class="fa fa-print fa-fw"></i>1</a>
                                 </li>                                
-                                    <li>
-                                        <a href="#"><i class="fa fa-print fa-fw"></i>2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-print fa-fw"></i>3</a>
-                                    </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-print fa-fw"></i>2</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-print fa-fw"></i>3</a>
+                                </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li> 
+                        </li>
 
                         <li>
-                            <a href="phpinfo.php"><i class="fa fa-question fa-fw"></i> Versão PHP </a>
+                            <a href="phpinfo.php"><i class="fa fa-question fa-fw"></i> VersÃ£o PHP </a>
                         </li>
                     </ul>
                 </div>

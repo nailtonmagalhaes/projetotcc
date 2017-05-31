@@ -43,7 +43,7 @@
                                             <td><?php echo $row['SexoDescricao'];?></td>
                                             <td><?php echo $row['SituacaoDescricao'];?></td>
                                             <td>
-                                                <SHA1 class="btn btn-default info" type="button" title="Detalhes" onclick="location.href='aluno-detalhes.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></SHA1>
+                                                <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href='aluno-detalhes.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
                                                 &nbsp; 
                                                 
                                                 <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href='aluno-cadastro.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
@@ -114,7 +114,7 @@
         );
     });
 
-     $('button[name="btn-ativar-pessoa"]').on('click', function (e) {
+    $('button[name="btn-ativar-pessoa"]').on('click', function (e) {
 
         e.preventDefault();
 
