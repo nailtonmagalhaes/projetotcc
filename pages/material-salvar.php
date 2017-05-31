@@ -93,7 +93,7 @@
 					}						
 
 					if(empty($material->matDescricao) || empty($material->matAno)){
-						header('location: ..\pages\material-cadastro.php?id='.$material->matId.'&descricao='.$material->matDescricao);
+						header('location: ../pages/material-cadastro.php?id='.$material->matId.'&descricao='.$material->matDescricao);
 						die;
 					}	
 //                                        var_dump($link);die;
@@ -107,11 +107,11 @@
 							?>
 							<script>
 								swal("Dados salvos com sucesso!", "", "success");
-//								window.setTimeout("location.href='../pages/material-listar.php'",2000);
+								window.setTimeout("location.href='../pages/material-listar.php'",2000);
 							</script>
 							<?php
 						}else{
-							header('location: ..\pages\material-cadastro.php?id='.$material->matId.'&descricao='.$material->matDescricao);
+							header('location: ../pages/material-cadastro.php?id='.$material->matId.'&descricao='.$material->matDescricao);
 						}
 					}catch(Exception $e){
 						echo "<h1>Erro: ".$e->getMessage()."</h1>"; 
