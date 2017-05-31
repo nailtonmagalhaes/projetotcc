@@ -32,9 +32,7 @@
         <div class="col-lg-12 text-center">
             <h1 class="page-header">Detalhes</h1>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="panel panel-default">
@@ -225,7 +223,16 @@
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $pessoa->pesId."&";?>tipo=<?php echo SHA1($pessoa->pesPerfil); ?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-                                    <button class="btn btn-danger delete" type="submit" name="btn-excluir-aluno" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
+                                    <?php if ($pessoa->pesAtivo == 0){?>
+										<button class="btn btn-success delete" type="button" name="btn-ativar-pessoa" title="Ativar">
+											<i class="glyphicon glyphicon-check" title="Ativar"></i>
+										</button>										
+									<?php }else{ ?>
+										<button class="btn btn-danger delete" type="button" name="btn-excluir-pessoa" title="Excluir">
+											<i class="glyphicon glyphicon-trash" title="Excluir"></i>
+										</button>
+										<?php } 
+                                        ?>
                                 </div>
                         	</form>
                         </div>
@@ -238,14 +245,14 @@
 
 
 <script>
-	$('button[name="btn-excluir-aluno"]').on('click', function (e) {
+	$('button[name="btn-excluir-pessoa"]').on('click', function (e) {
         e.preventDefault();
         
         var id = document.getElementById("idaluno").value;
-        var nome = document.getElementById("nomealuno").value;
+        var nome = <?php echo '"'.$pessoa->perfilDescricao().'"';?>;
 
         swal({
-			  title: "Deseja realmente excluir o aluno "+nome+"?",
+			  title: "Deseja realmente excluir o "+nome+"?",
 			  text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
 			  type: "warning",
 			  showCancelButton: true,
@@ -256,13 +263,41 @@
 			},
 			function(){
 				$.post("pessoa-excluir.php", {id:id}, function(data){
-                    if(data){
-                        swal("Aluno excluído com sucesso!","","success");
-                        window.setTimeout("location.href='../pages/aluno-listar.php'", 1000);
+                    if(data && data.success){
+                        swal("Registro excluído com sucesso!","","success");
+                        window.setTimeout("location.href='../pages/aluno-listar-ativos.php?tipo=<?php echo SHA1($pessoa->pesPerfil)."'\"";?>, 1000);
                     }else{
-                        swal("Error",data,"warning");
+                        swal("Error",data.message,"warning");
                     }
                 });
 			});
-    });
+	});
+
+	$('button[name="btn-excluir-aluno"]').on('click', function (e) {
+		e.preventDefault();
+
+		var id = document.getElementById("idaluno").value;
+		var nome = document.getElementById("nomealuno").value;
+
+		swal({
+			title: "Deseja realmente excluir o aluno " + nome + "?",
+			text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Excluir",
+			cancelButtonText: "Cancelar",
+			closeOnConfirm: false
+		},
+			function () {
+				$.post("pessoa-excluir.php", { id: id }, function (data) {
+					if (data) {
+						swal("Aluno excluído com sucesso!", "", "success");
+						window.setTimeout("location.href='../pages/aluno-listar.php'", 1000);
+					} else {
+						swal("Error", data, "warning");
+					}
+				});
+			});
+	});
 </script>
