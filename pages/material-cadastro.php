@@ -1,5 +1,6 @@
 <?php 
-	include_once "menu.php";
+include_once "permissao-secretaria-e-professor.php";
+include_once "menu.php";
     include_once 'material.php';
     include_once '../conf/acesso-dados.php';
 

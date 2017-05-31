@@ -88,11 +88,13 @@
 													echo'</tbody>
 												</table>
 											</div>	
-										</div>
-										<div class="form-group col-lg-12">
-											<button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'turma-cadastro.php?id='.$turma->turId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-											<button class="btn btn-danger delete" type="submit" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-										</div>
+										</div>';
+                                            if(EPerfil::Secretaria == $_SESSION['perfil']){
+										        echo '<div class="form-group col-lg-12">
+											        <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'turma-cadastro.php?id='.$turma->turId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+											        <button class="btn btn-danger delete" type="submit" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                            }
+										    echo '</div>
 						    		</form>';
 						    	}
 						    	echo '

@@ -45,16 +45,22 @@
                                             <td>
                                                 <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href='aluno-detalhes.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
                                                 &nbsp; 
-                                                
-                                                <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href='aluno-cadastro.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-                                                &nbsp; 
+                                                <?php
+                                                    if(EPerfil::Secretaria == $_SESSION['perfil']){?>
+                                                         <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href='aluno-cadastro.php?id=<?php echo $row['Id'].'&tipo='.SHA1($row['Perfil']);?>'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                                         &nbsp; 
+                                                    <?php }
+                                                ?>                                               
 
                                                 <?php 
-                                                    if($row['Situacao'] == 0){ ?>
-                                                        <button class="btn btn-success delete" type="submit" name="btn-ativar-pessoa" title="Ativar"><i class="glyphicon glyphicon-check" title="Ativar"></i></button>
-                                                    <?php }else{ ?>
-                                                        <button class="btn btn-danger delete" type="submit" name="btn-excluir-pessoa" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-                                                    <?php }
+                                        if(EPerfil::Secretaria == $_SESSION['perfil']){
+                                                        if($row['Situacao'] == 0){ ?>
+                                                            <button class="btn btn-success delete" type="submit" name="btn-ativar-pessoa" title="Ativar"><i class="glyphicon glyphicon-check" title="Ativar"></i></button>
+                                                        <?php }else{ ?>
+                                                            <button class="btn btn-danger delete" type="submit" name="btn-excluir-pessoa" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
+                                                        <?php }
+                                                    }
+                                                    
                                                 ?>
                                             </td>
                                         </tr>

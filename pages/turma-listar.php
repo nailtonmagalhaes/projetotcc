@@ -51,14 +51,16 @@
                                             <td><center>'.$dataInicio.'</center></td>
                                             <td><center>'.$situacao.'</center></td>
                                             <td><center>
-                                                <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href=\'turma-detalhes.php?id='.$id.'\'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
-                                                &nbsp; 
+                                                <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href=\'turma-detalhes.php?id='.$id.'\'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>';
+                                                if(EPerfil::Secretaria == $_SESSION['perfil']){
+                                                    echo '&nbsp; 
                                                 
-                                                <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href=\'turma-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-                                                &nbsp; 
+                                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href=\'turma-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                                    &nbsp; 
 
-                                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-                                            </center></td>
+                                                    <button class="btn btn-danger delete" type="submit" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                                }
+                                            echo '</center></td>
                                         </tr>';
                                         } 
                                     }

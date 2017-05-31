@@ -46,13 +46,14 @@
                                             <td>'.$situacao.'</td>
                                             <td>
                                                 <button class="btn btn-default info" type="button" title="Detalhes" onclick="javascript: location.href=\'curso-detalhes.php?id='.$id.'\';"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
-                                                &nbsp; 
+                                                &nbsp;'; 
+                                                if(EPerfil::Secretaria == $_SESSION['perfil']){
+                                                    echo '<button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'curso-cadastro.php?id='.$id.'&descricao='.$descricao.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                                    &nbsp; 
 
-                                                <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'curso-cadastro.php?id='.$id.'&descricao='.$descricao.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-                                                &nbsp; 
-
-                                                <button class="btn btn-danger delete" type="button" name="btn-excluir-curso" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-                                            </td>
+                                                    <button class="btn btn-danger delete" type="button" name="btn-excluir-curso" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                                }
+                                            echo '</td>
                                         </tr>';
                                         } 
                                     }
@@ -107,8 +108,6 @@
             },
             function(){
                 $.post("curso-excluir.php", {id:id}, function(data){
-                    echo "_____________________OPA";
-                    die;
                     if(data){
                         swal("Curso excluído com sucesso!","","success");
                         window.setTimeout("location.href='../pages/curso-listar.php'",1000);

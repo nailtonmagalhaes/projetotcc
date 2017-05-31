@@ -42,10 +42,12 @@
                         				</div>
 						       			<div class="form-group">
                         					<label>Curso:</label> <span>'.$curso->crsDescricao.'</span></br>
-                        				</div>	                        				
-		                                <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'curso-cadastro.php?id='.$curso->crsId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-		                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-curso" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-                        			</form>';
+                        				</div>';
+                                    if(EPerfil::Secretaria == $_SESSION['perfil']){
+		                                echo '<button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'curso-cadastro.php?id='.$curso->crsId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+		                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-curso" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                    }
+                        			echo '</form>';
 	                        	}
 					        	echo '
 					        </div>

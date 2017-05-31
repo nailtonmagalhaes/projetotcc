@@ -1,5 +1,6 @@
 <?php 
-	include_once "menu.php";
+    include_once "permissao-secretaria.php";
+    include_once "menu.php";
     include_once '../conf/acesso-dados.php';
     include_once 'curso.php';
 

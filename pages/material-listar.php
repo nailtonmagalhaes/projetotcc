@@ -50,8 +50,9 @@
                                             <td><center>'.$ano.'</center></center></td>
                                             <td><center>'.$link.'<a href="../uploads/'.$link.'"> Abrir arquivo </a>'.'</center></td>
                                             <td><center>'.$situacao.'</center></td>
-                                            <td><center>
-                                                <div hidden>
+                                            <td><center>';
+                                            if(EPerfil::Professor == $_SESSION['perfil'] || EPerfil::Secretaria == $_SESSION['perfil']){
+                                                echo '<div hidden>
                                                     <button class="btn btn-default info" type="button" title="Detalhes" onclick="location.href=\'material-detalhes.php?id='.$id.'\'"><i class="glyphicon glyphicon-file" title="Detalhes"></i></button>
                                                     &nbsp; 
                                                 </div>
@@ -59,8 +60,9 @@
                                                 <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href=\'material-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
                                                 &nbsp;
                                                 
-                                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-material" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>
-                                            </center></td>
+                                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-material" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                            }
+                                            echo '</center></td>
                                         </tr>';
                                         } 
                                     }

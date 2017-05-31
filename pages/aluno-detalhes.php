@@ -1,6 +1,5 @@
 <?php
 
-    include_once 'permissao-secretaria.php';
     include_once '../conf/acesso-dados.php';
     include_once 'aluno.php';
     include_once 'professor.php';
@@ -24,6 +23,8 @@
         $pessoa->carregarDados();
     }else{
         header('location: index.php');
+
+
     }
 ?>
 
@@ -222,17 +223,23 @@
                                     ?>                                    
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $pessoa->pesId."&";?>tipo=<?php echo SHA1($pessoa->pesPerfil); ?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-                                    <?php if ($pessoa->pesAtivo == 0){?>
-										<button class="btn btn-success delete" type="button" name="btn-ativar-pessoa" title="Ativar">
-											<i class="glyphicon glyphicon-check" title="Ativar"></i>
-										</button>										
-									<?php }else{ ?>
-										<button class="btn btn-danger delete" type="button" name="btn-excluir-pessoa" title="Excluir">
-											<i class="glyphicon glyphicon-trash" title="Excluir"></i>
-										</button>
-										<?php } 
+
+                                    <?php
+                                        if(EPerfil::Secretaria == $_SESSION['perfil']){?>
+                                            <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href='aluno-cadastro.php?id=<?php echo $pessoa->pesId."&";?>tipo=<?php echo SHA1($pessoa->pesPerfil); ?>';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
+                                            <?php if ($pessoa->pesAtivo == 0){?>
+										        <button class="btn btn-success delete" type="button" name="btn-ativar-pessoa" title="Ativar">
+											        <i class="glyphicon glyphicon-check" title="Ativar"></i>
+										        </button>										
+									        <?php }else{ ?>
+										        <button class="btn btn-danger delete" type="button" name="btn-excluir-pessoa" title="Excluir">
+											        <i class="glyphicon glyphicon-trash" title="Excluir"></i>
+										        </button>
+										        <?php } 
+                                            ?>
+                                        <?php }
                                     ?>
+
                                 </div>
                         	</form>
                         </div>
