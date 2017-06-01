@@ -17,7 +17,7 @@
             } catch (Exception $e) {
                 throw new Exception("Erro ao listar os dias da semana".$e->getMessage());                
             }            
-        }
+        }        
 
         public function carregarDados(){
             try {

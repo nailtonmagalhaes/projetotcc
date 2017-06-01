@@ -186,6 +186,7 @@
     <Compile Include="less\variables.less" />
     <Compile Include="nbproject\project.properties" />
     <Compile Include="nbproject\project.xml" />
+    <Compile Include="pages\agenda-aulas-dia.php" />
     <Compile Include="pages\aluno-cadastro.php" />
     <Compile Include="pages\aluno-detalhes.php" />
     <Compile Include="pages\aluno-has-responsavel.php" />
@@ -194,6 +195,7 @@
     <Compile Include="pages\aluno-listar.php" />
     <Compile Include="pages\aluno-salvar.php" />
     <Compile Include="pages\aluno.php" />
+    <Compile Include="pages\aula-dia-consulta.php" />
     <Compile Include="pages\autor-cadastro.php" />
     <Compile Include="pages\autor-detalhes.php" />
     <Compile Include="pages\autor-excluir.php" />
