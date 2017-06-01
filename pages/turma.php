@@ -113,10 +113,10 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
             FROM 
                     tbTurma t
                 LEFT JOIN tbCurso c ON (c.Id = t.IdCurso)
-                LEFT JOIN tbturma_has_diasemana tds ON(tds.IdTurma = t.Id)
-                LEFT JOIN tbdiasemana ds ON(ds.Id = tds.IdDiaSemana)
-                LEFT JOIN tbprofessor_has_turma tp ON(tp.IdTurma = t.Id AND tp.Tipo = 1)
-                LEFT JOIN tbpessoa prof ON(prof.Id = tp.IdProfessor)
+                LEFT JOIN tbTurma_has_DiaSemana tds ON(tds.IdTurma = t.Id)
+                LEFT JOIN tbDiaSemana ds ON(ds.Id = tds.IdDiaSemana)
+                LEFT JOIN tbProfessor_has_Turma tp ON(tp.IdTurma = t.Id AND tp.Tipo = 1)
+                LEFT JOIN tbPessoa prof ON(prof.Id = tp.IdProfessor)
             {$where}
             GROUP BY
                     t.Id
@@ -311,7 +311,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
         
         public function getDados(){
-            $resultado = AcessoDados::listar("SELECT tma.Id, IdCurso, DataInicio, tma.Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbcurso cur ON(cur.Id = tma.IdCurso) WHERE tma.Id = ".$this->turId);
+            $resultado = AcessoDados::listar("SELECT tma.Id, IdCurso, DataInicio, tma.Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbCurso cur ON(cur.Id = tma.IdCurso) WHERE tma.Id = ".$this->turId);
             
             
 /***************CARREGA OS DADOS DA TURMA*/

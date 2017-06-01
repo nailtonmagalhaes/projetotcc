@@ -29,10 +29,10 @@
                                                         ,pes.Nome
                                                        ,(CASE WHEN COALESCE(mat.Ativo, 1) = 1 THEN 'Ativo' ELSE 'Inativo' END) as Situacao
                                                     FROM
-                                                        tbmatricula mat
-                                                        INNER JOIN tbpessoa pes ON(pes.Id = mat.IdAluno)
-                                                        INNER JOIN tbturma tma ON(tma.Id = mat.IdTurma)
-                                                        INNER JOIN tbcurso cur ON(cur.Id = tma.IdCurso)
+                                                        tbMatricula mat
+                                                        INNER JOIN tbPessoa pes ON(pes.Id = mat.IdAluno)
+                                                        INNER JOIN tbTurma tma ON(tma.Id = mat.IdTurma)
+                                                        INNER JOIN tbCurso cur ON(cur.Id = tma.IdCurso)
                                                     ORDER BY
                                                             mat.Id ASC");
         }
