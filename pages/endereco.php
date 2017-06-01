@@ -65,21 +65,28 @@
 					$this->endCidade->carregarDados();
 			 	}
 			} catch (Exception $e) {
-				throw new Exception("Ocorreu um erro ao carregar os dados do endereco.<br>".$e->getMessage());				
+				throw new Exception("Ocorreu um erro ao carregar os dados do endereco.\n".$e->getMessage());				
 			}		 	
 		}
 
 		public function salvarDados(){
-			 $sql = "";
-			 if($this->endId > 0){
-				$sql = "UPDATE tbEndereco SET IdPessoa = ".$this->endPessoa->pesId.", IdCidade = ".$this->endCidade->cidId.", Logradouro = '".$this->endLogradouro."', Bairro = '".$this->endBairro."', Numero = '".$this->endNumero."', Complemento = '".$this->endComplemento."', Cep = '".$this->endCep."', Ativo = ".$this->endAtivo." WHERE Id = ".$this->endId;
-				return AcessoDados::alterar($sql);
-			 }else{
-				$sql = "INSERT INTO tbEndereco (IdPessoa, IdCidade, Logradouro, Bairro, Numero, Complemento, Cep, Ativo) 
-										VALUES (".$this->endPessoa->pesId.", ".$this->endCidade->cidId.", '".$this->endLogradouro."', '".$this->endBairro."', '".$this->endNumero."', '".$this->endComplemento."', '".$this->endCep."', 1);";
-				$this->endId = AcessoDados::inserir($sql);
-				return $this->endId > 0;
-			 }
+            try
+            {
+            	$sql = "";
+			     if($this->endId > 0){
+				    $sql = "UPDATE tbEndereco SET IdPessoa = ".$this->endPessoa->pesId.", IdCidade = ".$this->endCidade->cidId.", Logradouro = '".$this->endLogradouro."', Bairro = '".$this->endBairro."', Numero = '".$this->endNumero."', Complemento = '".$this->endComplemento."', Cep = '".$this->endCep."', Ativo = ".$this->endAtivo." WHERE Id = ".$this->endId;
+				    return AcessoDados::alterar($sql);
+			     }else{
+				    $sql = "INSERT INTO tbEndereco (IdPessoa, IdCidade, Logradouro, Bairro, Numero, Complemento, Cep, Ativo) 
+										    VALUES (".$this->endPessoa->pesId.", ".$this->endCidade->cidId.", '".$this->endLogradouro."', '".$this->endBairro."', '".$this->endNumero."', '".$this->endComplemento."', '".$this->endCep."', 1);";
+				    $this->endId = AcessoDados::inserir($sql);
+				    return $this->endId > 0;
+			     }
+            }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao salvar os dados.\n".$e->getMessage());
+            }			 
 		}
 	}
 ?>

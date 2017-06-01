@@ -91,8 +91,12 @@
 										</div>';
                                             if(EPerfil::Secretaria == $_SESSION['perfil']){
 										        echo '<div class="form-group col-lg-12">
-											        <button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'turma-cadastro.php?id='.$turma->turId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-											        <button class="btn btn-danger delete" type="submit" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+											        <button class="btn btn-primary edit" disabled type="button" title="Editar" onclick="javascript: location.href=\'turma-cadastro.php?id='.$turma->turId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>';
+                                                if($turma->turAtivo == 0){
+                                                    echo '&nbsp; <button class="btn btn-success" type="button" name="btn-ativar-turma" title="Ativar"><i class="glyphicon glyphicon-check" title="Ativar"></i></button>';
+                                                }else{
+											        echo '&nbsp; <button class="btn btn-danger" type="button" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                                }
                                             }
 										    echo '</div>
 						    		</form>';
@@ -114,39 +118,52 @@
         var id = document.getElementById("idturma").value;
 
         swal({
-			  //title: "Deseja realmente excluir a turma?",
-			  //text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
-			  //type: "warning",
-			  //showCancelButton: true,
-			  //confirmButtonColor: "#DD6B55",
-			  //confirmButtonText: "Excluir",
-			  //cancelButtonText: "Cancelar",
-			  //closeOnConfirm: false
-
-
-
-
-			  title: 'Deseja realmente excluir a turma?',
-			  text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
-			  type: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Sim, Excluir!',
-			  cancelButtonText: 'Não, Cancelar!',
-			  confirmButtonClass: 'btn btn-success',
-			  cancelButtonClass: 'btn btn-danger',
-			  buttonsStyling: false
-			},
-			function(){
-				$.post("turma-excluir.php", {id:id}, function(data){
-                    if(data){
-                        swal("Turma excluída com sucesso!","","success");
-                        window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
-                    }else{
-                        swal("Error",data,"warning");
-                    }
-                });
+            title: "Deseja realmente excluir a turma?",
+            text: "Clique em Excluir para confirmar ou em Cancelar para cancelar!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Excluir",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false
+        },
+			function () {
+			    $.post("turma-excluir.php", { id: id }, function (data) {
+			        if (data && data.success) {
+			            swal(data.message, "", "success");
+			            window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+			        } else {
+			            swal(data.message, "", "warning");
+			        }
+			    });
 			});
-    });
+	});
+
+	$('button[name="btn-ativar-turma"]').on('click', function (e) {
+
+	    e.preventDefault();
+
+	    var id = document.getElementById("idturma").value;
+
+	    swal({
+	        title: "Deseja reativar a turma?",
+	        text: "Clique em Ativar para confirmar ou em Cancelar para cancelar!",
+	        type: "warning",
+	        showCancelButton: true,
+	        confirmButtonColor: "green",
+	        confirmButtonText: "Ativar",
+	        cancelButtonText: "Cancelar",
+	        closeOnConfirm: false
+	    },
+        function () {
+            $.post("turma-ativar.php", { id: id }, function (data) {
+                if (data && data.success) {
+                    swal(data.message, "", "success");
+                    window.setTimeout("location.href='../pages/turma-listar.php'", 1000);
+                } else {
+                    swal(data.message, "", "warning");
+                }
+            });
+        });
+	});
 </script>

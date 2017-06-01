@@ -30,19 +30,36 @@
 	                return false;
 	            }
 			} catch (Exception $e) {
-				throw new Exception("Erro ao carregar os dados do curso.<br>".$e->getMessage());				
+				throw new Exception("Erro ao carregar os dados do curso.\n".$e->getMessage());				
 			}			
 		}
 
 		function excluirLogicamente(){
 			try {
+                $turmas = AcessoDados::listar("SELECT * FROM tbTurma WHERE IdCurso = ".$this->crsId);
+                if($turmas != null && $turmas->num_rows > 0)
+                    throw new Exception("Não é possível inativar o curso pois existe turma para o mesmo.\n");
+                                
 				AcessoDados::abreTransacao();
-				$result = AcessoDados::inserir("UPDATE tbCurso SET Ativo = 0 WHERE Id = ".$this->crsId);
+				$result = AcessoDados::alterar("UPDATE tbCurso SET Ativo = 0 WHERE Id = ".$this->crsId);
 				AcessoDados::confirmaTransacao();
 				return $result;
 				
 			} catch (Exception $e) {
-				throw new Exception("Erro ao inativar o curso.<br>".$e->getMessage());
+				throw new Exception("Erro ao inativar o curso.\n".$e->getMessage());
+			}			
+		}
+
+		function ativar(){
+			try {
+				AcessoDados::abreTransacao();
+				$result = AcessoDados::alterar("UPDATE tbCurso SET Ativo = 1 WHERE Id = ".$this->crsId);
+				AcessoDados::confirmaTransacao();
+				return $result;
+				
+			}
+            catch (Exception $e) {
+				throw new Exception("Erro ao inativar o curso.\n".$e->getMessage());
 			}			
 		}
 
@@ -50,7 +67,7 @@
 			try {
 				return AcessoDados::inserir("DELETE FROM tbCurso WHERE Id = ".$this->crsId);
 			} catch (Exception $e) {
-				throw new Exception("Erro ao excluir o curso.<br>".$e->getMessage());
+				throw new Exception("Erro ao excluir o curso.\n".$e->getMessage());
 			}
 		}
 
@@ -62,15 +79,24 @@
 					return AcessoDados::inserir("INSERT INTO tbCurso (Descricao, Duracao, Ativo) VALUES ('".$this->crsDescricao."', ".$this->crsDuracao.", 1)");
 				}
 			} catch (Exception $e) {
-				throw new Exception("Erro ao salvar o curso.<br>".$e->getMessage());				
+				throw new Exception("Erro ao salvar o curso.\n".$e->getMessage());				
 			}			
 		}
 
 		function listar(){
 			try {
-				return AcessoDados::listar("SELECT Id, Descricao, Duracao, Ativo, CASE WHEN Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END AS Situacao FROM tbCurso ORDER BY Descricao");
+				return AcessoDados::listar("SELECT Id, Descricao, Duracao, Ativo, CASE WHEN Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END AS Situacao FROM tbCurso WHERE COALESCE(Ativo, 1) = 1 ORDER BY Descricao");
 			} catch (Exception $e) {
-				throw new Exception("Erro ao listar os cursos.<br>".$e->getMessage());				
+				throw new Exception("Erro ao listar os cursos.\n".$e->getMessage());				
+			}
+		}
+
+		function listarInativos(){
+			try {
+				return AcessoDados::listar("SELECT Id, Descricao, Duracao, Ativo, CASE WHEN Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END AS Situacao FROM tbCurso WHERE Ativo = 0 ORDER BY Descricao");
+			}
+            catch (Exception $e) {
+				throw new Exception("Erro ao listar os cursos.\n".$e->getMessage());				
 			}
 		}
 	}

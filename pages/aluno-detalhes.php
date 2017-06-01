@@ -285,7 +285,6 @@
 
 		var id = document.getElementById("idaluno").value;
 		var nome = <?php echo '"'.$pessoa->perfilDescricao().'"';?>;
-
 		swal({
 			title: "Deseja realmente reativar o " + nome + "?",
 			text: "Clique em Ativar para confirmar ou em Cancelar para cancelar!",

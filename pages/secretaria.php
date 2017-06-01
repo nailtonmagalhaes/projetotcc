@@ -20,7 +20,7 @@
 				AcessoDados::confirmaTransacao();
 				return $salvou;
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao salvar a secretaria.<br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao salvar a secretaria.\n".$ex->getMessage());
 			}
 		}
 	}

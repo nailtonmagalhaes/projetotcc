@@ -122,7 +122,7 @@
 						FROM tbPessoa WHERE COALESCE(Situacao, 1) = 1 AND Perfil = ".$this->pesPerfil;
 				return AcessoDados::listar($sql);
 			} catch (Exception $e) {
-				throw new Exception("Erro ao listar os dados.<br>".$e->getMessage());				
+				throw new Exception("Erro ao listar os dados.\n".$e->getMessage());				
 			}			
 		}
 
@@ -133,7 +133,7 @@
 						FROM tbPessoa WHERE Situacao = 0 AND Perfil = ".$this->pesPerfil;
 				return AcessoDados::listar($sql);
 			} catch (Exception $e) {
-				throw new Exception("Erro ao listar os dados.<br>".$e_.getMessage());				
+				throw new Exception("Erro ao listar os dados.\n".$e->getMessage());				
 			}			
 		}
 		
@@ -179,7 +179,7 @@
 	                return false;
 	            }
             }catch(Exception $ex){
-            	echo "Ocorreu um erro ao carregar os dados<br>";
+            	throw new Exception("Ocorreu um erro ao carregar os dados\n".$ex->getMessage());
             }
 		}
 
@@ -249,7 +249,7 @@
                                 
 				return $sucesso;
 			}catch(Exception $ex){
-				throw new Exception("Erro ao salvar os dados da pessoa.<br>".$ex->getMessage());
+				throw new Exception("Erro ao salvar os dados da pessoa.\n".$ex->getMessage());
 			}
 		}
 
@@ -272,7 +272,7 @@
 				$sql = "SELECT Id, Nome, Cpf, Perfil, Senha FROM tbPessoa WHERE (Cpf = '".$this->pesCpf."') AND (Senha = '".$this->pesSenha."') AND (Situacao = 1) LIMIT 1";
 				return AcessoDados::listar($sql);
 			}catch(Exception $ex){
-				throw new Exception("Erro ao logar.<br>".$ex->getMessage());
+				throw new Exception("Erro ao logar.\n".$ex->getMessage());
 			}
 		}
 
@@ -286,7 +286,7 @@
 				}
 				return $retorno;
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao inativar o registro.<br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao inativar o registro.\n".$ex->getMessage());
 			}
 		}
 
@@ -300,7 +300,7 @@
 				}
 				return $retorno;
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao ativar o registro.<br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao ativar o registro.\n".$ex->getMessage());
 			}
 		}
 

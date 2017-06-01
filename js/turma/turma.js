@@ -1,4 +1,4 @@
-function adicionarLinha(tableID) {
+function adicionarLinha(tableID, turmaExistente) {
 
     var table = document.getElementById(tableID);
 
@@ -41,15 +41,16 @@ function adicionarLinha(tableID) {
                                 '<span class="msg-'+nomeidhoratermino+'"></span>';
     var cell3 = row.insertCell(2);        
     cell3.innerHTML = cellhoraterminohtml;
+    if (!turmaExistente) {
+        var cellbotaohtml = '<button type="button" onClick="removerLinha(this, \'tbhorarios\')" class="btn btn-danger">' +
+                                '<span class="glyphicon glyphicon-remove"></span>' +
+                            '</button>';
 
-    var cellbotaohtml = '<button type="button" onClick="removerLinha(this, \'tbhorarios\')" class="btn btn-danger">'+
-                            '<span class="glyphicon glyphicon-remove"></span>'+
-                        '</button>';  
+        var cell4 = row.insertCell(3);
+        cell4.innerHTML = cellbotaohtml;
 
-    var cell4 = row.insertCell(3);
-    cell4.innerHTML = cellbotaohtml;   
-
-    configuraCampoHora('.clockpicker');
+        configuraCampoHora('.clockpicker');
+    }
 }
 
 function removerLinha(botao, tableID) {
@@ -145,33 +146,15 @@ function setSalvar(){
                 console.log(result);
             },
         });
-
-        /*
-        $.post("turma-salvar.php", {data: objeto}, function(data){
-            if(data){
-                swal("Turma salva com sucesso!","","success");
-                window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
-            }else{
-                swal("Error",data,"warning");
-            }
-        });
-        */
     });
 }
 
 function preencheCampos(dias,horainicio,horatermino){
-//    console.log()
-//    alert(1)
+
     for(var i = 0; i<dias.length; i++){
-//            console.log(i);
-//            console.log(dias[i]['disId'])
-            adicionarLinhaRecuperada('tbhorarios',dias[i]['disId'],horainicio[i]['HoraInicio'],horatermino[i]['HoraTermino']);
+            adicionarLinhaRecuperada('tbhorarios',dias[i]['disDia'],horainicio[i]['HoraInicio'],horatermino[i]['HoraTermino']);
         
-    }
-    
-      
-//    console.log(var1,var2,var3);
-    
+    }    
 }
 
 function adicionarLinhaRecuperada(tableID,dia,horainicio,horatermino) {
@@ -183,56 +166,16 @@ function adicionarLinhaRecuperada(tableID,dia,horainicio,horatermino) {
 
     var cell1 = row.insertCell(0);
     var nomeiddiasemana = 'diasemana_' + rowCount;
+    cell1.innerHTML = '<input type="text" disabled name="' + nomeiddiasemana + '" id="' + nomeiddiasemana + '" class="form-control" value="' + dia + '">';
     
-    $.getJSON('diasemana-consulta.php', function(dias){
-        var optionsDias = '<select class="form-control horario" idhasdia="0" name="'+nomeiddiasemana+'" id="'+nomeiddiasemana+'">'+
-                                '<option value="">Selecione um dia da semana</option>';
-        $.each(dias, function(i, obj){
-            optionsDias += '<option '+(dia==obj.disId?'selected':'')+' value="' + obj.disId + '">' + obj.disDia + '</option>';
-        })
-        optionsDias += '</select><span class="msg-'+nomeiddiasemana+'"></span>';
-        cell1.innerHTML = optionsDias;
-
-        $('#'+nomeiddiasemana).addClass("obrigatorio").blur(function(){ validaCampo($(this)); });
-    });
 
     var nomeidhorainicio = 'horainicio_' + rowCount;
-    var cellhorainiciohtml = '<div class="input-group clockpicker">'+
-                                    '<input type="text" name="'+ nomeidhorainicio +'" id="'+nomeidhorainicio+'" class="form-control hora obrigatorio" value="">'+
-                                    '<span class="input-group-addon">'+
-                                        '<span class="glyphicon glyphicon-time"></span>'+
-                                    '</span>'+
-                                '</div>'+
-                                '<span class="msg-'+nomeidhorainicio+'"></span>';
     var cell2 = row.insertCell(1);
-    cell2.innerHTML = cellhorainiciohtml;
+    cell2.innerHTML = '<input type="text" disabled name="' + nomeidhorainicio + '" id="' + nomeidhorainicio + '" class="form-control" value="' + horainicio + '">';
 
     var nomeidhoratermino = 'horatermino_' + rowCount;
-    var cellhoraterminohtml = '<div class="input-group clockpicker">'+
-                                    '<input type="text" name="'+ nomeidhoratermino +'" id="'+nomeidhoratermino+'" class="form-control hora obrigatorio" value="">'+
-                                    '<span class="input-group-addon">'+
-                                        '<span class="glyphicon glyphicon-time"></span>'+
-                                    '</span>'+
-                                '</div>'+
-                                '<span class="msg-'+nomeidhoratermino+'"></span>';
     var cell3 = row.insertCell(2);        
-    cell3.innerHTML = cellhoraterminohtml;
-
-    var cellbotaohtml = '<button type="button" onClick="removerLinha(this, \'tbhorarios\')" class="btn btn-danger">'+
-                            '<span class="glyphicon glyphicon-remove"></span>'+
-                        '</button>';  
-
-    var cell4 = row.insertCell(3);
-    cell4.innerHTML = cellbotaohtml;   
-
-    configuraCampoHora('.clockpicker');
-    
-//    console.log(dia);
-//    console.log('#'+nomeiddiasemana);
-//    $('#'+nomeiddiasemana).val(dia);
-    $('#'+nomeidhorainicio).val(horainicio);
-    $('#'+nomeidhoratermino).val(horatermino);
-//    dia,horainicio,horatermino
+    cell3.innerHTML = '<input type="text" disabled name="' + nomeidhoratermino + '" id="' + nomeidhoratermino + '" class="form-control" value="' + horatermino + '">';
 }
 
 $(document).ready(function(){

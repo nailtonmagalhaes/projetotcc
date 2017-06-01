@@ -44,8 +44,14 @@
                         					<label>Curso:</label> <span>'.$curso->crsDescricao.'</span></br>
                         				</div>';
                                     if(EPerfil::Secretaria == $_SESSION['perfil']){
-		                                echo '<button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'curso-cadastro.php?id='.$curso->crsId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-		                                <button class="btn btn-danger delete" type="submit" name="btn-excluir-curso" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+		                                echo '<button class="btn btn-primary edit" type="button" title="Editar" onclick="javascript: location.href=\'curso-cadastro.php?id='.$curso->crsId.'\';"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>';
+                                        
+                                        if($curso->crsAtivo == 0){
+                                            echo '&nbsp; <button class="btn btn-success" type="button" name="btn-ativar-curso" title="Ativar"><i class="glyphicon glyphicon-check" title="Ativar"></i></button>';
+                                        }else{
+                                            echo '&nbsp; <button class="btn btn-danger delete" type="button" name="btn-excluir-curso" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                        }
+		                                
                                     }
                         			echo '</form>';
 	                        	}
@@ -77,14 +83,42 @@
 			},
 			function(){
 				$.post("curso-excluir.php", {id:id}, function(data){
-                    if(data){
-                        swal("Curso excluído com sucesso!","","success");
+                    if(data && data.success){
+                        swal(data.message,"","success");
                         window.setTimeout("location.href='../pages/curso-listar.php'", 2000);
                     }else{
-                        swal("Error",data,"warning");
+                        swal(data.message,"","warning");
                     }
                 });
 			});
-    });
+	});
+
+	$('button[name="btn-ativar-curso"]').on('click', function (e) {
+
+	    e.preventDefault();
+
+	    var id = document.getElementById("idcurso").value;
+
+	    swal({
+	        title: "Deseja reativar o curso?",
+	        text: "Clique em Ativar para confirmar ou em Cancelar para cancelar!",
+	        type: "warning",
+	        showCancelButton: true,
+	        confirmButtonColor: "green",
+	        confirmButtonText: "Ativar",
+	        cancelButtonText: "Cancelar",
+	        closeOnConfirm: false
+	    },
+        function () {
+            $.post("curso-ativar.php", { id: id }, function (data) {
+                if (data && data.success) {
+                    swal(data.message, "", "success");
+                    window.setTimeout("location.href='../pages/curso-listar-ativos.php'", 1000);
+                } else {
+                    swal(data.message, "", "warning");
+                }
+            });
+        });
+	});
 </script>
 

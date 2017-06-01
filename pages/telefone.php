@@ -53,7 +53,7 @@
 					return $sucessoinsert;
 				}
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao salvar os dados do Telefone.<br>".$ex->getMessage());				
+				throw new Exception("Ocorreu um erro ao salvar os dados do Telefone.\n".$ex->getMessage());				
 			}
 		}
 

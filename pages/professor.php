@@ -21,7 +21,7 @@
                                 AcessoDados::confirmaTransacao();
                                 return $salvou;                                
                         }catch(Exception $ex){
-                                throw new Exception("Erro ao salvar os dados do professor.<br>", $ex->getMessage());                                
+                                throw new Exception("Erro ao salvar os dados do professor.\n".$ex->getMessage());                                
                         }
                 }
         }

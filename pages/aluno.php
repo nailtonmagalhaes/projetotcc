@@ -60,7 +60,7 @@
 				AcessoDados::confirmaTransacao();
 				return $salvou;
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao salvar o aluno.<br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao salvar o aluno.\n".$ex->getMessage());
 			}
 		}
 
@@ -80,7 +80,7 @@
 					}
 				}
 			} catch (Exception $e) {
-				throw new Exception("Error Processing Request", 1);				
+				throw new Exception("Erro ao carregar os dados.\n", 1);				
 			}
 
 		}

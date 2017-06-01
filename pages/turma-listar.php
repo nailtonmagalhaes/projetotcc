@@ -55,10 +55,12 @@
                                                 if(EPerfil::Secretaria == $_SESSION['perfil']){
                                                     echo '&nbsp; 
                                                 
-                                                    <button class="btn btn-primary edit" type="button" title="Editar" onclick="location.href=\'turma-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>
-                                                    &nbsp; 
-
-                                                    <button class="btn btn-danger delete" type="submit" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                                    <button class="btn btn-primary edit" type="button" disabled title="Editar" onclick="location.href=\'turma-cadastro.php?id='.$id.'\'"><i class="glyphicon glyphicon-edit" title="Editar"></i></button>';
+                                                    if($row['Ativo'] == 0){
+                                                        echo '&nbsp; <button class="btn btn-success" type="button" name="btn-ativar-turma" title="Ativar"><i class="glyphicon glyphicon-check" title="Ativar"></i></button>';
+                                                    }else{
+                                                        echo '&nbsp; <button class="btn btn-danger" type="button" name="btn-excluir-turma" title="Excluir"><i class="glyphicon glyphicon-trash" title="Excluir"></i></button>';
+                                                    }
                                                 }
                                             echo '</center></td>
                                         </tr>';
@@ -116,15 +118,44 @@
             },
             function(){
                 $.post("turma-excluir.php", {id:id}, function(data){
-                    if(data){
-                        swal("Turma excluída com sucesso!","","success");
-//                        window.setTimeout("location.href='../pages/turma-listar.php'", 2000);
+                    if(data && data.success){
+                        swal(data.message,"","success");
+                        window.setTimeout("location.href='../pages/turma-listar.php'", 1000);
                     }else{
-                        swal("Error",data,"warning");
+                        swal(data.message,"","warning");
                     }
                 });
             }
         );
+    });
+
+    $('button[name="btn-ativar-turma"]').on('click', function (e) {
+
+        e.preventDefault();
+
+        var id = $(this).parent().parent().siblings('.idturma').text();
+        var nomecurso = $(this).parent().parent().siblings('.curso').text();
+
+        swal({
+            title: "Deseja ativar a turma do curso '" + nomecurso + "'?",
+            text: "Clique em Ativar para confirmar ou em Cancelar para cancelar!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "green",
+            confirmButtonText: "Ativar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false
+        },
+        function () {
+            $.post("turma-ativar.php", { id: id }, function (data) {
+                if (data && data.success) {
+                    swal(data.message, "", "success");
+                    window.setTimeout("location.href='../pages/turma-listar.php'", 1000);
+                } else {
+                    swal(data.message, "", "warning");
+                }
+            });
+        });
     });
 
 </script>

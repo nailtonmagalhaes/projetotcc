@@ -37,6 +37,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
             if ($resultado && $resultado->num_rows > 0) {
                 $row = $resultado->fetch_assoc();                                                                                                                   
                 $this->turId = $row["Id"];
+                $this->turAtivo = $row["Ativo"];
                 $this->turDataInicio = $row["DataInicio"];
                 $this->turCurso = new Curso();
                 $this->turCurso->crsId = $row["IdCurso"];
@@ -80,30 +81,70 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
 
 		function excluirLogicamente(){
-			return insere("UPDATE tbTurma SET Ativo = 0 WHERE Id = ".$this->turId);
+            try
+            {
+                $matriculas = AcessoDados::listar("SELECT * FROM tbMatricula WHERE IdTurma = ".$this->turId);
+                if($matriculas && $matriculas->num_rows >0)
+                    throw new Exception("Não é possível inativar a turma porque a mesma possui matricula.\n");
+                AcessoDados::abreTransacao();
+            	AcessoDados::alterar("UPDATE tbTurma SET Ativo = 0 WHERE Id = ".$this->turId);
+                AcessoDados::confirmaTransacao();
+                return true;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao inativar a turma.\n".$e->getMessage());
+            }			 
+		}
+
+		function ativar(){
+            try
+            {
+                AcessoDados::abreTransacao();
+            	AcessoDados::alterar("UPDATE tbTurma SET Ativo = 1 WHERE Id = ".$this->turId);
+                AcessoDados::confirmaTransacao();
+                return true;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao inativar a turma.\n".$e->getMessage());
+            }			 
 		}
 
 		function excluirFisicamente(){
-			return insere("DELETE FROM tbTurma WHERE Id = ".$this->turId);
+            try
+            {
+                AcessoDados::abreTransacao();
+            	AcessoDados::alterar("DELETE FROM tbTurma WHERE Id = ".$this->turId);
+                AcessoDados::confirmaTransacao();
+                return true;
+            }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao excluir a turma.\n".$e->getMessage());
+            }				
 		}
 
         function listar($query=null){
-            $where = "";
-                    
-            if(isset($query)){
-                $where = "WHERE
+            try
+            {
+            	$where = "";
+                
+                if(isset($query)){
+                    $where = "WHERE
                                 c.Descricao LIKE '%{$query}%'
                                 OR prof.Nome LIKE '%{$query}%'
                                 
 
                  ";
-            }
-            
-            return AcessoDados::listar("  
+                }
+                
+                return AcessoDados::listar("  
             SELECT 
                 t.Id
                 , t.IdCurso
                 , t.DataInicio
+                ,t.Ativo
                 , (CASE WHEN t.Ativo = 0 THEN 'Inativo' ELSE 'Ativo' END) as Situacao
                 , date_format(t.DataInicio, '%d/%m/%Y') as DataInicioFormatada
                 , c.Descricao AS Curso
@@ -127,7 +168,11 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
                 , c.Descricao
                 , c.Duracao
                 , prof.Nome");
-            
+            }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao listar a turma.\n".$e->getMessage());
+            }            
         }
 
         function salvarDados(){
@@ -166,7 +211,7 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
               
                 return $sucesso;
             }catch(Exception $ex){
-                throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
+                throw new Exception("Ocorreu um erro ao salvar os dados.\n".$ex->getMessage());
             }
         }
 
@@ -311,54 +356,62 @@ inner join tbdiasemana d on d.Id = hd.IdDiaSemana
         }
         
         public function getDados(){
-            $resultado = AcessoDados::listar("SELECT tma.Id, IdCurso, DataInicio, tma.Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbCurso cur ON(cur.Id = tma.IdCurso) WHERE tma.Id = ".$this->turId);
-            
-            
-/***************CARREGA OS DADOS DA TURMA*/
-            if ($resultado && $resultado->num_rows > 0) {
-                $row = $resultado->fetch_assoc();                                                                                                                   
-                $this->turId = $row["Id"];
-                $this->turDataInicio = $row["DataInicio"];
-                $this->turCurso = new Curso();
-                $this->turCurso->crsId = $row["IdCurso"];
-                $this->turCurso->carregarDados();
+            try
+            {
+            	
+                $resultado = AcessoDados::listar("SELECT tma.Id, IdCurso, DataInicio, tma.Ativo, date_format(DataInicio, '%d/%m/%Y') DataInicioFormatada ,cur.Descricao FROM tbTurma tma LEFT JOIN tbCurso cur ON(cur.Id = tma.IdCurso) WHERE tma.Id = ".$this->turId);
+                
+                
+                /***************CARREGA OS DADOS DA TURMA*/
+                if ($resultado && $resultado->num_rows > 0) {
+                    $row = $resultado->fetch_assoc();                                                                                                                   
+                    $this->turId = $row["Id"];
+                    $this->turDataInicio = $row["DataInicio"];
+                    $this->turCurso = new Curso();
+                    $this->turCurso->crsId = $row["IdCurso"];
+                    $this->turCurso->carregarDados();
 
-/***************CARREGA OS DIAS DA SEMANA DA TURMA*/
-//                $dias = AcessoDados::listar("SELECT Id, IdDiaSemana, HoraInicio, HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
-                  $dias = AcessoDados::listar("SELECT DISTINCT 1 as Id, IdDiaSemana,TIME_FORMAT(HoraInicio, '%h:%i') as HoraInicio,TIME_FORMAT(HoraTermino, '%h:%i') as HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
+                    /***************CARREGA OS DIAS DA SEMANA DA TURMA*/
+                    //                $dias = AcessoDados::listar("SELECT Id, IdDiaSemana, HoraInicio, HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
+                    $dias = AcessoDados::listar("SELECT DISTINCT 1 as Id, IdDiaSemana,TIME_FORMAT(HoraInicio, '%d/%m/%Y %H:%i') as HoraInicio,TIME_FORMAT(HoraTermino, '%d/%m/%Y %H:%i') as HoraTermino FROM tbTurma_has_DiaSemana WHERE IdTurma = ".$this->turId);
 
-                if($dias && $dias->num_rows > 0){
-                    while($rowdias = $dias->fetch_assoc()){
-                        $dia = new TurmaHasDiaSemana();
-                        $dia->thdId = $rowdias["Id"];
-                        $dia->thdHoraInicio = $rowdias["HoraInicio"];
-                        $dia->thdHoraTermino = $rowdias["HoraTermino"];
-                        $dia->thdDiaSemana = new DiaSemana();
-                        $dia->thdDiaSemana->disId = $rowdias["IdDiaSemana"];
-                        $dia->thdDiaSemana->carregarDados();
-                        $dia->thdTurma = $this;
-                        $this->turHasDiaSemana[] = $dia;      
+                    if($dias && $dias->num_rows > 0){
+                        while($rowdias = $dias->fetch_assoc()){
+                            $dia = new TurmaHasDiaSemana();
+                            $dia->thdId = $rowdias["Id"];
+                            $dia->thdHoraInicio = $rowdias["HoraInicio"];
+                            $dia->thdHoraTermino = $rowdias["HoraTermino"];
+                            $dia->thdDiaSemana = new DiaSemana();
+                            $dia->thdDiaSemana->disId = $rowdias["IdDiaSemana"];
+                            $dia->thdDiaSemana->carregarDados();
+                            $dia->thdTurma = $this;
+                            $this->turHasDiaSemana[] = $dia;      
+                        }
                     }
-                }
 
-/***************CARREGA OS PROFESSORES DA TURMA*/
-                $professores = AcessoDados::listar("SELECT pht.IdProfessor, pht.Tipo FROM tbProfessor_has_Turma pht WHERE pht.IdTurma = ".$this->turId." ORDER BY pht.Tipo DESC");
-                if($professores && $professores->num_rows > 0){
-                    while($rowprof = $professores->fetch_assoc()){
-                        $tprofessor = new ProfessorHasTurma();
-                        $tprofessor->phtTipo = $rowprof["Tipo"];
-                        $tprofessor->phtProfessor = new Professor();
-                        $tprofessor->phtProfessor->pesId = $rowprof["IdProfessor"];
-                        $tprofessor->phtProfessor->carregarDados();
-                        $this->turProfessorHasTurma[] = $tprofessor;
-                        $tprofessor->phtTurma = $this;
+                    /***************CARREGA OS PROFESSORES DA TURMA*/
+                    $professores = AcessoDados::listar("SELECT pht.IdProfessor, pht.Tipo FROM tbProfessor_has_Turma pht WHERE pht.IdTurma = ".$this->turId." ORDER BY pht.Tipo DESC");
+                    if($professores && $professores->num_rows > 0){
+                        while($rowprof = $professores->fetch_assoc()){
+                            $tprofessor = new ProfessorHasTurma();
+                            $tprofessor->phtTipo = $rowprof["Tipo"];
+                            $tprofessor->phtProfessor = new Professor();
+                            $tprofessor->phtProfessor->pesId = $rowprof["IdProfessor"];
+                            $tprofessor->phtProfessor->carregarDados();
+                            $this->turProfessorHasTurma[] = $tprofessor;
+                            $tprofessor->phtTurma = $this;
+                        }
                     }
-                }
 
-                return true;
-            }else{
-                return false;
+                    return true;
+                }else{
+                    return false;
+                }
             }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao recuperar os dados da turma.\n".$e->getMessage());
+            }           
         }
     }
 ?>

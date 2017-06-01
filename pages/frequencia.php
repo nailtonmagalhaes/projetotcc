@@ -56,7 +56,7 @@
                 
             } catch (Exception $exc) {
 //                echo $exc->getTraceAsString();
-                throw new Exception("Ocorreu um erro ao salvar os dados.<br>".$ex->getMessage());
+                throw new Exception("Ocorreu um erro ao salvar os dados.\n".$exc->getMessage());
             }
         }
 

@@ -51,13 +51,13 @@
     <a href="#"><i class="fa fa-book fa-fw"></i> Curso <span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
         <li>
-            <a href="../pages/curso-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+            <a href="../pages/curso-listar-ativos.php"><i class="fa fa-search fa-fw"></i>Listar</a>
         </li>
         <li>
             <a href="../pages/curso-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
         </li>
         <li>
-            <a href="#"><i class="fa fa-ban fa-fw"></i>Inativos</a>
+            <a href="../pages/curso-listar-inativos.php"><i class="fa fa-ban fa-fw"></i>Inativos</a>
         </li>
     </ul>
 </li>

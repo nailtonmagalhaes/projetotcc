@@ -30,7 +30,7 @@
     <a href="#"><i class="fa fa-book fa-fw"></i> Curso <span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
         <li>
-            <a href="../pages/curso-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+            <a href="../pages/curso-listar-ativos.php"><i class="fa fa-search fa-fw"></i>Listar</a>
         </li>
     </ul>
 </li>

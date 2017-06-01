@@ -8,7 +8,7 @@
     /* VERIFICO SE HOUVE UM POST */
     if(count($_POST) > 0 && $_POST["id"] > 0) {
         try{
-
+            
             $pessoa = new Pessoa();
             $pessoa->pesId = addslashes($_POST["id"]);
 

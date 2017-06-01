@@ -37,7 +37,7 @@
 					$this->respAtivo = $row['Ativo'];
 				}
 			} catch (Exception $e) {
-				throw new Exception("Error Processing Request".$e->getMessage());				
+				throw new Exception("Erro ao carregar os dados do responsável.\n".$e->getMessage());				
 			}
         }
 
@@ -50,7 +50,7 @@
         		}
 				return true;
         	} catch (Exception $e) {
-        		throw new Exception("Ocorreu um erro ao salvar os dados do responsável.<br>".$e->getMessage());        		
+        		throw new Exception("Ocorreu um erro ao salvar os dados do responsável.\n".$e->getMessage());        		
         	}
         }
     

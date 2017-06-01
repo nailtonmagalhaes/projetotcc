@@ -267,93 +267,93 @@ INSERT INTO tbDiaSemana (Id, Dia) VALUES
 (6, 'SEXTA-FEIRA'), 
 (7, 'SÁBADO');
 
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('ALUNO', '00000000001', '493933402', 1, '01/01/1994', 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('PROFESSOR', '00000000002', '299468082',  1,'23/10/1995', 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('SECRETARIA', '00000000003', '459188124', 0, '12/09/2000', 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('ALUNO',           '00000000001', '493933402', 1, STR_TO_DATE('01/01/1994', "%d/%m/%Y"), 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('PROFESSOR',       '00000000002', '299468082', 1, STR_TO_DATE('23/10/1995', "%d/%m/%Y"), 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('SECRETARIA',      '00000000003', '459188124', 2, STR_TO_DATE('12/09/2000', "%d/%m/%Y"), 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
 
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('JOÃO DOS SANTOS', '72265152706', '159942561', 1, '12/10/1990', 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('MATEUS SOUZA', '55138329502', '275360118', 1, '16/12/1993', 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('ANTÔNIO SILVA', '52601834013', '152633935', 1, '23/05/1984', 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('JONATHAS MATOS', '18250016505', '313826328', 1, '26/06/1983', 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('MARIANA SANTOS', '70782272800', '495136244', 0, '22/03/1998', 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('MARCOS ANTÔNIO', '18814484015', '479913663', 1, '21/02/1994', 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
-INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('VALÉRIA SILVA', '88197242518', '498233893', 0, '18/08/1992', 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('JOÃO DOS SANTOS', '72265152706', '159942561', 1, STR_TO_DATE('12/10/1990', "%d/%m/%Y"), 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('MATEUS SOUZA',    '55138329502', '275360118', 1, STR_TO_DATE('16/12/1993', "%d/%m/%Y"), 2, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('ANTÔNIO SILVA',   '52601834013', '152633935', 1, STR_TO_DATE('23/05/1984', "%d/%m/%Y"), 3, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('JONATHAS MATOS',  '18250016505', '313826328', 1, STR_TO_DATE('26/06/1983', "%d/%m/%Y"), 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('MARIANA SANTOS',  '70782272800', '495136244', 2, STR_TO_DATE('22/03/1998', "%d/%m/%Y"), 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('MARCOS ANTÔNIO',  '18814484015', '479913663', 1, STR_TO_DATE('21/02/1994', "%d/%m/%Y"), 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
+INSERT INTO tbPessoa (Nome, Cpf, Rg, Sexo, DataNascimento, Perfil, Senha, Situacao) VALUES ('VALÉRIA SILVA',   '88197242518', '498233893', 2, STR_TO_DATE('18/08/1992', "%d/%m/%Y"), 1, '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1);
 SET @idTurma := 0;
 SET @idCurso := 0;
 INSERT INTO tbCurso (Descricao, Duracao, Ativo ) VALUES  ('VIOLÃO', 5, 1);
 SET @idCurso = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, '01/08/2017', 1);
+INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, STR_TO_DATE('01/08/2017', "%d/%m/%Y"), 1);
 SET @idTurma = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '01/08/2017 08:00', '01/08/2017 09:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '04/08/2017 08:00', '04/08/2017 09:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '08/08/2017 08:00', '08/08/2017 09:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '11/08/2017 08:00', '11/08/2017 09:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '15/08/2017 08:00', '15/08/2017 09:00');
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('01/08/2017 08:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('01/08/2017 09:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('04/08/2017 08:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('04/08/2017 09:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('08/08/2017 08:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('08/08/2017 09:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('11/08/2017 08:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('11/08/2017 09:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('15/08/2017 08:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('15/08/2017 09:00', "%d/%m/%Y %H:%i"));
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 1 FROM tbPessoa WHERE Cpf = '55138329502';
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 2 FROM tbPessoa WHERE Cpf = '72265152706';
 
 
 INSERT INTO tbCurso (Descricao, Duracao, Ativo ) VALUES  ('GUITARRA', 5, 1);
 SET @idCurso = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, '01/08/2017', 1);
+INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, STR_TO_DATE('01/08/2017', "%d/%m/%Y"), 1);
 SET @idTurma = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '01/08/2017 10:00', '01/08/2017 11:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '04/08/2017 10:00', '04/08/2017 11:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '08/08/2017 10:00', '08/08/2017 11:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '11/08/2017 10:00', '11/08/2017 11:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '15/08/2017 10:00', '15/08/2017 11:00');
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('01/08/2017 10:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('01/08/2017 11:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('04/08/2017 10:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('04/08/2017 11:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('08/08/2017 10:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('08/08/2017 11:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('11/08/2017 10:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('11/08/2017 11:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('15/08/2017 10:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('15/08/2017 11:00', "%d/%m/%Y %H:%i"));
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 1 FROM tbPessoa WHERE Cpf = '00000000002';
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 2 FROM tbPessoa WHERE Cpf = '55138329502';
 
 
 INSERT INTO tbCurso (Descricao, Duracao, Ativo ) VALUES  ('VIOLINO', 5, 1);
 SET @idCurso = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, '01/08/2017', 1);
+INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, STR_TO_DATE('01/08/2017', "%d/%m/%Y"), 1);
 SET @idTurma = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '01/08/2017 11:00', '01/08/2017 12:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '04/08/2017 11:00', '04/08/2017 12:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '08/08/2017 11:00', '08/08/2017 12:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '11/08/2017 11:00', '11/08/2017 12:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '15/08/2017 11:00', '15/08/2017 12:00');
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('01/08/2017 11:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('01/08/2017 12:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('04/08/2017 11:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('04/08/2017 12:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('08/08/2017 11:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('08/08/2017 12:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('11/08/2017 11:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('11/08/2017 12:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('15/08/2017 11:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('15/08/2017 12:00', "%d/%m/%Y %H:%i"));
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 1 FROM tbPessoa WHERE Cpf = '72265152706';
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 2 FROM tbPessoa WHERE Cpf = '55138329502';
 
 
 INSERT INTO tbCurso (Descricao, Duracao, Ativo ) VALUES  ('PIANO', 5, 1);
 SET @idCurso = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, '01/08/2017', 1);
+INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, STR_TO_DATE('01/08/2017', "%d/%m/%Y"), 1);
 SET @idTurma = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '01/08/2017 14:00', '01/08/2017 15:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '04/08/2017 14:00', '04/08/2017 15:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '08/08/2017 14:00', '08/08/2017 15:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '11/08/2017 14:00', '11/08/2017 15:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '15/08/2017 14:00', '15/08/2017 15:00');
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('01/08/2017 14:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('01/08/2017 15:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('04/08/2017 14:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('04/08/2017 15:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('08/08/2017 14:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('08/08/2017 15:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('11/08/2017 14:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('11/08/2017 15:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('15/08/2017 14:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('15/08/2017 15:00', "%d/%m/%Y %H:%i"));
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 1 FROM tbPessoa WHERE Cpf = '72265152706';
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 2 FROM tbPessoa WHERE Cpf = '55138329502';
 
 
 INSERT INTO tbCurso (Descricao, Duracao, Ativo ) VALUES  ('TROMPETE', 5, 1);
 SET @idCurso = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, '01/08/2017', 1);
+INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, STR_TO_DATE('01/08/2017', "%d/%m/%Y"), 1);
 SET @idTurma = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '01/08/2017 15:00', '01/08/2017 16:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '04/08/2017 15:00', '04/08/2017 16:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '08/08/2017 15:00', '08/08/2017 16:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '11/08/2017 15:00', '11/08/2017 16:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '15/08/2017 15:00', '15/08/2017 16:00');
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('01/08/2017 15:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('01/08/2017 16:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('04/08/2017 15:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('04/08/2017 16:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('08/08/2017 15:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('08/08/2017 16:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('11/08/2017 15:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('11/08/2017 16:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('15/08/2017 15:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('15/08/2017 16:00', "%d/%m/%Y %H:%i"));
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 1 FROM tbPessoa WHERE Cpf = '55138329502';
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 2 FROM tbPessoa WHERE Cpf = '72265152706';
 
 
 INSERT INTO tbCurso (Descricao, Duracao, Ativo ) VALUES  ('FLAUTA', 5, 1);
 SET @idCurso = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, '01/08/2017', 1);
+INSERT INTO tbTurma (IdCurso, DataInicio, Ativo ) VALUES  (@idCurso, STR_TO_DATE('01/08/2017', "%d/%m/%Y"), 1);
 SET @idTurma = (SELECT LAST_INSERT_ID ());
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '01/08/2017 16:00', '01/08/2017 17:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '04/08/2017 16:00', '04/08/2017 17:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '08/08/2017 16:00', '08/08/2017 17:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, '11/08/2017 16:00', '11/08/2017 17:00');
-INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, '15/08/2017 16:00', '15/08/2017 17:00');
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('01/08/2017 16:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('01/08/2017 17:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('04/08/2017 16:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('04/08/2017 17:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('08/08/2017 16:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('08/08/2017 17:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 5, STR_TO_DATE('11/08/2017 16:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('11/08/2017 17:00', "%d/%m/%Y %H:%i"));
+INSERT INTO tbTurma_has_DiaSemana (IdTurma , IdDiaSemana , HoraInicio , HoraTermino)VALUES  (@idTurma, 2, STR_TO_DATE('15/08/2017 16:00', "%d/%m/%Y %H:%i"), STR_TO_DATE('15/08/2017 17:00', "%d/%m/%Y %H:%i"));
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 1 FROM tbPessoa WHERE Cpf = '72265152706';
 INSERT INTO tbProfessor_has_Turma (IdProfessor, IdTurma, Tipo ) SELECT Id, @idTurma, 2 FROM tbPessoa WHERE Cpf = '55138329502';
 

@@ -127,10 +127,8 @@
                                                    
                                                    <div class="form-group">
                                                         <label class="control-label" for="matTurma">Turma</label>
-                                                        <div class="form-group">
                                                             <input class="form-control" type="text" name="matTurma" id="matTurma" value="" placeholder="Selecione uma turma">
                                                             <input style="visibility: hidden;" name="idmatTurma" type="text" id="idmatTurma" value="">
-                                                        </div>
                                                         <span class="msg-matTurma"></span>
                                                     </div>
                                                    

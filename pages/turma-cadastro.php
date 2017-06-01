@@ -126,13 +126,15 @@
                                         <div class="panel panel-default">
                                             <div class="panel-heading" style="text-align: center;">
                                                 <label>Dias e Horários</label>
-                                            </div>
-                                            <div style="padding: 3px">
-                                                <button type="button" onClick="adicionarLinha(\'tbhorarios\')" class="btn btn-success">
-                                                    <span class="glyphicon glyphicon-plus"></span> Adicionar
-                                                </button>
-                                            </div>
-                                            <table class="table table-striped" id="tbhorarios" name="tbhorarios">
+                                            </div>';
+                                            if(!$turma->turId > 0){
+                                                echo '<div style="padding: 3px">
+                                                    <button type="button" onClick="adicionarLinha(\'tbhorarios\', false)" class="btn btn-success">
+                                                        <span class="glyphicon glyphicon-plus"></span> Adicionar
+                                                    </button>
+                                                </div>';
+                                            }
+                                            echo '<table class="table table-striped" id="tbhorarios" name="tbhorarios">
                                                 <thead>
                                                     <tr>
                                                         <th>Dia da Semana</th>
@@ -174,7 +176,7 @@
     $dados_term;
 
     foreach($turma->turHasDiaSemana as $dia){
-        $dados_dia[]['disId'] = $dia->thdDiaSemana->disId;
+        $dados_dia[]['disDia'] = $dia->thdDiaSemana->disDia;
         $dados_inic[]['HoraInicio'] = $dia->thdHoraInicio;
         $dados_term[]['HoraTermino'] = $dia->thdHoraTermino;
     }
@@ -191,7 +193,7 @@
                 preencheCampos(arr1,arr2,arr3);
                 
                 if(!arr1){
-                    adicionarLinha('tbhorarios');
+                    adicionarLinha('tbhorarios', true);
                 }
             });    
         </script>

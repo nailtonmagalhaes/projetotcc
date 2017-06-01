@@ -32,7 +32,7 @@
 				}
 				return true;
 			}catch(Exception $ex){
-				throw new Exception("Ocorreu um erro ao carregar os dados do estado.<br>".$ex->getMessage());
+				throw new Exception("Ocorreu um erro ao carregar os dados do estado.\n".$ex->getMessage());
 			}
 		}
 	}

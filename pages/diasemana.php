@@ -30,7 +30,7 @@
                     return false;
                 }                
             } catch (Exception $e) {
-                throw new Exception("Erro ao carregar os dados do dia.<br>".$e->getMessage());                
+                throw new Exception("Erro ao carregar os dados do dia.\n".$e->getMessage());                
             }
         }
 

@@ -114,11 +114,11 @@
             function(){
                 $.post("material-excluir.php", {id:id}, function(data){
 //                    console.log(data);
-                    if(data){
-                        swal("Material excluído com sucesso!","","success");
+                    if(data && data.success){
+                        swal(data.message,"","success");
                         window.setTimeout("location.href='../pages/material-listar.php'", 1000);
                     }else{
-                        swal("Error",data,"warning");
+                        swal(data.message, "","warning");
                     }
                 });
             }
