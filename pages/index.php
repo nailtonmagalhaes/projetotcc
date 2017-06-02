@@ -6,6 +6,15 @@ include_once 'menu.php';
 
 ?>
 
+<link href='../Arquivos/fullcalendar-3.4.0/fullcalendar.min.css' rel='stylesheet' />
+<link href='../Arquivos/fullcalendar-3.4.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+
+
+<script src='../Arquivos/fullcalendar-3.4.0/lib/moment.min.js'></script>
+<!--<script src='../lib/jquery.min.js'></script>-->
+<script src='../Arquivos/fullcalendar-3.4.0/fullcalendar.min.js'></script>
+<script src='../Arquivos/fullcalendar-3.4.0/locale-all.js'></script>
+
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -14,6 +23,7 @@ include_once 'menu.php';
                     <h1 align="center">Aulas</h1>
                 </div>
                 <div class="panel-body">
+                    <!--
                     <div class="row">
                         <div class="col-md-offset col-md-2">
                             <div class="input-group date">
@@ -21,17 +31,97 @@ include_once 'menu.php';
                             </div>
                         </div>
                     </div>
-
+                    -->
                     <div class="row">
                         <style>
                             #chartdiv {
                                 width: 100%;
                                 height: 500px;
                             }
+
+                            #calendar {
+                                max-width: 900px;
+                                margin: 0 auto;
+                            }
                         </style>
 
                         <script>
 
+                            $(document).ready(function () {
+
+                                $('#calendar').fullCalendar({
+                                    header: {
+                                        //left: 'prev,next today',
+                                        //center: 'title',
+                                        //right: 'agendaDay',//'month,agendaWeek,agendaDay'
+                                    },
+                                    locale: 'pt-br',
+                                    defaultView: 'agendaDay',
+                                    minTime: '08:00:00',
+                                    maxTime: '22:00:00',
+                                    defaultDate: new Date(),
+                                    navLinks: false, // can click day/week names to navigate views
+                                    editable: false,
+                                    eventLimit: false, // allow "more" link when too many events
+                                    /*
+                                    viewRender: function(view, element){
+                                        var dataInicio = view.intervalStart.format('DD/MM/YYYY');
+                                        var dataFim = view.intervalEnd.format('DD/MM/YYYY');
+                                        switch (view.name) {
+                                            case 'agendaWeek':
+                                                
+                                                break;
+                                            case 'agendaDay':
+                                                
+                                                break;
+                                            case 'month':
+                                                
+                                                break;
+                                            default:						
+                                                break;
+                                        }
+                                    },
+                                    */
+
+
+
+                                    events: function (start, end, timezone, callback) {
+                                        var today = new Date();
+                                        var dd = today.getDate();
+                                        var mm = today.getMonth() + 1; //January is 0!
+
+                                        var yyyy = today.getFullYear();
+                                        if (dd < 10) {
+                                            dd = '0' + dd;
+                                        }
+                                        if (mm < 10) {
+                                            mm = '0' + mm;
+                                        }
+                                        var today = dd + '/' + mm + '/' + yyyy;
+                                        $.getJSON('aula-dia-consulta.php?dataInicio=', { dataInicio: start.format('DD/MM/YYYY') }, function (aulas) {
+                                            var events = [];
+                                            $.each(aulas, function (i, obj) {
+
+                                                events.push({
+                                                    id: obj.idTurma,
+                                                    title: 'Curso: '+obj.curso +' - Aluno: '+ obj.aluno,
+                                                    start: obj.horaInicio,
+                                                    end: obj.horaTermino,
+                                                });
+                                            });
+                                            callback(events);
+                                        });
+                                    },
+
+                                    eventClick: function (calEvent, jsEvent, view) {
+                                        //alert(calEvent.title + "n" + calEvent.start.format('DD/MM/YYYY') + " to " + calEvent.end.format('DD/MM/YYYY'));
+                                    },
+                                });
+
+                            });
+
+
+                            /*
                             $('.input-group.date').datepicker({
                                 format: "dd/mm/yyyy",
                                 language: "pt-BR",
@@ -104,8 +194,11 @@ include_once 'menu.php';
                                     }
                                 });
                             });
+                            */
                         </script>
-                        <div id="chartdiv"></div>
+
+                        <div id='calendar'></div>
+                        <!--<div ichartdiv"></div>-->
 
                     </div>
                 </div>
