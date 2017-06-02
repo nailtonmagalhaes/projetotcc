@@ -18,7 +18,7 @@ include_once 'menu.php';
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
+            <div class="panel panel-default outracor">
                 <div class="panel-heading">
                     <h1 align="center">Aulas</h1>
                 </div>
@@ -40,30 +40,108 @@ include_once 'menu.php';
                             }
 
                             #calendar {
-                                max-width: 900px;
+                                max-width: 950px;
                                 margin: 0 auto;
+                            }
+
+                            .outracor {
+                                background-color: aliceblue;
                             }
                         </style>
 
                         <script>
 
                             $(document).ready(function () {
-
                                 $('#calendar').fullCalendar({
                                     header: {
-                                        //left: 'prev,next today',
-                                        //center: 'title',
-                                        //right: 'agendaDay',//'month,agendaWeek,agendaDay'
+                                        left: 'prev,next today',
+                                        center: 'title',
+                                        right: 'month,agendaWeek,agendaDay'
                                     },
                                     locale: 'pt-br',
                                     defaultView: 'agendaDay',
                                     minTime: '08:00:00',
                                     maxTime: '22:00:00',
                                     defaultDate: new Date(),
-                                    navLinks: false, // can click day/week names to navigate views
+                                    navLinks: false,
                                     editable: false,
-                                    eventLimit: false, // allow "more" link when too many events
+                                    eventLimit: false,
+                                    viewRender: function (view, element) {
+                                        var dataInicio = view.intervalStart.format('DD/MM/YYYY');
+                                        var dataTermino = view.name == 'agendaDay' ? view.intervalStart.format('DD/MM/YYYY') : view.intervalEnd.format('DD/MM/YYYY');
+                                        $('#calendar').fullCalendar('removeEvents');
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "aula-dia-consulta.php",
+                                            data: { 'dataInicio': dataInicio, 'dataTermino': dataTermino },
+                                            dataType: "json",
+                                            success: function (data) {
+                                                var events = [];
+                                                $.each(data, function (i, obj) {
+
+                                                    events.push({
+                                                        id: obj.idTurma,
+                                                        title: 'Curso: ' + obj.curso + ' - Aluno: ' + obj.aluno,
+                                                        description: 'lçkdsjglkdfg g fgkl jdkgjdkgjçd jgçdj gçkljdfçg',
+                                                        start: view.name == 'agendaDay' ? retornaHora(obj.horaInicio) : obj.horaInicio,
+                                                        end: view.name == 'agendaDay' ? retornaHora(obj.horaTermino) : obj.horaTermino,
+                                                    });
+                                                });
+
+
+                                                $('#calendar').fullCalendar('addEventSource', events)
+                                                $('#calendar').fullCalendar('rerenderEvents');
+                                            }
+                                        });
+                                        //$.getJSON('aula-dia-consulta.php?dataInicio=', { dataInicio: dataInicio }, function (aulas) {
+                                        //    var events = [];
+                                        //    $.each(aulas, function (i, obj) {
+
+                                        //        events.push({
+                                        //            id: obj.idTurma,
+                                        //            title: 'Curso: ' + obj.curso + ' - Aluno: ' + obj.aluno,
+                                        //            start: view.name == 'agendaDay' ? retornaHora(obj.horaInicio) : obj.horaInicio,
+                                        //            end: view.name == 'agendaDay' ? retornaHora(obj.horaTermino) : obj.horaTermino,
+                                        //        });
+                                        //    });
+
+
+                                        //    $('#calendar').fullCalendar('addEventSource', events)
+                                        //    $('#calendar').fullCalendar('rerenderEvents');
+
+                                        //});
+                                    },
+                                    dayClick: function (date, allDay, view) {
+                                        console.log(view.name);
+                                        if (view.name === "month" || view.name === "agendaWeek") {
+                                            $('#calendar').fullCalendar('gotoDate', date);
+                                            $('#calendar').fullCalendar('changeView', 'agendaDay');
+                                        }
+                                    },
+                                    eventClick: function (calEvent, jsEvent, view) {
+                                        //alert(calEvent.title + "n" + calEvent.start.format('DD/MM/YYYY') + " to " + calEvent.end.format('DD/MM/YYYY'));
+                                    },
+                                    eventRender: function (event, element) {
+                                        var tooltip = event.Description;
+                                        $(element).attr("data-original-title", tooltip)
+                                        $(element).tooltip({ container: "body" })
+                                    }
                                     /*
+                                    eventRender: function (event, element) {
+                                        element.qtip({
+                                            content: event.description + '<br />' + event.start,
+                                            style: {
+                                                background: 'black',
+                                                color: '#FFFFFF'
+                                            },
+                                            position: {
+                                                corner: {
+                                                    target: 'center',
+                                                    tooltip: 'bottomMiddle'
+                                                }
+                                            }
+                                        });
+                                    },
                                     viewRender: function(view, element){
                                         var dataInicio = view.intervalStart.format('DD/MM/YYYY');
                                         var dataFim = view.intervalEnd.format('DD/MM/YYYY');
@@ -83,7 +161,7 @@ include_once 'menu.php';
                                     },
                                     */
 
-
+                                    /*
 
                                     events: function (start, end, timezone, callback) {
                                         var today = new Date();
@@ -104,7 +182,7 @@ include_once 'menu.php';
 
                                                 events.push({
                                                     id: obj.idTurma,
-                                                    title: 'Curso: '+obj.curso +' - Aluno: '+ obj.aluno,
+                                                    title: 'Curso: ' + obj.curso + ' - Aluno: ' + obj.aluno,
                                                     start: obj.horaInicio,
                                                     end: obj.horaTermino,
                                                 });
@@ -112,13 +190,21 @@ include_once 'menu.php';
                                             callback(events);
                                         });
                                     },
-
-                                    eventClick: function (calEvent, jsEvent, view) {
-                                        //alert(calEvent.title + "n" + calEvent.start.format('DD/MM/YYYY') + " to " + calEvent.end.format('DD/MM/YYYY'));
-                                    },
+                                    */
                                 });
 
                             });
+
+                            function retornaHora(date1) {
+                                var hours = new Date(date1).getHours();
+                                var minutes = new Date(date1).getMinutes();
+
+                                if (hours < 10) hours = "0" + hours;
+                                if (minutes < 10) minutes = "0" + minutes;
+
+                                var time = "" + hours + ":" + minutes;
+                                return time;
+                            }
 
 
                             /*
