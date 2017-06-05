@@ -202,6 +202,8 @@
     <Compile Include="pages\autor-listar.php" />
     <Compile Include="pages\autor-salvar.php" />
     <Compile Include="pages\autor.php" />
+    <Compile Include="pages\avaliacao-cadastro.php" />
+    <Compile Include="pages\avaliacao-salvar.php" />
     <Compile Include="pages\avaliacao.php" />
     <Compile Include="pages\calendario_evento.php" />
     <Compile Include="pages\calendario_index.php" />

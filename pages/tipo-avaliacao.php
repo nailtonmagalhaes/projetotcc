@@ -1,6 +1,6 @@
 <?php
     class ETipoAvaliacao{
-        const normal = 1;
-        const exame = 2;
+        const Normal = 1;
+        const Exame = 2;
     }
 ?>

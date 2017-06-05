@@ -61,6 +61,18 @@
         </li>
     </ul>
 </li>
+<!--MENU AVALIAÇÃO-->
+<li>
+    <a href="#"><i class="fa fa-book fa-fw"></i> Avaliação <span class="fa arrow"></span></a>
+    <ul class="nav nav-second-level">
+        <li>
+            <a href="../pages/avaliacao-listar.php"><i class="fa fa-search fa-fw"></i>Listar</a>
+        </li>
+        <li>
+            <a href="../pages/avaliacao-cadastro.php"><i class="fa fa-plus fa-fw"></i>Cadastrar</a>
+        </li>
+    </ul>
+</li>
                         
 <!--<li >
     <a href="#"><i class="fa fa-male fa-fw"></i> Autor <span class="fa arrow"></span></a>

@@ -41,6 +41,20 @@
 
         }
 
+        public static function carregarCombo(){
+            try
+            {
+            	return AcessoDados::listar("SELECT m.Id, concat(a.Nome, ' | ', c.Descricao, ' | ', m.NumeroMatricula) AS Descricao FROM tbMatricula m
+                                            INNER JOIN tbPessoa a ON a.Id = m.IdAluno
+                                            INNER JOIN tbTurma t ON t.Id = m.IdTurma
+                                            INNER JOIN tbCurso c ON c.Id = t.IdCurso");
+            }
+            catch (Exception $e)
+            {
+                throw new Exception("Erro ao listar as matriculas.\n{$e->getMessage()}");
+            }            
+        }
+
         public function carregarDados(){
 
         }
